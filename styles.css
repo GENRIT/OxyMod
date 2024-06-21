@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+}
+
+.image-container {
+    position: absolute;
+    top: 235px; /* Adjustable position */
+    left: 349px; /* Adjustable position */
+}
+
+.floating-image {
+    width: 50px; /* Adjustable size */
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    animation: appear 1s forwards;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes disappear {
+    to {
+        opacity: 0;
+        transform: translateX(100vw);
+    }
+}
