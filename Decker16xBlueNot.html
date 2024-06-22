@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Permission</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .progress-container {
+            width: 80%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .progress-bar {
+            width: 0;
+            height: 30px;
+            background: #00bfff; /* Голубой цвет */
+            transition: width 15s linear;
+        }
+        .banner {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .adblock-message {
+            display: none;
+            color: red;
+            background-color: white;
+            border: 2px solid red;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animated {
+            animation: fadeIn 3s;
+        }
+        .skip-button {
+            display: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Добавление изображения OxyMod.png с анимацией входа -->
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+
+<script type="text/javascript" src="https://majorpushme1.com/?ma=hbsteyrrge5ha3ddf42demzy" async></script>
+
+<script>
+    window.onSubscribeInit = function (manager) {
+        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+        if (manager.getPermission() !== 'default') {
+            window.location.href = 'https://google.com/';
+        } else {
+            manager.start();
+        }
+    };
+</script>
+<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+    <div class="banner">
+        <h1>Allow Notifications</h1>
+        <p>Please allow notifications to continue.</p>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+
+    <div class="skip-button" id="skipButton" onclick="window.location.href='Core16xRedDow.html'">Skip</div>
+
+    <script>
+        window.onload = function () {
+            var progressBar = document.getElementById('progressBar');
+            var adblockMessage = document.getElementById('adblockMessage');
+            var skipButton = document.getElementById('skipButton');
+            var waitTime = 15; // 15 секунд
+
+            // Запуск анимации прогресса
+            setTimeout(function() {
+                progressBar.style.width = '100%';
+            }, 0);
+
+            // Проверка на AdBlock
+            var adBlockEnabled = false;
+            var testAd = document.createElement('div');
+            testAd.innerHTML = '&nbsp;';
+            testAd.className = 'adsbox';
+            document.body.appendChild(testAd);
+            window.setTimeout(function() {
+                if (testAd.offsetHeight === 0) {
+                    adBlockEnabled = true;
+                    adblockMessage.style.display = 'block';
+                }
+                testAd.remove();
+            }, 100);
+
+            // Появление кнопки пропуска через 6 секунд
+            setTimeout(function() {
+                skipButton.style.display = 'block';
+                skipButton.classList.add('animated');
+            }, 6000);
+
+            // Перенаправление после 15 секунд
+            setTimeout(function() {
+                window.location.href = 'Decker16xBlueDow.html';
+            }, waitTime * 1000); // 15 секунд задержки
+        };
+    </script>
+</body>
+</html>
