@@ -46,8 +46,12 @@ body {
 
 .dropdown-menu.show {
     display: block;
-    opacity: 1;
-    transform: translateY(0);
+    animation: fadeInDown 0.5s ease forwards;
+}
+
+.dropdown-menu.hide {
+    display: block;
+    animation: fadeOutUp 0.5s ease forwards;
 }
 
 .dropdown-menu a {
@@ -70,6 +74,28 @@ body {
 
 .dropdown-menu a:hover {
     background-color: #0056b3;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 }
 
 /* Контейнер для прокрутки */
