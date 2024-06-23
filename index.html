@@ -54,11 +54,41 @@ window._phv2Activator.activate('native_web_push');
 
     <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
+    <div class="container">
+        <!-- Посты будут добавлены сюда через JavaScript -->
+    </div>
+               
+    <div class="footer">
+        &copy; English Or Spanish?
+    </div>
+
+<!-- Скрипт для работы меню -->
+<script>
+    document.querySelector('.menu-dots').addEventListener('click', function() {
+        document.querySelector('.dropdown-menu').classList.toggle('show');
+    });
+
+    document.addEventListener('click', (event) => {
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+</script>
+
+<!-- Скрипт для динамического отображения постов -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         fetch('posts.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(posts => {
+                console.log('Posts loaded:', posts);
+
                 // Сортируем посты по количеству просмотров
                 posts.sort((a, b) => b.views - a.views);
 
@@ -100,24 +130,5 @@ window._phv2Activator.activate('native_web_push');
     });
 </script>
 
-               
-    <div class="footer">
-        &copy; English Or Spanish?
-    </div>
-
-
-<!-- Скрипт для работы меню -->
-    <script>
-        document.querySelector('.menu-dots').addEventListener('click', function() {
-            document.querySelector('.dropdown-menu').classList.toggle('show');
-        });
-
-        document.addEventListener('click', (event) => {
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-            if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-    </script>
 </body>
 </html>
