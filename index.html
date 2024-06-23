@@ -42,6 +42,16 @@
         </div>
     </nav>
     
+<script> 
+if (typeof window._phv2Activator === "undefined") {
+document.addEventListener('phv2site.ready', (e) => {
+window._phv2Activator.activate('native_web_push');
+});
+} else {
+window._phv2Activator.activate('native_web_push');
+}
+</script>
+
     <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
     <div class="container">
