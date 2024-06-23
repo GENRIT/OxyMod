@@ -54,56 +54,52 @@ window._phv2Activator.activate('native_web_push');
 
     <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
-    <div class="container">
-        <div class="scroll-container">
-            <div class="item">
-                <div class="image-container">
-                    <img src="https://graph.org/file/e9276b0fd82eb5075b878.jpg" onclick="window.location.href='Core16xRedPost.html'" alt="Image 1">
-                </div>
-                <div class="description">
-                    <img class="avatar" src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar">
-                    <div>
-                        <p>clayni</p>
-                        <p>Texture Pack</p>
-                        <p>Core 16x [Red]</p>
-                    </div>
-                    <a href="Core16xRedPost.html" class="button-link">
-                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
-                    </a>
-                </div>
-            </div>
-            <div class="item">                        
-                <div class="image-container">
-                    <img src="https://graph.org/file/3e7a1ec81295f4004759e.jpg" onclick="window.location.href='Core16xPurplePost.html'" alt="Image 2">
-                </div>
-                <div class="description">
-                    <img class="avatar" src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar">
-                    <div>
-                        <p>clayni</p>
-                        <p>Texture Pack</p>
-                        <p>Core 16x [Purple]</p>
-                    </div>
-                    <a href="Core16xPurplePost.html" class="button-link">
-                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
-                    </a>
-                </div>
-            </div>
-            <div class="item">                        
-                <div class="image-container">
-                    <img src="https://graph.org/file/76d7325ee73bc48ee559d.jpg" onclick="window.location.href='Decker16xBluePost.html'" alt="Image 3">
-                </div>
-                <div class="description">
-                    <img class="avatar" src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar">
-                    <div>
-                        <p>clayni</p>
-                        <p>Texture Pack</p>
-                        <p>Decker 16x [Blue]</p>
-                    </div>
-                    <a href="Decker16xBluePost.html" class="button-link">
-                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
-                    </a>
-                </div>
-            </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('posts.json')
+            .then(response => response.json())
+            .then(posts => {
+                // Сортируем посты по количеству просмотров
+                posts.sort((a, b) => b.views - a.views);
+
+                const container = document.querySelector('.container');
+                let block;
+
+                posts.forEach((post, index) => {
+                    // Создаем новый блок для каждых трех постов
+                    if (index % 3 === 0) {
+                        block = document.createElement('div');
+                        block.classList.add('scroll-container');
+                        container.appendChild(block);
+                    }
+
+                    const item = document.createElement('div');
+                    item.classList.add('item');
+
+                    item.innerHTML = `
+                        <div class="image-container">
+                            <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
+                        </div>
+                        <div class="description">
+                            <img class="avatar" src="${post.avatar}" alt="Avatar">
+                            <div>
+                                <p>${post.author}</p>
+                                <p>${post.type}</p>
+                                <p>${post.title}</p>
+                            </div>
+                            <a href="${post.link}" class="button-link">
+                                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                            </a>
+                        </div>
+                    `;
+
+                    block.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error loading posts:', error));
+    });
+</script>
+
                
     <div class="footer">
         &copy; English Or Spanish?
