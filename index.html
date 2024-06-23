@@ -93,6 +93,11 @@ window._phv2Activator.activate('native_web_push');
                 posts.sort((a, b) => b.views - a.views);
 
                 const container = document.querySelector('.container');
+                if (!container) {
+                    console.error('Container not found');
+                    return;
+                }
+
                 let block;
 
                 posts.forEach((post, index) => {
