@@ -154,12 +154,10 @@
     </div>
 
 
-    </script>     document.querySelector('.menu-dots').addEventListener('click', function() {
+<!-- Скрипт для работы меню -->
+    <script>
+        document.querySelector('.menu-dots').addEventListener('click', function() {
             document.querySelector('.dropdown-menu').classList.toggle('show');
-        });
-
-        document.querySelector('.close').addEventListener('click', function() {
-            document.querySelector('.modal').style.display = 'none';
         });
 
         document.addEventListener('click', (event) => {
