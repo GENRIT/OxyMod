@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .banner {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .download-button {
+            background-color: grey;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            border-radius: 5px;
+            cursor: not-allowed;
+            transition: background-color 0.3s;
+        }
+        .download-button.enabled {
+            background-color: #007bff;
+            cursor: pointer;
+        }
+        .timer {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: white;
+            background: rgba(0, 191, 255, 0.7); /* Голубой фон */
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .adblock-message {
+            display: none;
+            color: red;
+            background-color: white;
+            border: 2px solid red;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animated {
+            animation: fadeIn 3s;
+        }
+        .shake {
+            animation: shake 1s;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="https://majorpushme1.com/?ma=ga2genjuge5ha3ddf42denbq" async></script>
+
+<script>
+    window.onSubscribeInit = function (manager) {
+        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+        if (manager.getPermission() !== 'default') {
+            window.location.href = 'https://google.com/';
+        } else {
+            manager.start();
+        }
+    };
+</script>
+<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+<script type="text/javascript" src="https://news-xfiwaco.cc/process.js?id=1231087092&p1=sub1&p2=sub2&p3=sub3&p4=sub4" async></script>
+
+    <!-- Добавление изображения OxyMod.png с анимацией входа -->
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+    
+    <div class="banner">
+        <h1>Download Your Files</h1>
+    </div>
+    <button class="download-button" id="downloadButton" disabled>Download</button>
+    <div class="timer" id="timer">15 sec</div>
+    <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+
+  
+    <script>
+        // Функция для обновления таймера
+        function startTimer(duration, display) {
+            var timer = duration, seconds;
+            var interval = setInterval(function() {
+                seconds = parseInt(timer % 60, 10);
+
+                display.textContent = seconds + " sec";
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var downloadButton = document.getElementById('downloadButton');
+            var timerDisplay = document.getElementById('timer');
+            var adblockMessage = document.getElementById('adblockMessage');
+            var headerImage = document.getElementById('headerImage');
+            var waitTime = 15; // 15 секунд
+
+            // Запуск таймера
+            startTimer(waitTime, timerDisplay);
+
+            // Проверка на AdBlock
+            var adBlockEnabled = false;
+            var testAd = document.createElement('div');
+            testAd.innerHTML = '&nbsp;';
+            testAd.className = 'adsbox';
+            document.body.appendChild(testAd);
+            window.setTimeout(function() {
+                if (testAd.offsetHeight === 0) {
+                    adBlockEnabled = true;
+                    adblockMessage.style.display = 'block';
+                }
+                testAd.remove();
+            }, 100);
+
+            // Активация кнопки после 15 секунд
+            setTimeout(function() {
+                if (!adBlockEnabled) {
+                    downloadButton.classList.add('enabled');
+                    downloadButton.disabled = false;
+                    downloadButton.onclick = function() {
+                        window.location.href = 'https://oxy.st/d/QcKh';
+                    };
+                    // Добавление анимации шевеления к изображению после окончания таймера
+                    headerImage.classList.add('shake');
+                }
+            }, waitTime * 1000); // 15 секунд задержки
+        };
+    </script>
+</body>
+</html>
