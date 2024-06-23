@@ -27,12 +27,12 @@
         "views": 300
     },
     {
-        "image": "https://graph.org/file/newpostimage.jpg",
-        "link": "NewPost.html",
-        "avatar": "https://graph.org/file/newpostavatar.jpg",
-        "author": "newauthor",
-        "type": "New Type",
-        "title": "New Post Title",
-        "views": 250
+        "image": "https://graph.org/file/522df164a26a5390e1266.jpg",
+        "link": "ICE16xRedPost.html",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "ICE 16x [Red]",
+        "views": 560
     }
 ]
