@@ -220,6 +220,128 @@ body {
     animation: crazyAnimation 8s infinite;
 }
 
+/* Контейнер для прокрутки */
+.new-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.new-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    width: 90%;
+    padding: 10px;
+    gap: 15px;
+    cursor: grab;
+}
+
+.new-scroll-container:active {
+    cursor: grabbing;
+}
+
+.new-item {
+    position: relative;
+    text-align: center;
+    flex-shrink: 0;
+    width: 267px;
+    background-color: rgba(0, 191, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    opacity: 0;
+    transform: translateY(100px);
+    animation: new-slideUp 1s forwards;
+}
+
+.new-item:hover {
+    background-color: rgba(0, 191, 255, 0.3);
+}
+
+.new-image-container {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.new-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.new-image-container img:hover {
+    transform: scale(1.0);
+    box-shadow: 0 0 10px #000;
+}
+
+.new-description {
+    color: white;
+    font-size: 0.9em;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.new-description img.new-avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.new-description p {
+    margin: 2px 0;
+}
+
+.new-button-link {
+    display: inline-block;
+}
+
+.new-button-image {
+    width: 80px;
+    height: 43px;
+    transition: transform 0.5s;
+    position: absolute;
+    top: 172px;
+    left: 176px;
+}
+
+.new-button-image:hover {
+    transform: scale(1.0);
+    content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+}
+
+/* Анимации */
+@keyframes new-slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes new-crazyAnimation {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.new-crazy {
+    animation: new-crazyAnimation 8s infinite;
+}
+
 /* Футер */
 .footer {
     margin-top: 20px;
