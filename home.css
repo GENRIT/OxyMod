@@ -30,6 +30,11 @@ body {
 }
 
 
+/* Плавная прокрутка */
+html {
+    scroll-behavior: smooth;
+}
+
 /* Выпадающее меню */
 .dropdown-menu {
     display: none;
@@ -111,17 +116,12 @@ body {
 
 .blur-top {
     top: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
 }
 
 .blur-bottom {
     bottom: 0;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
-}
-
-/* Плавная прокрутка */
-html {
-    scroll-behavior: smooth;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
 
 
