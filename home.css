@@ -183,12 +183,12 @@ body {
 }
 
 .button-image {
-    width: 100px;
+    width: 150px;
     height: 83px;
     transition: transform 0.5s;
     position: absolute;
     top: 185px;
-    left: 178px;
+    left: 180px;
 }
 
 .button-image:hover {
