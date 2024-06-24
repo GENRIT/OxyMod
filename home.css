@@ -32,7 +32,7 @@ body {
 /* Выпадающее меню */
 .dropdown-menu {
     display: none;
-    position: absolute;
+    position: fixed; /* Сделать меню фиксированным */
     top: 50px;
     right: 10px;
     background-color: rgba(0, 0, 0, 0.7);
