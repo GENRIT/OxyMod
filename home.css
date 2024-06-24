@@ -130,7 +130,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: auto;
     flex-direction: column;
     overflow: hidden;
 }
