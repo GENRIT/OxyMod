@@ -330,3 +330,27 @@ body {
     animation-delay: 10s, 0.8s;
     --direction: 0.3;
 }
+
+
+/* home.css */
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animated {
+    animation: fadeInUp 1s ease-in-out;
+    opacity: 0.5; /* Прозрачность 50% */
+}
+
+.animated.show {
+    opacity: 1;
+}
