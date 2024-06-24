@@ -183,12 +183,12 @@ body {
 }
 
 .button-image {
-    width: 90px;
+    width: 100px;
     height: 83px;
     transition: transform 0.5s;
     position: absolute;
-    top: 193px;
-    left: 176px;
+    top: 185px;
+    left: 178px;
 }
 
 .button-image:hover {
@@ -348,7 +348,7 @@ body {
 
 .animated {
     animation: fadeInUp 1s ease-in-out;
-    opacity: 0.9; /* Прозрачность 90% */
+    opacity: 1.0; /* Прозрачность 90% */
 }
 
 .animated.show {
