@@ -10,8 +10,8 @@
             padding: 0;
             font-family: Arial, sans-serif;
             background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
-            background-size: cover;
-            position: fixed
+            overflow: auto;
+            background-size: auto;
             color: blue;
         }
         .container {
@@ -28,34 +28,29 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-.description p {
-    margin: 2px 0;
-}
-
-.button-link {
-    display: inline-block;
-}
-
-.button-image {
-    width: 139px;
-    height: 63px;
-    transition: transform 0.5s;
-    position: absolute;
-    top: 290px;
-    left: 238px;
-}
-
-.button-image:hover {
-    transform: scale(1.0);
-    content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
-}
-
-.crazy {
-    animation: crazyAnimation 8s infinite;
-}
-
+        .description p {
+            margin: 2px 0;
+        }
+        .button-link {
+            display: inline-block;
+        }
+        .button-image {
+            width: 139px;
+            height: 63px;
+            transition: transform 0.5s;
+            position: fixed;
+            top: 290px;
+            left: 238px;
+        }
+        .button-image:hover {
+            transform: scale(1.0);
+            content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+        }
+        .crazy {
+            animation: crazyAnimation 8s infinite;
+        }
         .description {
-            color: White;
+            color: white;
             font-size: 1.3em;
             max-width: 600px;       
         }
@@ -111,42 +106,59 @@
         .animate {
             animation: slideUp 1s ease-out;
         }
+        .recommended {
+            display: flex;
+            justify-content: center;
+            gap: 5px
+            border-radius: 10px; /* Закругленные углы */
+            overflow: hidden; /* Чтобы изображения не выходили за границы контейнера */
+        }
+        .image-link {
+            width: 45%;
+            max-width: 300px;
+            overflow: hidden;
+        }
+        .image-link img {
+            width: 100%;
+            display: block;
+            transform: translateY(100%);
+            animation: slideUp 1s forwards;
+        }
     </style>
 </head>
 <body>
-  
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();
-   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-   ym(97651082, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true,
-        ecommerce:"dataLayer"
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/97651082" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-    
-<script type="text/javascript" src="https://majorpushme1.com/?ma=g5rtkmtgmm5ha3ddf42denbr" async></script>
+       ym(97651082, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true,
+            ecommerce:"dataLayer"
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/97651082" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 
-<script>
-    window.onSubscribeInit = function (manager) {
-        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
-        if (manager.getPermission() !== 'default') {
-            window.location.href = 'https://google.com/';
-        } else {
-            manager.start();
-        }
-    };
-</script>
-<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+    <script type="text/javascript" src="https://majorpushme1.com/?ma=g5rtkmtgmm5ha3ddf42denbr" async></script>
+
+    <script>
+        window.onSubscribeInit = function (manager) {
+            // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+            if (manager.getPermission() !== 'default') {
+                window.location.href = 'https://google.com/';
+            } else {
+                manager.start();
+            }
+        };
+    </script>
+    <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
       <!DOCTYPE html>
 <html lang="en">
@@ -165,31 +177,36 @@
 </html>
 
     <div class="container">
-        <img src="https://graph.org/file/76d7325ee73bc48ee559d.jpg" alt="Preview Image" onclick="window.location.href='https://youtu.be/FsMr21pH-cc?si=0BZSrD_fPtzJzQYd'" class="preview-image animate">
-            </div>
-            <a href="Decker16xBlueNot.html" class="button-link">
-                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
-            </a>
-                </div>        
-            <div class="description">
-                <p>Texture Pack</p>
-                <p>Decker 16x [Blue]</p>
-            </div>
-        </div>
+        <img src="https://graph.org/file/522df164a26a5390e1266.jpg" alt="Preview Image" onclick="window.location.href='https://youtu.be/FsMr21pH-cc?si=0BZSrD_fPtzJzQYd'" class="preview-image animate">
+    </div>
+    <a href="Decker16xBlueNot.html" class="button-link">
+        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+    </a>
+    <div class="description">
+        <p>Texture Pack</p>
+        <p>Decker 16x [Blue]</p>
+    </div>
         <div class="scroll-container">
             <img src="https://graph.org/file/6a38ac2a167b234dc0e84.jpg">
             <img src="https://graph.org/file/49ddb4ff8caa7a588ca77.jpg">
             <img src="https://graph.org/file/1accf66e50f1db4d74a33.jpg">
+    </div>
+    <div class="footer">
+        <div class="info">
+            <p>Epic battles, destruction, powerful weapons! Enhance your gaming experience with our content!</p>
+            <p>Author: Clayni</p>
         </div>
-        <div class="footer">
-            <div class="info">
-                <p>Epic battles, destruction, powerful weapons! Enhance your gaming experience with our content!</p>
-                <p>Author: Clayni</p>
-            </div>
-            <div class="author">
-                <img src="https://graph.org/file/0a0634d2613432450c901.jpg" onclick="window.location.href='https://youtu.be/FsMr21pH-cc?si=0BZSrD_fPtzJzQYd'">
-            </div>
+        <div class="author">
+            <img src="https://graph.org/file/0a0634d2613432450c901.jpg" onclick="window.location.href='https://youtu.be/FsMr21pH-cc?si=0BZSrD_fPtzJzQYd'">
         </div>
+    </div>
+    <div class="recommended">
+        <a href="Core16xPurplePost.html" class="image-link">
+            <img src="https://graph.org/file/3e7a1ec81295f4004759e.jpg" alt="Image 1">
+        </a>
+        <a href="Core16xRedPost.html" class="image-link">
+            <img src="https://graph.org/file/3b9f8e8202e654c83d5ce.jpg" alt="Image 2">
+        </a>
     </div>
 </body>
 </html>
