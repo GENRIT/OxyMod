@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OxyMod</title>
+    <meta confirm="partners-house-182092"/>
+    <link rel="stylesheet" href="home.css">
+
+    <!-- Иконка сайта -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Описание сайта -->
+    <meta name="description" content="OxyMod - Best Texture Packs and Mods for Minecraft Bedrock Edition">
+    <meta name="description" content="OxyMod - Лучшие Текстур Паки и Моды для Minecraft Bedrock Edition" lang="ru">
+
+    <!-- Другие метатеги -->
+    <meta name="keywords" content="OxyMod, texture packs, mods, рп, ресурс паки, текстур паки, моды, майнкрафт, майнкрафт бедрок, майнкрафт пе, майн, 1.1.5, 1.21.0, MCPE, мкпе">
+    <meta name="author" content="OxyMod">
+</head>
+<body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4MJ1WYC4WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4MJ1WYC4WQ');
+</script>
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="menu-dots">☰</div>
+        <div class="dropdown-menu">
+            <a href="https://t.me/+VHdxmb2NXPwyMzUy"><img src="https://graph.org/file/3415b9a6f78f0a00b9d66.jpg" alt="icon"> Telegram Channel</a>
+            <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
+            <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+        </div>
+    </nav>
+    
+<script> 
+if (typeof window._phv2Activator === "undefined") {
+document.addEventListener('phv2site.ready', (e) => {
+window._phv2Activator.activate('native_web_push');
+});
+} else {
+window._phv2Activator.activate('native_web_push');
+}
+</script>
+
+    <script type="text/javascript" src="https://majorpushme1.com/?ma=me3wgztbmi5ha3ddf42demzz" async></script>
+
+    <script>
+        window.onSubscribeInit = function (manager) {
+            // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+            if (manager.getPermission() !== 'default') {
+                window.location.href = 'https://google.com/';
+            } else {
+                manager.start();
+            }
+        };
+    </script>
+
+    <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+
+    <div class="container">
+        <!-- Посты будут добавлены сюда через JavaScript -->
+    </div>
+               
+    <div class="footer">
+        &copy; English Or Spanish?
+    </div>
+
+<!-- Скрипт для работы меню -->
+<script>
+    document.querySelector('.menu-dots').addEventListener('click', function() {
+        document.querySelector('.dropdown-menu').classList.toggle('show');
+    });
+
+    document.addEventListener('click', (event) => {
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+</script>
+
+<!-- Скрипт для динамического отображения постов -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('Additions.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(posts => {
+                console.log('Posts loaded:', posts);
+
+                // Сортируем посты по количеству просмотров
+                posts.sort((a, b) => b.views - a.views);
+
+                const container = document.querySelector('.container');
+                if (!container) {
+                    console.error('Container not found');
+                    return;
+                }
+
+                let block;
+
+                posts.forEach((post, index) => {
+                    // Создаем новый блок для каждых трех постов
+                    if (index % 3 === 0) {
+                        block = document.createElement('div');
+                        block.classList.add('scroll-container');
+                        container.appendChild(block);
+                    }
+
+                    const item = document.createElement('div');
+                    item.classList.add('item');
+
+                    item.innerHTML = `
+                        <div class="image-container">
+                            <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
+                        </div>
+                        <div class="description">
+                            <img class="avatar" src="${post.avatar}" alt="Avatar">
+                            <div>
+                                <p>${post.author}</p>
+                                <p>${post.type}</p>
+                                <p>${post.title}</p>
+                            </div>
+                            <a href="${post.link}" class="button-link">
+                                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                            </a>
+                        </div>
+                    `;
+
+                    block.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error loading posts:', error));
+    });
+</script>
+
+</body>
+</html>
+
+    <div class="blur-top"></div>
+    <div class="blur-bottom"></div>
+
+    <script src="phsw2.js"></script>
+    <script src="smooth-scroll.js">
