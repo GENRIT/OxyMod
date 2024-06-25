@@ -33,6 +33,41 @@
 </head>
 <body>
 
+    <style>
+        .navbar {
+            position: relative;
+        }
+        .menu-dots {
+            cursor: pointer;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .dropdown-menu a:hover {
+            background: #ddd;
+        }
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
     <nav class="navbar">
         <div class="menu-dots">☰</div>
         <div class="dropdown-menu">
@@ -41,6 +76,35 @@
             <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
         </div>
     </nav>
+
+    <script>
+        document.querySelector('.menu-dots').addEventListener('click', function() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        const images = [
+            "https://graph.org/file/3415b9a6f78f0a00b9d66.jpg",
+            "https://graph.org/file/9251496dc25254788a73b.jpg",
+            "https://graph.org/file/15ac1ac0f69f8947caf9a.jpg"
+        ];
+
+        const links = document.querySelectorAll('.dropdown-menu a img');
+
+        links.forEach((img, index) => {
+            let imgIndex = 0;
+            setInterval(() => {
+                img.classList.remove('fade-in');
+                void img.offsetWidth; // Trigger reflow to restart the animation
+                img.src = images[(imgIndex + index) % images.length];
+                img.classList.add('fade-in');
+                imgIndex++;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+
     
 <script> 
 if (typeof window._phv2Activator === "undefined") {
