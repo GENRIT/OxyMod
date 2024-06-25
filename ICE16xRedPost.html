@@ -191,5 +191,46 @@
             </div>
         </div>
     </div>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            gap: 5px;
+        }
+        .image-link {
+            width: 45%;
+            max-width: 300px;
+            overflow: hidden;
+        }
+        .image-link img {
+            width: 100%;
+            display: block;
+            transform: translateY(100%);
+            animation: slideUp 1s forwards;
+        }
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="Core16xRedPost.html" class="image-link">
+            <img src="https://graph.org/file/3b9f8e8202e654c83d5ce.jpg" alt="Image 1">
+        </a>
+        <a href="Yumeno32xWhitePost.html" class="image-link">
+            <img src="https://graph.org/file/e2cff71c9a4ffd27c1a09.jpg" alt="Image 2">
+        </a>
+    </div>
 </body>
 </html>
