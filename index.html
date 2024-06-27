@@ -48,6 +48,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
             padding-bottom: 60px; /* Отступ, чтобы нижняя панель не перекрывала контент */
+            background-color: #f0f0f0; /* Светлый фон для контраста */
         }
 
         .bottom-nav {
@@ -59,13 +60,18 @@
             justify-content: space-around;
             align-items: center;
             height: 60px;
+            z-index: 1000;
         }
 
         .bottom-nav a {
             color: white;
             text-align: center;
             text-decoration: none;
-            flex-grow: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 10px;
         }
 
@@ -75,6 +81,7 @@
 
         .icon {
             font-size: 24px;
+            margin-bottom: 5px;
         }
     </style>
     <!-- Добавляем иконки Font Awesome -->
@@ -82,30 +89,25 @@
 </head>
 <body>
 
-    <!-- Содержание сайта -->
-    <div style="padding: 20px;">
-        <h1>Пример страницы с нижней панелью навигации</h1>
-        <p>Здесь может быть любое содержимое вашей страницы.</p>
-    </div>
-
     <!-- Нижняя панель навигации -->
     <div class="bottom-nav">
         <a href="page1.html">
             <i class="fas fa-home icon"></i>
-            <div>Home</div>
+            <span>Home</span>
         </a>
         <a href="page2.html">
             <i class="fas fa-search icon"></i>
-            <div>Search</div>
+            <span>Search</span>
         </a>
         <a href="page3.html">
             <i class="fas fa-user icon"></i>
-            <div>Profile</div>
+            <span>Profile</span>
         </a>
     </div>
 
 </body>
 </html>
+
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
