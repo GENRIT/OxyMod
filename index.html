@@ -49,11 +49,12 @@
             font-family: Arial, sans-serif;
             padding-bottom: 60px; /* Отступ, чтобы нижняя панель не перекрывала контент */
             background-color: #f0f0f0; /* Светлый фон для контраста */
+            overflow-x: hidden;
         }
 
         .bottom-nav {
             position: fixed;
-            bottom: 0;
+            bottom: -60px;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный цвет */
             display: flex;
@@ -61,6 +62,7 @@
             align-items: center;
             height: 60px;
             z-index: 1000;
+            animation: slideUp 0.5s ease-out forwards;
         }
 
         .bottom-nav a {
@@ -73,6 +75,7 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
+            animation: spinUp 1s ease-out forwards;
         }
 
         .bottom-nav a:hover {
@@ -81,7 +84,26 @@
 
         .icon {
             font-size: 24px;
-            margin-bottom: 5px;
+        }
+
+        @keyframes slideUp {
+            from {
+                bottom: -60px;
+            }
+            to {
+                bottom: 0;
+            }
+        }
+
+        @keyframes spinUp {
+            from {
+                transform: translateY(30px) rotate(360deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
         }
     </style>
     <!-- Добавляем иконки Font Awesome -->
@@ -93,20 +115,18 @@
     <div class="bottom-nav">
         <a href="page1.html">
             <i class="fas fa-home icon"></i>
-            <span>Home</span>
         </a>
         <a href="page2.html">
             <i class="fas fa-search icon"></i>
-            <span>Search</span>
         </a>
         <a href="page3.html">
             <i class="fas fa-user icon"></i>
-            <span>Profile</span>
         </a>
     </div>
 
 </body>
 </html>
+
 
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
