@@ -18,92 +18,6 @@
     <!-- Другие метатеги -->
     <meta name="keywords" content="OxyMod, texture packs, mods, рп, ресурс паки, текстур паки, моды, майнкрафт, майнкрафт бедрок, майнкрафт пе, майн, 1.1.5, 1.21.0, MCPE, мкпе">
     <meta name="author" content="OxyMod">
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            padding-bottom: 60px; /* Отступ, чтобы нижняя панель не перекрывала контент */
-            background-color: #f0f0f0; /* Светлый фон для контраста */
-            overflow-x: hidden;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: -60px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный цвет */
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 60px;
-            z-index: 1000;
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        .bottom-nav a {
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .bottom-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .icon {
-            font-size: 24px;
-            animation: spinUp 0.5s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            from {
-                bottom: -60px;
-            }
-            to {
-                bottom: 0;
-            }
-        }
-
-        @keyframes spinUp {
-            from {
-                transform: translateY(30px) rotate(360deg);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) rotate(0);
-                opacity: 1;
-            }
-        }
-
-        /* Задержка анимации для каждой иконки */
-        .bottom-nav a:nth-child(1) .icon {
-            animation-delay: 0.5s;
-        }
-        .bottom-nav a:nth-child(2) .icon {
-            animation-delay: 0.7s;
-        }
-        .bottom-nav a:nth-child(3) .icon {
-            animation-delay: 0.9s;
-        }
-
-        /* Добавляем локальные иконки */
-        .icon-home::before {
-            content: url('icons/home.svg');
-        }
-        .icon-search::before {
-            content: url('icons/search.svg');
-        }
-        .icon-user::before {
-            content: url('icons/user.svg');
-        }
-    </style>
 </head>
 <body>
 
@@ -117,14 +31,18 @@
   gtag('config', 'G-4MJ1WYC4WQ');
 </script>
 
-<nav class="navbar">
-    <div class="menu-dots">☰</div>
-    <div class="dropdown-menu">
-        <a href="https://t.me/+VHdxmb2NXPwyMzUy"><img src="https://graph.org/file/3415b9a6f78f0a00b9d66.jpg" alt="icon"> Telegram Channel</a>
-        <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
-        <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
-    </div>
-</nav>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="menu-dots">☰</div>
+        <div class="dropdown-menu">
+            <a href="https://t.me/+VHdxmb2NXPwyMzUy"><img src="https://graph.org/file/3415b9a6f78f0a00b9d66.jpg" alt="icon"> Telegram Channel</a>
+            <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
+            <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+        </div>
+    </nav>
+
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
@@ -140,15 +58,15 @@
 </script>
 <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
-<div class="container">
-    <!-- Посты будут добавлены сюда через JavaScript -->
-</div>
+    <div class="container">
+        <!-- Посты будут добавлены сюда через JavaScript -->
+    </div>
 
-<div class="footer">
-    &copy; English Or Spanish?
-</div>
+    <div class="footer">
+        &copy; English Or Spanish?
+    </div>
 
 <!-- Скрипт для работы меню -->
 <script>
@@ -199,7 +117,7 @@
                     const item = document.createElement('div');
                     item.classList.add('item');
 
-                    item.innerHTML = `
+                    item.innerHTML = 
                         <div class="image-container">
                             <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
                         </div>
@@ -214,7 +132,7 @@
                                 <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
                             </a>
                         </div>
-                    `;
+                    ;
 
                     block.appendChild(item);
                 });
@@ -223,24 +141,11 @@
     });
 </script>
 
-<!-- Нижняя панель навигации -->
-<div class="bottom-nav">
-    <a href="page1.html">
-        <span class="icon icon-home"></span>
-    </a>
-    <a href="page2.html">
-        <span class="icon icon-search"></span>
-    </a>
-    <a href="page3.html">
-        <span class="icon icon-user"></span>
-    </a>
-</div>
-
-<div class="blur-top"></div>
-<div class="blur-bottom"></div>
-
-<script src="phsw2.js"></script>
-<script src="smooth-scroll.js"></script>
-
 </body>
 </html>
+
+    <div class="blur-top"></div>
+    <div class="blur-bottom"></div>
+
+    <script src="phsw2.js"></script>
+    <script src="smooth-scroll.js">
