@@ -61,12 +61,24 @@
         .animated {
             animation: fadeIn 3s;
         }
-        .skip-button {
-            display: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        .button-link {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+        }
+        .button-image {
+            width: 139px;
+            height: 63px;
+            transition: transform 0.5s;
+            border: none;
+            outline: none;
+        }
+        .button-image:hover {
+            transform: scale(1.1);
+        }
+        .button-image:focus, .button-image:active {
+            outline: none;
+            border: none;
         }
     </style>
 </head>
@@ -80,26 +92,29 @@
     });
 </script>
 
-    <!-- Добавление изображения OxyMod.png с анимацией входа -->
+    <!-- Добавление изображения OxyMod.jpg с анимацией входа -->
     <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
     <div class="banner">
         <h1>Allow Notifications</h1>
         <p>Please allow notifications to continue.</p>
     </div>
-    
+
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
     <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
 
-    <div class="skip-button" id="skipButton" onclick="window.location.href='Decker16xBlueDow.html'">Skip</div>
+    <a href="Decker16xBlueDow.html" class="button-link" id="skipButton">
+        <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
+    </a>
 
     <script>
         window.onload = function () {
             var progressBar = document.getElementById('progressBar');
             var adblockMessage = document.getElementById('adblockMessage');
             var skipButton = document.getElementById('skipButton');
+            var buttonImage = document.getElementById('buttonImage');
             var waitTime = 15; // 15 секунд
 
             // Запуск анимации прогресса
@@ -121,11 +136,11 @@
                 testAd.remove();
             }, 100);
 
-            // Появление кнопки пропуска через 6 секунд
+            // Появление кнопки пропуска через 5 секунд
             setTimeout(function() {
-                skipButton.style.display = 'block';
+                skipButton.style.display = 'inline-block';
                 skipButton.classList.add('animated');
-            }, 6000);
+            }, 5000);
 
             // Перенаправление после 15 секунд
             setTimeout(function() {
