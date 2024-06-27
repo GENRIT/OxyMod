@@ -85,7 +85,7 @@
 <!-- Скрипт для динамического отображения постов -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        fetch('posts.json')
+        fetch('Additions.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -117,7 +117,7 @@
                     const item = document.createElement('div');
                     item.classList.add('item');
 
-                    item.innerHTML = 
+                    item.innerHTML = `
                         <div class="image-container">
                             <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
                         </div>
@@ -132,7 +132,7 @@
                                 <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
                             </a>
                         </div>
-                    ;
+                    `;
 
                     block.appendChild(item);
                 });
