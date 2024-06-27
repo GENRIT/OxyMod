@@ -26,18 +26,27 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .download-button {
-            background-color: grey;
-            color: white;
-            border: none;
-            padding: 15px 32px;
-            border-radius: 5px;
-            cursor: not-allowed;
-            transition: background-color 0.3s;
-        }
-        .download-button.enabled {
-            background-color: #007bff;
-            cursor: pointer;
+.button-link {
+    display: inline-block;
+}
+
+.button-image {
+    width: 139px;
+    height: 63px;
+    transition: transform 0.5s;
+    position: absolute;
+    top: 290px;
+    left: 238px;
+}
+
+.button-image:hover {
+    transform: scale(1.0);
+    content: url('https://graph.org/file/e2309eba63f4bce36c8c1.jpg');
+}
+
+.crazy {
+    animation: crazyAnimation 8s infinite;
+}
         }
         .timer {
             margin-top: 10px;
@@ -97,7 +106,15 @@
     <div class="timer" id="timer">15 sec</div>
     <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
 
-  
+              </div>
+            <a href="https://oxy.st/" class="button-link">
+                <img src="https://graph.org/file/cae57d98c8872faf886b9.jpg" class="button-image">
+            </a>
+                </div>        
+
+</head>
+<body>
+
     <script>
         // Функция для обновления таймера
         function startTimer(duration, display) {
