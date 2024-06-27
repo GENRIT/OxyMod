@@ -382,6 +382,9 @@ html {
     opacity: 1;
 }
 
+
+
+/*фиксированная панель */
 .bottom-bar {
     position: fixed;
     bottom: 0;
