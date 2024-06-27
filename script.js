@@ -13,3 +13,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, 1000);
     });
 });
+
+window.addEventListener('load', () => {
+    const bottomBar = document.querySelector('.bottom-bar');
+    setTimeout(() => {
+        bottomBar.style.opacity = '1';
+        bottomBar.style.transform = 'translateY(0)';
+    }, 500);
+});
