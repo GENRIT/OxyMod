@@ -43,6 +43,69 @@
         </div>
     </nav>
     
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-bottom: 60px; /* Отступ, чтобы нижняя панель не перекрывала контент */
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный цвет */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            flex-grow: 1;
+            padding: 10px;
+        }
+
+        .bottom-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+    </style>
+    <!-- Добавляем иконки Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Содержание сайта -->
+    <div style="padding: 20px;">
+        <h1>Пример страницы с нижней панелью навигации</h1>
+        <p>Здесь может быть любое содержимое вашей страницы.</p>
+    </div>
+
+    <!-- Нижняя панель навигации -->
+    <div class="bottom-nav">
+        <a href="page1.html">
+            <i class="fas fa-home icon"></i>
+            <div>Home</div>
+        </a>
+        <a href="page2.html">
+            <i class="fas fa-search icon"></i>
+            <div>Search</div>
+        </a>
+        <a href="page3.html">
+            <i class="fas fa-user icon"></i>
+            <div>Profile</div>
+        </a>
+    </div>
+
+</body>
+</html>
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
@@ -140,18 +203,6 @@
             .catch(error => console.error('Error loading posts:', error));
     });
 </script>
-
-    <div class="bottom-bar">
-        <a href="https://www.profile-site.com" class="bottom-bar-item" target="_blank">
-            <img src="profile-icon.png" alt="Profile" class="icon">
-            <span>Profile</span>
-        </a>
-        <a href="https://www.home-site.com" class="bottom-bar-item" target="_blank">
-            <img src="home-icon.png" alt="Home" class="icon">
-            <span>Home</span>
-        </a>
-        <!-- Добавьте больше ссылок, если необходимо -->
-    </div>
 
 </body>
 </html>
