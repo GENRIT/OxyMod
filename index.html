@@ -43,7 +43,7 @@
         </div>
     </nav>
   
-  
+
     <style>
         body {
             margin: 0;
@@ -76,7 +76,6 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-            animation: spinUp 1s ease-out forwards;
         }
 
         .bottom-nav a:hover {
@@ -85,6 +84,7 @@
 
         .icon {
             font-size: 24px;
+            animation: spinUp 0.5s ease-out forwards;
         }
 
         @keyframes slideUp {
@@ -105,6 +105,17 @@
                 transform: translateY(0) rotate(0);
                 opacity: 1;
             }
+        }
+
+        /* Задержка анимации для каждой иконки */
+        .bottom-nav a:nth-child(1) .icon {
+            animation-delay: 0.5s;
+        }
+        .bottom-nav a:nth-child(2) .icon {
+            animation-delay: 0.7s;
+        }
+        .bottom-nav a:nth-child(3) .icon {
+            animation-delay: 0.9s;
         }
     </style>
     <!-- Добавляем иконки Font Awesome -->
