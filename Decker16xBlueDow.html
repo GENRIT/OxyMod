@@ -26,33 +26,31 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-.button-link {
-    display: inline-block;
-}
-
-.button-image {
-    width: 139px;
-    height: 63px;
-    transition: transform 0.5s;
-    position: absolute;
-    top: 290px;
-    left: 238px;
-}
-
-.button-image:hover {
-    transform: scale(1.0);
-    content: url('https://graph.org/file/e2309eba63f4bce36c8c1.jpg');
-}
-
-.crazy {
-    animation: crazyAnimation 8s infinite;
-}
+        .button-link {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+        }
+        .button-image {
+            width: 139px;
+            height: 63px;
+            border: none;
+            outline: none;
+        }
+        .button-image:hover,
+        .button-image:focus,
+        .button-image:active {
+            transform: none;
+            border: none;
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
         .timer {
             margin-top: 10px;
             font-size: 1.2em;
-            color: white;
-            background: rgba(0, 191, 255, 0.7); /* Голубой фон */
+            color: grey;
             padding: 10px 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -86,7 +84,7 @@
 </head>
 <body>
 
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
 
 <script type="text/javascript">
     aclib.runAutoTag({
@@ -96,77 +94,67 @@
 
 <script type="text/javascript" src="https://news-xfiwaco.cc/process.js?id=1231087092&p1=sub1&p2=sub2&p3=sub3&p4=sub4" async></script>
 
-    <!-- Добавление изображения OxyMod.png с анимацией входа -->
-    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
-    
-    <div class="banner">
-        <h1>Download Your Files</h1>
-    </div>
-    <button class="download-button" id="downloadButton" disabled>Download</button>
-    <div class="timer" id="timer">15 sec</div>
-    <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+<img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
-              </div>
-            <a href="https://oxy.st/" class="button-link">
-                <img src="https://graph.org/file/cae57d98c8872faf886b9.jpg" class="button-image">
-            </a>
-                </div>        
+<div class="banner">
+    <h1>Download Your Files</h1>
+</div>
 
-</head>
-<body>
+<a href="https://oxy.st/d/YEEh" class="button-link disabled" id="downloadButton">
+    <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
+</a>
 
-    <script>
-        // Функция для обновления таймера
-        function startTimer(duration, display) {
-            var timer = duration, seconds;
-            var interval = setInterval(function() {
-                seconds = parseInt(timer % 60, 10);
+<div class="timer" id="timer">15 sec</div>
+<div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
 
-                display.textContent = seconds + " sec";
+<script>
+    function startTimer(duration, display) {
+        var timer = duration, seconds;
+        var interval = setInterval(function() {
+            seconds = parseInt(timer % 60, 10);
+            display.textContent = seconds + " sec";
+            if (--timer < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
 
-                if (--timer < 0) {
-                    clearInterval(interval);
-                }
-            }, 1000);
-        }
+    window.onload = function () {
+        var downloadButton = document.getElementById('downloadButton');
+        var buttonImage = document.getElementById('buttonImage');
+        var timerDisplay = document.getElementById('timer');
+        var adblockMessage = document.getElementById('adblockMessage');
+        var headerImage = document.getElementById('headerImage');
+        var waitTime = 15; // 15 seconds
 
-        window.onload = function () {
-            var downloadButton = document.getElementById('downloadButton');
-            var timerDisplay = document.getElementById('timer');
-            var adblockMessage = document.getElementById('adblockMessage');
-            var headerImage = document.getElementById('headerImage');
-            var waitTime = 15; // 15 секунд
+        startTimer(waitTime, timerDisplay);
 
-            // Запуск таймера
-            startTimer(waitTime, timerDisplay);
+        var adBlockEnabled = false;
+        var testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        window.setTimeout(function() {
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+                adblockMessage.style.display = 'block';
+            }
+            testAd.remove();
+        }, 100);
 
-            // Проверка на AdBlock
-            var adBlockEnabled = false;
-            var testAd = document.createElement('div');
-            testAd.innerHTML = '&nbsp;';
-            testAd.className = 'adsbox';
-            document.body.appendChild(testAd);
-            window.setTimeout(function() {
-                if (testAd.offsetHeight === 0) {
-                    adBlockEnabled = true;
-                    adblockMessage.style.display = 'block';
-                }
-                testAd.remove();
-            }, 100);
-
-            // Активация кнопки после 15 секунд
-            setTimeout(function() {
-                if (!adBlockEnabled) {
-                    downloadButton.classList.add('enabled');
-                    downloadButton.disabled = false;
-                    downloadButton.onclick = function() {
-                        window.location.href = 'https://oxy.st/d/YEEh';
-                    };
-                    // Добавление анимации шевеления к изображению после окончания таймера
+        setTimeout(function() {
+            if (!adBlockEnabled) {
+                downloadButton.classList.remove('disabled');
+                downloadButton.onclick = function() {
+                    buttonImage.src = 'https://graph.org/file/0197d91df205e66e987a6.jpg'; // Change image
                     headerImage.classList.add('shake');
-                }
-            }, waitTime * 1000); // 15 секунд задержки
-        };
-    </script>
+                    setTimeout(function() {
+                        window.location.href = 'https://oxy.st/d/YEEh';
+                    }, 500); // Delay before redirect
+                };
+            }
+        }, waitTime * 1000); // 15 seconds delay
+    };
+</script>
 </body>
 </html>
