@@ -85,7 +85,7 @@
 <!-- Скрипт для динамического отображения постов -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        fetch('Additions.json')
+        fetch('posts.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
