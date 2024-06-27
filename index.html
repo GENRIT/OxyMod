@@ -18,6 +18,83 @@
     <!-- Другие метатеги -->
     <meta name="keywords" content="OxyMod, texture packs, mods, рп, ресурс паки, текстур паки, моды, майнкрафт, майнкрафт бедрок, майнкрафт пе, майн, 1.1.5, 1.21.0, MCPE, мкпе">
     <meta name="author" content="OxyMod">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-bottom: 60px; /* Отступ, чтобы нижняя панель не перекрывала контент */
+            background-color: #f0f0f0; /* Светлый фон для контраста */
+            overflow-x: hidden;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: -60px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный цвет */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+            z-index: 1000;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .bottom-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon {
+            font-size: 24px;
+            animation: spinUp 0.5s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                bottom: -60px;
+            }
+            to {
+                bottom: 0;
+            }
+        }
+
+        @keyframes spinUp {
+            from {
+                transform: translateY(30px) rotate(360deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+        }
+
+        /* Задержка анимации для каждой иконки */
+        .bottom-nav a:nth-child(1) .icon {
+            animation-delay: 0.5s;
+        }
+        .bottom-nav a:nth-child(2) .icon {
+            animation-delay: 0.7s;
+        }
+        .bottom-nav a:nth-child(3) .icon {
+            animation-delay: 0.9s;
+        }
+    </style>
+    <!-- Добавляем иконки Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -31,9 +108,6 @@
   gtag('config', 'G-4MJ1WYC4WQ');
 </script>
 
-</head>
-<body>
-
     <nav class="navbar">
         <div class="menu-dots">☰</div>
         <div class="dropdown-menu">
@@ -42,7 +116,6 @@
             <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
         </div>
     </nav>
-
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
@@ -63,7 +136,7 @@
     <div class="container">
         <!-- Посты будут добавлены сюда через JavaScript -->
     </div>
-               
+
     <div class="footer">
         &copy; English Or Spanish?
     </div>
@@ -141,11 +214,23 @@
     });
 </script>
 
-</body>
-</html>
+    <!-- Нижняя панель навигации -->
+    <div class="bottom-nav">
+        <a href="page1.html">
+            <i class="fas fa-home icon"></i>
+        </a>
+        <a href="page2.html">
+            <i class="fas fa-search icon"></i>
+        </a>
+        <a href="page3.html">
+            <i class="fas fa-user icon"></i>
+        </a>
+    </div>
 
     <div class="blur-top"></div>
     <div class="blur-bottom"></div>
 
     <script src="phsw2.js"></script>
-    <script src="smooth-scroll.js">
+    <script src="smooth-scroll.js"></script>
+</body>
+</html>
