@@ -92,9 +92,18 @@
         .bottom-nav a:nth-child(3) .icon {
             animation-delay: 0.9s;
         }
+
+        /* Добавляем локальные иконки */
+        .icon-home::before {
+            content: url('icons/home.svg');
+        }
+        .icon-search::before {
+            content: url('icons/search.svg');
+        }
+        .icon-user::before {
+            content: url('icons/user.svg');
+        }
     </style>
-    <!-- Добавляем иконки Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -108,14 +117,14 @@
   gtag('config', 'G-4MJ1WYC4WQ');
 </script>
 
-    <nav class="navbar">
-        <div class="menu-dots">☰</div>
-        <div class="dropdown-menu">
-            <a href="https://t.me/+VHdxmb2NXPwyMzUy"><img src="https://graph.org/file/3415b9a6f78f0a00b9d66.jpg" alt="icon"> Telegram Channel</a>
-            <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
-            <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="menu-dots">☰</div>
+    <div class="dropdown-menu">
+        <a href="https://t.me/+VHdxmb2NXPwyMzUy"><img src="https://graph.org/file/3415b9a6f78f0a00b9d66.jpg" alt="icon"> Telegram Channel</a>
+        <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
+        <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+    </div>
+</nav>
 
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
@@ -131,15 +140,15 @@
 </script>
 <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
-    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
-    <div class="container">
-        <!-- Посты будут добавлены сюда через JavaScript -->
-    </div>
+<div class="container">
+    <!-- Посты будут добавлены сюда через JavaScript -->
+</div>
 
-    <div class="footer">
-        &copy; English Or Spanish?
-    </div>
+<div class="footer">
+    &copy; English Or Spanish?
+</div>
 
 <!-- Скрипт для работы меню -->
 <script>
@@ -214,23 +223,24 @@
     });
 </script>
 
-    <!-- Нижняя панель навигации -->
-    <div class="bottom-nav">
-        <a href="page1.html">
-            <i class="fas fa-home icon"></i>
-        </a>
-        <a href="page2.html">
-            <i class="fas fa-search icon"></i>
-        </a>
-        <a href="page3.html">
-            <i class="fas fa-user icon"></i>
-        </a>
-    </div>
+<!-- Нижняя панель навигации -->
+<div class="bottom-nav">
+    <a href="page1.html">
+        <span class="icon icon-home"></span>
+    </a>
+    <a href="page2.html">
+        <span class="icon icon-search"></span>
+    </a>
+    <a href="page3.html">
+        <span class="icon icon-user"></span>
+    </a>
+</div>
 
-    <div class="blur-top"></div>
-    <div class="blur-bottom"></div>
+<div class="blur-top"></div>
+<div class="blur-bottom"></div>
 
-    <script src="phsw2.js"></script>
-    <script src="smooth-scroll.js"></script>
+<script src="phsw2.js"></script>
+<script src="smooth-scroll.js"></script>
+
 </body>
 </html>
