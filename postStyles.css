@@ -84,6 +84,28 @@
             height: 50px;
             margin-left: 20px;
         }
+        .recommended {
+           display: flex;
+           justify-content: center;
+           gap: 5px;
+        }
+        .image-link {
+           width: 45%;
+           max-width: 300px;
+           overflow: hidden;
+           border-radius: 10px; /* Закругленные углы */
+        }
+        .image-link img {
+           width: 100%;
+           display: block;
+           transform: translateY(100%);
+           animation: slideUp 1s forwards;
+        }
+       @keyframes slideUp {
+        to {
+              transform: translateY(0);
+          }
+        }
         .back-button {
             position: absolute;
             top: 10px;
