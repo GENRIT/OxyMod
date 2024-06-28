@@ -22,7 +22,8 @@ body {
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: slideUp 1s forwards;
+    opacity: 0;
+    animation: fadeIn 1s forwards, slideUp 1s forwards;
 }
 
 .description p {
@@ -68,7 +69,8 @@ body {
     height: auto;
     border-radius: 10px;
     transition: transform 0.3s;
-    animation: slideUp 1s forwards;
+    opacity: 0;
+    animation: fadeIn 1s forwards, slideUp 1s forwards;
 }
 
 .scroll-container img:hover {
@@ -116,8 +118,9 @@ body {
 .image-link img {
     width: 100%;
     display: block;
+    opacity: 0;
     transform: translateY(100%);
-    animation: slideUp 1s forwards;
+    animation: fadeIn 1s forwards, slideUp 1s forwards;
 }
 
 .back-button {
@@ -138,7 +141,16 @@ body {
     background-color: #0056b3;
 }
 
-/* Animation */
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes slideUp {
     from {
         transform: translateY(100%);
@@ -150,37 +162,37 @@ body {
 
 /* Media Queries for Responsive Design */
 @media (max-width: 1024px) {
-   .button-link {
+  .button-link {
         top: 10px;
     }
-   .button-image {
+  .button-image {
         width: 180px;
     }
 }
 
 @media (max-width: 768px) {
-   .button-link {
+  .button-link {
         top: 10px;
     }
-   .button-image {
+  .button-image {
         width: 150px;
     }
 }
 
 @media (max-width: 480px) {
-   .button-link {
+  .button-link {
         top: 10px;
     }
-   .button-image {
+  .button-image {
         width: 120px;
     }
 }
 
 @media (max-width: 320px) {
-   .button-link {
+  .button-link {
         top: 10px;
     }
-   .button-image {
+  .button-image {
         width: 100px;
     }
 }
