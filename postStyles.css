@@ -24,18 +24,19 @@
         .description p {
             margin: 2px 0;
         }
-        .button-link {
-            display: inline-block;
-            position: absolute;
-            top: 20px;
-            right: 100px;
-        }
+.button-link {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: auto;
+}
 
-        .button-image {
-            border: none;
-            transition: transform 0.5s;
-            width: 200px;  /* ширина кнопки */
-            height: auto; /* автоматическая высота */
+.button-image {
+  border: none;
+  transition: transform 0.5s;
+  width: 200px;  /* ширина кнопки */
+  height: auto; /* автоматическая высота */
         }
         .button-image:hover {
             transform: scale(1.0);
