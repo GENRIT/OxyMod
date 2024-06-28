@@ -8,6 +8,12 @@ body {
     color: blue;
 }
 
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -16,14 +22,13 @@ body {
 }
 
 .preview-image {
-    width: 100%;
-    max-width: 1000px;
+    width: 98%;
+    max-width: 800px;
     height: auto;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    animation: fadeIn 1s forwards, slideUp 1s forwards;
+    animation: slideUp 1s forwards;
 }
 
 .description p {
@@ -46,6 +51,7 @@ body {
 
 .button-image:hover {
     transform: scale(1.0);
+    animation: slideUp 1s forwards;
 }
 
 .description {
@@ -58,8 +64,8 @@ body {
 .scroll-container {
     display: flex;
     overflow-x: auto;
-    width: 100%;
-    max-width: 1000px;
+    width: 90%;
+    max-width: 800px;
     padding: 40px 0;
     gap: 5px;
 }
@@ -69,8 +75,7 @@ body {
     height: auto;
     border-radius: 10px;
     transition: transform 0.3s;
-    opacity: 0;
-    animation: fadeIn 1s forwards, slideUp 1s forwards;
+    animation: slideUp 1s forwards;
 }
 
 .scroll-container img:hover {
@@ -81,7 +86,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 94%;
     max-width: 800px;
     margin-top: 20px;
     padding: 20px;
@@ -90,12 +95,12 @@ body {
     color: white;
 }
 
-.footer.author {
+.footer .author {
     display: flex;
     align-items: center;
 }
 
-.footer.author img {
+.footer .author img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -118,9 +123,8 @@ body {
 .image-link img {
     width: 100%;
     display: block;
-    opacity: 0;
     transform: translateY(100%);
-    animation: fadeIn 1s forwards, slideUp 1s forwards;
+    animation: slideUp 1s forwards;
 }
 
 .back-button {
@@ -141,58 +145,39 @@ body {
     background-color: #0056b3;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
 /* Media Queries for Responsive Design */
 @media (max-width: 1024px) {
-  .button-link {
+    .button-link {
         top: 10px;
     }
-  .button-image {
+    .button-image {
         width: 180px;
     }
 }
 
 @media (max-width: 768px) {
-  .button-link {
+    .button-link {
         top: 10px;
     }
-  .button-image {
+    .button-image {
         width: 150px;
     }
 }
 
 @media (max-width: 480px) {
-  .button-link {
+    .button-link {
         top: 10px;
     }
-  .button-image {
+    .button-image {
         width: 120px;
     }
 }
 
 @media (max-width: 320px) {
-  .button-link {
+    .button-link {
         top: 10px;
     }
-  .button-image {
+    .button-image {
         width: 100px;
     }
 }
