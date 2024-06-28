@@ -1,179 +1,186 @@
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
-            overflow: auto;
-            background-size: cover;
-            color: blue;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-        }
-        .preview-image {
-            width: 100%;
-            max-width: 1000px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: slideUp 1s forwards;
-        }
-       @keyframes slideUp {
-        to {
-              transform: translateY(0);
-          }
-        }
-        .description p {
-            margin: 2px 0;
-        }
-        .button-link {
-            display: inline-block;
-            position: absolute;
-            top: 20px;
-            right: 10px;
-        }
-        .button-image {
-            border: none;
-            transition: transform 0.5s;
-            width: 200px;  /* ширина кнопки */
-            height: auto; /* автоматическая высота */
-        }
-        .button-image:hover {
-            transform: scale(1.0);
-            animation: slideUp 1s forwards;
-        }
-       @keyframes slideUp {
-        to {
-              transform: translateY(0);
-          }
-        }
-        .description {
-            color: White;
-            font-size: 1.3em;
-            max-width: 600px;
-            margin-top: 10px; /* удален пробел между превью и текстом */
-        }
-        .scroll-container {
-            display: flex;
-            overflow-x: auto;
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 0;
-            gap: 5px;
-        }
-        .scroll-container img {
-            width: 299px;
-            height: auto;
-            border-radius: 10px;
-            transition: transform 0.3s;
-            animation: slideUp 1s forwards;
-        }
-       @keyframes slideUp {
-        to {
-              transform: translateY(0);
-          }
-        }
-        .scroll-container img:hover {
-            transform: scale(1.06);
-        }
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            color: white;
-        }
-        .footer .author {
-            display: flex;
-            align-items: center;
-        }
-        .footer .author img {
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            margin-left: 20px;
-        }
-        .recommended {
-           display: flex;
-           justify-content: center;
-           gap: 5px;
-        }
-        .image-link {
-           width: 45%;
-           max-width: 300px;
-           overflow: hidden;
-           border-radius: 10px; /* Закругленные углы */
-        }
-        .image-link img {
-           width: 100%;
-           display: block;
-           transform: translateY(100%);
-           animation: slideUp 1s forwards;
-        }
-       @keyframes slideUp {
-        to {
-              transform: translateY(0);
-          }
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
+    overflow: auto;
+    background-size: cover;
+    color: blue;
+}
 
-        /* Media Queries for Responsive Design */
-        @media (max-width: 1024px) {
-            .button-link {
-                top: 10px;
-            }
-            .button-image {
-                width: 180px;
-            }
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
 
-        @media (max-width: 768px) {
-            .button-link {
-                top: 10px;
-            }
-            .button-image {
-                width: 150px;
-            }
-        }
+.preview-image {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s forwards;
+}
 
-        @media (max-width: 480px) {
-            .button-link {
-                top: 10px;
-            }
-            .button-image {
-                width: 120px;
-            }
-        }
+.description p {
+    margin: 2px 0;
+}
 
-        @media (max-width: 320px) {
-            .button-link {
-                top: 10px;
-            }
-            .button-image {
-                width: 100px;
-            }
-        }
+.button-link {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+.button-image {
+    border: none;
+    transition: transform 0.5s;
+    width: 200px;  /* ширина кнопки */
+    height: auto; /* автоматическая высота */
+}
+
+.button-image:hover {
+    transform: scale(1.0);
+}
+
+.description {
+    color: White;
+    font-size: 1.3em;
+    max-width: 600px;
+    margin-top: 10px; /* удален пробел между превью и текстом */
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px 0;
+    gap: 5px;
+}
+
+.scroll-container img {
+    width: 299px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    animation: slideUp 1s forwards;
+}
+
+.scroll-container img:hover {
+    transform: scale(1.06);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: white;
+}
+
+.footer.author {
+    display: flex;
+    align-items: center;
+}
+
+.footer.author img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.recommended {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.image-link {
+    width: 45%;
+    max-width: 300px;
+    overflow: hidden;
+    border-radius: 10px; /* Закругленные углы */
+}
+
+.image-link img {
+    width: 100%;
+    display: block;
+    transform: translateY(100%);
+    animation: slideUp 1s forwards;
+}
+
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+   .button-link {
+        top: 10px;
+    }
+   .button-image {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+   .button-link {
+        top: 10px;
+    }
+   .button-image {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+   .button-link {
+        top: 10px;
+    }
+   .button-image {
+        width: 120px;
+    }
+}
+
+@media (max-width: 320px) {
+   .button-link {
+        top: 10px;
+    }
+   .button-image {
+        width: 100px;
+    }
+}
