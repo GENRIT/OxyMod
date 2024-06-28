@@ -63,7 +63,7 @@ body {
 
 .scroll-container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: center;
     width: 96%;
     max-width: 800px;
     padding: 40px 0;
