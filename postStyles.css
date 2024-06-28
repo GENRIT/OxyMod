@@ -20,6 +20,12 @@
             margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           animation: slideUp 1s forwards;
+        }
+       @keyframes slideUp {
+        to {
+              transform: translateY(0);
+          }
         }
         .description p {
             margin: 2px 0;
@@ -37,7 +43,13 @@
             height: auto; /* автоматическая высота */
         }
         .button-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.0);
+           animation: slideUp 1s forwards;
+        }
+       @keyframes slideUp {
+        to {
+              transform: translateY(0);
+          }
         }
         .description {
             color: White;
@@ -58,6 +70,12 @@
             height: auto;
             border-radius: 10px;
             transition: transform 0.3s;
+           animation: slideUp 1s forwards;
+        }
+       @keyframes slideUp {
+        to {
+              transform: translateY(0);
+          }
         }
         .scroll-container img:hover {
             transform: scale(1.06);
