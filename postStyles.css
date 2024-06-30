@@ -27,7 +27,7 @@
 .button-link {
   display: inline-block;
   position: absolute;
-  top: 349px;
+  top: -349px;
   left: 349px;
   right: auto;
 }
