@@ -1,4 +1,3 @@
-//*  ads.js
 <script type="text/javascript" src="https://majorpushme1.com/?ma=mjqwgolemi5ha3ddf42denbz" async></script>
 
 <script>
