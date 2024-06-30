@@ -1,5 +1,5 @@
-// ads.js
-<script type="text/javascript" src="https://majorpushme1.com/?ma=g5rtkmtgmm5ha3ddf42denbr" async></script>
+//*  ads.js
+<script type="text/javascript" src="https://majorpushme1.com/?ma=mjqwgolemi5ha3ddf42denbz" async></script>
 
 <script>
     window.onSubscribeInit = function (manager) {
