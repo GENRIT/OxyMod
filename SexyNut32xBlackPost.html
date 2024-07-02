@@ -9,6 +9,32 @@
 </head>
 <body>
 
+    <script>
+        (function() {
+            var userLang = navigator.language || navigator.userLanguage; 
+            if (userLang.startsWith('ru')) {
+                document.addEventListener('DOMContentLoaded', function() {
+                    var elements = document.querySelectorAll('[data-translate]');
+                    elements.forEach(function(element) {
+                        var translation = translations[element.getAttribute('data-translate')];
+                        if (translation) {
+                            element.innerHTML = translation;
+                        }
+                    });
+                });
+
+                var translations = {
+                    'title': 'SexyNut 32x [Чёрный]',
+                    'description1': 'Текстур Пак',
+                    'description2': 'SexyNut 32x [Чёрный]',
+                    'info': 'Эпические битвы, разрушение, мощное оружие! Улучшите ваш игровой опыт с нашим контентом!',
+                    'author': 'Автор: Клейни',
+                    'back': 'Назад'
+                };
+            }
+        })();
+    </script>
+
 <script type="text/javascript" src="https://majorpushme1.com/?ma=mu2tqnlegq5ha3ddf42denjq" async></script>
 
 <script>
