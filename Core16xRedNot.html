@@ -61,50 +61,61 @@
         .animated {
             animation: fadeIn 3s;
         }
-        .skip-button {
-            display: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        .button-link {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+            display: none; /* Скрыть кнопку по умолчанию */
+        }
+        .button-image {
+            width: 139px;
+            height: 63px;
+            transition: transform 0.5s;
+            border: none;
+            outline: none;
+        }
+        .button-image:hover {
+            transform: scale(0.9);
+        }
+        .button-image:focus, .button-image:active {
+            outline: none;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <!-- Добавление изображения OxyMod.png с анимацией входа -->
-    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
-<script type="text/javascript" src="https://majorpushme1.com/?ma=hbsteyrrge5ha3ddf42demzy" async></script>
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 
-<script>
-    window.onSubscribeInit = function (manager) {
-        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
-        if (manager.getPermission() !== 'default') {
-            window.location.href = 'https://google.com/';
-        } else {
-            manager.start();
-        }
-    };
+<script type="text/javascript">
+    aclib.runAutoTag({
+        zoneId: 'cdyrxdc5yu',
+    });
 </script>
-<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+    <!-- Добавление изображения OxyMod.jpg с анимацией входа -->
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
 
     <div class="banner">
         <h1>Allow Notifications</h1>
         <p>Please allow notifications to continue.</p>
     </div>
-    
+
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
     <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
 
-    <div class="skip-button" id="skipButton" onclick="window.location.href='Core16xRedDow.html'">Skip</div>
+    <a href="https://oxymod.netlify.app/core16xredDow" class="button-link" id="skipButton">
+        <img src="https://graph.org/file/661f1360dfd5d3b9c9aa5.jpg" class="button-image" id="buttonImage">
+    </a>
 
     <script>
         window.onload = function () {
             var progressBar = document.getElementById('progressBar');
             var adblockMessage = document.getElementById('adblockMessage');
             var skipButton = document.getElementById('skipButton');
+            var buttonImage = document.getElementById('buttonImage');
             var waitTime = 15; // 15 секунд
 
             // Запуск анимации прогресса
@@ -126,15 +137,15 @@
                 testAd.remove();
             }, 100);
 
-            // Появление кнопки пропуска через 6 секунд
+            // Появление кнопки пропуска через 5 секунд
             setTimeout(function() {
-                skipButton.style.display = 'block';
+                skipButton.style.display = 'inline-block';
                 skipButton.classList.add('animated');
-            }, 6000);
+            }, 5000);
 
             // Перенаправление после 15 секунд
             setTimeout(function() {
-                window.location.href = 'Core16xRedDow.html';
+                window.location.href = 'https://oxymod.netlify.app/core16xredDow';
             }, waitTime * 1000); // 15 секунд задержки
         };
     </script>
