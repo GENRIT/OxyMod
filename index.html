@@ -86,8 +86,8 @@
     background-color: #007bff; /* blue color */
     color: #ffffff;
     border: none;
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 10px 20px; /* make button slightly smaller */
+    font-size: 16px;
     cursor: pointer;
     border-radius: 10px; /* rounded corners */
   }
@@ -109,10 +109,10 @@
   }
   /* show Russian button only for Russian users */
   @media (prefers-language: ru) {
-  .join-btn {
+ .join-btn {
       display: none;
     }
-  .join-btn[lang="ru"] {
+ .join-btn[lang="ru"] {
       display: block;
     }
   }
