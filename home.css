@@ -247,17 +247,6 @@ html {
     animation: crazyAnimation 8s infinite;
 }
 
-/* Футер */
-.footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 1em;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    border-radius: 10px;
-}
-
 /* Модальные окна */
 .modal {
     display: none; 
