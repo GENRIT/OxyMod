@@ -6,46 +6,52 @@
     <title>My Book</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive; /* pixel font */
             margin: 0;
             padding: 0;
+            background-image: linear-gradient(to bottom, #4567b7, #6495ed); /* gradient blue background */
         }
        .container {
             max-width: 800px;
             margin: 40px auto;
             padding: 20px;
-            background-color: #f9f9f9;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
        .book-content {
             text-align: justify;
             padding: 20px;
+            font-size: 18px;
+            line-height: 1.5;
         }
        .screenshot-container {
-            position: relative;
-            margin: 20px;
-        }
-       .screenshot {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* allow clicks to pass through */
+        }
+       .screenshot {
+            position: absolute;
             width: 200px;
             height: 150px;
             margin: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: float 3s ease-in-out infinite;
+            transform: rotate(90deg); /* rotate 90 degrees */
         }
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0);
-            }
+       .screenshot.left {
+            left: 50px;
+            transform: rotate(-90deg); /* rotate -90 degrees */
+        }
+       .screenshot.right {
+            right: 50px;
+            transform: rotate(90deg); /* rotate 90 degrees */
+        }
+       .screenshot:nth-child(even) {
+            top: 50px;
+        }
+       .screenshot:nth-child(odd) {
+            top: 100px;
         }
     </style>
 </head>
@@ -53,8 +59,7 @@
     <div class="container">
         <div class="book-content">
             <!-- INSERT YOUR LONG TEXT HERE -->
-            "
-Глава 1: Начало пути
+            "Глава 1: Начало пути
 
 5 июля 2024 года. Сегодня особенный день – мой 16-й день рождения. День, который ознаменует новый этап в моей жизни. Именно с этого дня я принимаю решение быть дисциплинированным и целеустремлённым, стремясь к своей мечте – стать миллионером.
 
@@ -78,10 +83,12 @@
         </div>
         <div class="screenshot-container">
             <!-- INSERT 38 SCREENSHOTS HERE -->
-            <a href="#" target="_blank"><img src="screenshot1.jpg" class="screenshot"></a>
-            <a href="#" target="_blank"><img src="screenshot2.jpg" class="screenshot"></a>
+            <a href="#" target="_blank"><img src="screenshot1.jpg" class="screenshot left"></a>
+            <a href="#" target="_blank"><img src="screenshot2.jpg" class="screenshot right"></a>
+            <a href="#" target="_blank"><img src="screenshot3.jpg" class="screenshot left"></a>
+            <a href="#" target="_blank"><img src="screenshot4.jpg" class="screenshot right"></a>
             <!--... -->
-            <a href="#" target="_blank"><img src="screenshot38.jpg" class="screenshot"></a>
+            <a href="#" target="_blank"><img src="screenshot38.jpg" class="screenshot left"></a>
         </div>
     </div>
 </body>
