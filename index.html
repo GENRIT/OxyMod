@@ -64,39 +64,55 @@
     </div>
 
 <div class="footer">
-  &copy; Создаете Текстур Паки, от которых захватывает дух?
-  Тогда вам к нам!
+  &copy; <span lang="ru">Создаете Текстур Паки, от которых захватывает дух?</span>
+  <span lang="en">Do you create Texture Packs that take your breath away?</span>
+  <br>
+  <span lang="ru">Тогда вам к нам!</span>
+  <span lang="en">Then join us!</span>
   <button class="join-btn">Join Us</button>
   <button class="join-btn" lang="ru">Присоединиться</button>
 </div>
 
 <style>
- .footer {
-    position: relative;
+.footer {
+    text-align: center;
   }
- .join-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+.footer span {
+    font-size: 14px; /* make text smaller */
+  }
+.join-btn {
+    display: block;
+    margin: 20px auto; /* center the button */
     background-color: #007bff; /* blue color */
     color: #ffffff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 30px;
+    font-size: 18px;
     cursor: pointer;
+    border-radius: 10px; /* rounded corners */
   }
- .join-btn:hover {
+.join-btn:hover {
     background-color: #0069d9; /* darker blue color on hover */
   }
- .join-btn[lang="ru"] {
+  /* hide English text for Russian users */
+  [lang="en"] {
     display: none;
+  }
+  /* show English text for non-Russian users */
+  @media (prefers-language: not ru) {
+    [lang="ru"] {
+      display: none;
+    }
+    [lang="en"] {
+      display: block;
+    }
   }
   /* show Russian button only for Russian users */
   @media (prefers-language: ru) {
-   .join-btn {
+  .join-btn {
       display: none;
     }
-   .join-btn[lang="ru"] {
+  .join-btn[lang="ru"] {
       display: block;
     }
   }
