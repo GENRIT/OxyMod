@@ -63,10 +63,44 @@
         <!-- Посты будут добавлены сюда через JavaScript -->
     </div>
 
-    <div class="footer">
-        &copy; Создаете Текстур Паки, от которых захватывает дух?
-Тогда вам к нам!
-    </div>
+<div class="footer">
+  &copy; Создаете Текстур Паки, от которых захватывает дух?
+  Тогда вам к нам!
+  <button class="join-btn">Join Us</button>
+  <button class="join-btn" lang="ru">Присоединиться</button>
+</div>
+
+<style>
+ .footer {
+    position: relative;
+  }
+ .join-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #007bff; /* blue color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+ .join-btn:hover {
+    background-color: #0069d9; /* darker blue color on hover */
+  }
+ .join-btn[lang="ru"] {
+    display: none;
+  }
+  /* show Russian button only for Russian users */
+  @media (prefers-language: ru) {
+   .join-btn {
+      display: none;
+    }
+   .join-btn[lang="ru"] {
+      display: block;
+    }
+  }
+</style>
 
 <!-- Скрипт для работы меню -->
 <script>
