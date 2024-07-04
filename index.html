@@ -69,18 +69,26 @@
   <br>
   <span lang="ru">Тогда вам к нам!</span>
   <span lang="en">Then join us!</span>
-  <button class="join-btn">Join Us</button>
+  <button class="join-btn" lang="en">Join Us</button>
   <button class="join-btn" lang="ru">Присоединиться</button>
 </div>
 
 <style>
-.footer {
+  .footer {
+    margin-top: 20px;
     text-align: center;
+    font-size: 1em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
   }
-.footer span {
+  
+  .footer span {
     font-size: 14px; /* make text smaller */
   }
-.join-btn {
+  
+  .join-btn {
     display: block;
     margin: 20px auto; /* center the button */
     background-color: #007bff; /* blue color */
@@ -91,29 +99,24 @@
     cursor: pointer;
     border-radius: 10px; /* rounded corners */
   }
-.join-btn:hover {
+  
+  .join-btn:hover {
     background-color: #0069d9; /* darker blue color on hover */
   }
-  /* hide English text for Russian users */
-  [lang="en"] {
-    display: none;
-  }
-  /* show English text for non-Russian users */
-  @media (prefers-language: not ru) {
-    [lang="ru"] {
+  
+  /* hide English text and button for Russian users */
+  [lang="ru"] {
+    .footer span[lang="en"],
+    .join-btn[lang="en"] {
       display: none;
     }
-    [lang="en"] {
-      display: block;
-    }
   }
-  /* show Russian button only for Russian users */
-  @media (prefers-language: ru) {
- .join-btn {
+  
+  /* hide Russian text and button for non-Russian users */
+  :not([lang="ru"]) {
+    .footer span[lang="ru"],
+    .join-btn[lang="ru"] {
       display: none;
-    }
- .join-btn[lang="ru"] {
-      display: block;
     }
   }
 </style>
