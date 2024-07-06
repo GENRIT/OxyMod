@@ -46,20 +46,56 @@ body {
     margin: 2px 0;
 }
 
+.description {
+    color: white;
+    font-size: 1.3em;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.description img.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.description p {
+    margin: 2px 0;
+}
+
 .description .button {
-    display: inline-block;
-    position: absolute;
-    top: 185px;
-    left: 180px;
     border: none;
     transition: transform 0.5s;
     width: 200px;  /* ширина кнопки */
     height: auto; /* автоматическая высота */
+    background-image: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+    background-size: 100% 100%;
+    cursor: pointer;
 }
 
 .description .button:hover {
-    transform: scale(1.0);
-    content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+    transform: scale(1.05);
+    background-image: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+}
+
+.description .button:active {
+    transform: scale(0.95);
+    background-image: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+}
+
+.description .button-link {
+    text-decoration: none;
+    color: white;
+}
+
+.description p + p {
+    margin-top: 10px;
 }
 
 .scroll-container {
