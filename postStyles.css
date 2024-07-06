@@ -43,25 +43,30 @@ body {
     margin-right: 10px;
 }
 
-.description p {
-    margin: 0 10px 0 0;
+.description div {
     flex-grow: 1;
+}
+
+.description p {
+    margin: 0;
 }
 
 .button-link {
     display: inline-block;
     margin-left: auto;
+    position: relative;
 }
 
 .button-image {
     border: none;
-    transition: transform 0.5s;
+    transition: transform 0.5s, content 0.5s;
     width: 100px; /* Adjust as needed */
     height: auto;
 }
 
 .button-image:hover {
     transform: scale(1.1);
+    content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
 }
 
 .scroll-container {
@@ -117,78 +122,6 @@ body {
     animation: slideUp 1s ease-out;
 }
 
-.recommended {
-   display: flex;
-   justify-content: center;
-   gap: 5px;
-}
-
-.image-link {
-   width: 45%;
-   max-width: 300px;
-   overflow: hidden;
-   border-radius: 10px;
-}
-
-.image-link img {
-   width: 100%;
-   display: block;
-   transform: translateY(100%);
-   animation: slideUp 1s forwards;
-}
-
-.back-button {
-   position: absolute;
-   top: 10px;
-   left: 10px;
-   background-color: #007BFF;
-   color: white;
-   padding: 10px 20px;
-   border: none;
-   border-radius: 5px;
-   font-size: 16px;
-   cursor: pointer;
-   text-decoration: none;
-}
-
-.back-button:hover {
-   background-color: #0056b3;
-}
-
-.language-switcher {
-  display: flex;
-  gap: 10px;
-}
-
-.language-link {
-  color: white;
-  text-decoration: none;
-}
-
-.share-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.share-button {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.share-button:hover {
-  background-color: #0056b3;
-}
-
-.crazy {
-    animation: crazyAnimation 8s infinite;
-}
-
 @keyframes slideUp {
     0% {
         opacity: 0;
@@ -200,6 +133,10 @@ body {
     }
 }
 
+.crazy {
+    animation: crazyAnimation 8s infinite;
+}
+
 @keyframes crazyAnimation {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(3deg); }
@@ -209,36 +146,24 @@ body {
 }
 
 @media (max-width: 1024px) {
-    .button-link {
-        top: 10px;
-    }
     .button-image {
         width: 80px; /* Adjust as needed */
     }
 }
 
 @media (max-width: 768px) {
-    .button-link {
-        top: 10px;
-    }
     .button-image {
         width: 70px; /* Adjust as needed */
     }
 }
 
 @media (max-width: 480px) {
-    .button-link {
-        top: 10px;
-    }
     .button-image {
         width: 60px; /* Adjust as needed */
     }
 }
 
 @media (max-width: 320px) {
-    .button-link {
-        top: 10px;
-    }
     .button-image {
         width: 50px; /* Adjust as needed */
     }
