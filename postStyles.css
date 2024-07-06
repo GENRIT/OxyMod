@@ -102,12 +102,12 @@ body {
     color: white;
 }
 
-.footer .author {
+.footer.author {
     display: flex;
     align-items: center;
 }
 
-.footer .author img {
+.footer.author img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -189,7 +189,7 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    cursor: pointer;
+   cursor: pointer;
     text-decoration: none;
 }
 
@@ -197,17 +197,16 @@ body {
     background-color: #0056b3;
 }
 
-/* Анимации */
+.crazy {
+    animation: crazyAnimation 8s infinite;
+}
+
 @keyframes crazyAnimation {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(3deg); }
     50% { transform: rotate(0deg); }
     75% { transform: rotate(-3deg); }
     100% { transform: rotate(0deg); }
-}
-
-.crazy {
-    animation: crazyAnimation 8s infinite;
 }
 
 /* Media Queries for Responsive Design */
