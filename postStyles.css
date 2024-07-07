@@ -38,26 +38,19 @@ body {
     width: 90%;
 }
 
-.description .text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .description p {
     margin: 2px 0;
 }
 
 .button-link {
-    display: inline-block;
-    margin-top: 0;
     margin-left: 10px;
+    flex-shrink: 0;
 }
 
 .button-image {
     border: none;
     transition: transform 0.5s;
-    width: 100px;
+    width: 200px;
     height: auto;
 }
 
@@ -208,68 +201,4 @@ body {
     50% { transform: rotate(0deg); }
     75% { transform: rotate(-3deg); }
     100% { transform: rotate(0deg); }
-}
-
-@media (max-width: 1024px) {
-    .button-link {
-        margin-left: 5px;
-    }
-    .button-image {
-        width: 180px;
-    }
-    .description img.avatar {
-        width: 40px;
-        height: 40px;
-    }
-    .description p {
-        font-size: 0.9em;
-    }
-}
-
-@media (max-width: 768px) {
-    .button-link {
-        margin-left: 5px;
-    }
-    .button-image {
-        width: 150px;
-    }
-    .description img.avatar {
-        width: 35px;
-        height: 35px;
-    }
-    .description p {
-        font-size: 0.85em;
-    }
-}
-
-@media (max-width: 480px) {
-    .button-link {
-        margin-left: 5px;
-    }
-    .button-image {
-        width: 120px;
-    }
-    .description img.avatar {
-        width: 30px;
-        height: 30px;
-    }
-    .description p {
-        font-size: 0.8em;
-    }
-}
-
-@media (max-width: 320px) {
-    .button-link {
-        margin-left: 5px;
-    }
-    .button-image {
-        width: 100px;
-    }
-    .description img.avatar {
-        width: 25px;
-        height: 25px;
-    }
-    .description p {
-        font-size: 0.75em;
-    }
 }
