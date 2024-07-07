@@ -204,6 +204,7 @@ body {
     100% { transform: rotate(0deg); }
 }
 
+/* Media queries for different screen sizes */
 @media (max-width: 1024px) {
     .button-link {
         top: 10px;
@@ -237,5 +238,36 @@ body {
     }
     .button-image {
         width: 100px;
+    }
+}
+
+/* Styles for PC and laptops */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+        padding: 20px;
+    }
+    
+    .description {
+        font-size: 1em;
+        max-width: 800px;
+        padding: 10px;
+    }
+    
+    .button-image {
+        width: 220px;
+    }
+
+    .scroll-container {
+        max-width: 1000px;
+    }
+
+    .footer {
+        max-width: 1000px;
+    }
+
+    .footer .author img {
+        width: 60px;
+        height: 60px;
     }
 }
