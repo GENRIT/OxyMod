@@ -26,22 +26,20 @@ body {
 
 .description {
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 600px;
-    margin-top: 20px;
-    width: 100%;
+    flex-direction: column;
 }
 
 .description img.avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
 }
 
@@ -50,17 +48,15 @@ body {
 }
 
 .button-link {
-    margin-left: 10px;
-    flex-shrink: 0;
+    display: inline-block;
+    margin-top: 10px; /* Adjust this value as needed for spacing */
 }
 
 .button-image {
     border: none;
     transition: transform 0.5s;
-    width: 106px;
-    height: 47px;
-    flex-shrink: 0;
-    align-self: flex-start;
+    width: 200px;
+    height: auto;
 }
 
 .button-image:hover {
@@ -210,4 +206,40 @@ body {
     50% { transform: rotate(0deg); }
     75% { transform: rotate(-3deg); }
     100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 1024px) {
+    .button-link {
+        top: 10px;
+    }
+    .button-image {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .button-link {
+        top: 10px;
+    }
+    .button-image {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-link {
+        top: 10px;
+    }
+    .button-image {
+        width: 120px;
+    }
+}
+
+@media (max-width: 320px) {
+    .button-link {
+        top: 10px;
+    }
+    .button-image {
+        width: 100px;
+    }
 }
