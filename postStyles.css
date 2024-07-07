@@ -1,11 +1,7 @@
 body {
     margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: url('https://telegra.ph/file/6fb55fc276c0213732d2c.jpg') no-repeat center center fixed;
     overflow: auto;
-    background-size: auto;
-    color: blue;
+    background: radial-gradient(circle at bottom, #001f3f, #001a33, #001526, #000d19, #00010c);
 }
 
 .container {
