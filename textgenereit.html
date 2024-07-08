@@ -1,27 +1,45 @@
-async function getResponse() {
-    const userInput = document.getElementById('user-input').value;
-
-    const url = "https://api.pawan.krd/cosmosrp/v1/chat/completions";
-    const headers = {
-        "Content-Type": "application/json"
-    };
-    const data = {
-        "model": "cosmosrp",
-        "messages": [
-            {"role": "system", "content": "You are a fantasy world dungeon master."},
-            {"role": "user", "content": userInput}
-        ]
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        document.getElementById('response-output').value = result.choices[0].message.content;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy World Dungeon Master</title>
+    <style>
+        /* Ваши стили CSS */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-area, .output-area {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fantasy World Dungeon Master</h1>
+        <div class="input-area">
+            <label for="user-input">Enter your prompt:</label>
+            <textarea id="user-input"></textarea>
+        </div>
+        <div class="output-area">
+            <label for="response-output">Response:</label>
+            <textarea id="response-output" readonly></textarea>
+        </div>
+        <button onclick="getResponse()">Generate Text</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
