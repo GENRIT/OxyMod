@@ -84,6 +84,13 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .content-container {
+            margin-top: 50px; /* Отступ сверху для контейнера с изображением и загрузкой */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -96,16 +103,17 @@
 <!-- In-read ad -->
 <div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
-
-<div class="banner">
-    <h1>Allow Notifications</h1>
-    <p>Please allow notifications to continue.</p>
+<div class="content-container">
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+    <div class="banner">
+        <h1>Allow Notifications</h1>
+        <p>Please allow notifications to continue.</p>
+    </div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 </div>
 
-<div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-</div>
 <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
 
 <a href="https://oxymod.netlify.app/chika32xpinkgei" class="button-link" id="skipButton">
