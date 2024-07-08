@@ -17,6 +17,11 @@
             height: 100vh;
             color: white;
         }
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         .progress-container {
             width: 80%;
             background: rgba(255, 255, 255, 0.3);
@@ -79,11 +84,6 @@
             outline: none;
             border: none;
         }
-        .ad-container {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
-        }
         .content-container {
             margin-top: 10px; /* Отступ сверху для контейнера с изображением и загрузкой */
             display: flex;
@@ -94,6 +94,11 @@
     </style>
 </head>
 <body>
+
+<div class="ad-container">
+    <!-- In-banner ad -->
+    <div class="tgx-vbf" data-vbf-id="26718"></div>
+</div>
 
 <div class="content-container">
     <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 10px;">
@@ -111,11 +116,6 @@
 <a href="https://oxymod.netlify.app/chika32xpinkgei" class="button-link" id="skipButton">
     <img src="https://graph.org/file/661f1360dfd5d3b9c9aa5.jpg" class="button-image" id="buttonImage">
 </a>
-
-<div class="ad-container">
-    <!-- In-banner ad -->
-    <div class="tgx-vbf" data-vbf-id="26718"></div>
-</div>
 
 <!-- In-read ad -->
 <div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
@@ -165,7 +165,7 @@
         var adScript1 = document.getElementById('adScript1');
         var adScript2 = document.getElementById('adScript2');
         var adLoaded = false;
-        
+
         function adLoadHandler() {
             if (!adLoaded) {
                 adLoaded = true;
