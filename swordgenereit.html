@@ -2,43 +2,50 @@
 <html>
 <head>
     <title>Генератор пиксельных мечей</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
-    <canvas id="swordCanvas" width="160" height="160"></canvas>
-    <button onclick="generateSwords()">Сгенерировать мечи</button>
+    <button onclick="generateAndDownloadSwords()">Сгенерировать и скачать мечи</button>
     <script>
-        function generateSwords() {
-            const canvas = document.getElementById('swordCanvas');
-            const ctx = canvas.getContext('2d');
-
-            // Очистить холст
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        async function generateAndDownloadSwords() {
+            const zip = new JSZip();
 
             for (let i = 0; i < 10; i++) {
-                const x = (i % 5) * 32;
-                const y = Math.floor(i / 5) * 80;
-                drawSword(ctx, x, y);
+                const canvas = document.createElement('canvas');
+                canvas.width = 16;
+                canvas.height = 16;
+                const ctx = canvas.getContext('2d');
+
+                drawSword(ctx);
+
+                const dataUrl = canvas.toDataURL('image/png');
+                const base64Data = dataUrl.replace(/^data:image\/(png|jpg);base64,/, "");
+                zip.file(`sword${i + 1}.png`, base64Data, { base64: true });
             }
+
+            const content = await zip.generateAsync({ type: "blob" });
+            saveAs(content, "swords.zip");
         }
 
-        function drawSword(ctx, offsetX, offsetY) {
+        function drawSword(ctx) {
             const swordColors = ["#8B8B8B", "#E5E5E5", "#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"];
             const handleColor = "#3B3B3B";
             const guardColor = "#D4A017";
 
-            // Рисуем рукоятку меча
-            ctx.fillStyle = handleColor;
-            ctx.fillRect(offsetX + 7, offsetY + 12, 2, 16);
+            // Рисуем клинок меча (повернутый на 90 градусов вправо)
+            const bladeColor = swordColors[Math.floor(Math.random() * swordColors.length)];
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(0, 7, 12, 2);
 
             // Рисуем гарду
             ctx.fillStyle = guardColor;
-            ctx.fillRect(offsetX + 6, offsetY + 11, 4, 1);
-            ctx.fillRect(offsetX + 5, offsetY + 10, 6, 1);
+            ctx.fillRect(12, 6, 1, 4);
+            ctx.fillRect(13, 5, 1, 6);
 
-            // Рисуем клинок меча
-            const bladeColor = swordColors[Math.floor(Math.random() * swordColors.length)];
-            ctx.fillStyle = bladeColor;
-            ctx.fillRect(offsetX + 7, offsetY, 2, 12);
+            // Рисуем рукоятку меча
+            ctx.fillStyle = handleColor;
+            ctx.fillRect(12, 7, 16, 2);
         }
     </script>
 </body>
