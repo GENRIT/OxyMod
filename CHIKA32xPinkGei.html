@@ -13,9 +13,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Изменено с center на flex-start для выравнивания по верху */
             height: 100vh;
             color: blue;
+        }
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
         }
         .banner {
             width: 100%;
@@ -79,10 +84,12 @@
         .shake {
             animation: shake 1s;
         }
-        .ad-container {
+        .content-container {
+            margin-top: 10px; /* Отступ сверху для контейнера с изображением и загрузкой */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -93,21 +100,23 @@
     <div class="tgx-vbf" data-vbf-id="26718"></div>
 </div>
 
-<!-- In-read ad -->
-<div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
+<div class="content-container">
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 10px;">
+    <div class="banner">
+        <h1>Download Your Files</h1>
+    </div>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+    <a href="https://oxy.name/d/oKWh" class="button-link disabled" id="downloadButton">
+        <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
+    </a>
 
-<div class="banner">
-    <h1>Download Your Files</h1>
+    <div class="timer" id="timer">15 sec</div>
 </div>
 
-<a href="https://oxy.name/d/oKWh" class="button-link disabled" id="downloadButton">
-    <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
-</a>
-
-<div class="timer" id="timer">15 sec</div>
 <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+
+<!-- In-read ad -->
+<div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
 
 <!-- Scripts for ads -->
 <script defer src="https://cdn.adlook.me/js/rlf.js" id="adScript1"></script>
@@ -177,7 +186,7 @@
         var adScript1 = document.getElementById('adScript1');
         var adScript2 = document.getElementById('adScript2');
         var adLoaded = false;
-        
+
         function adLoadHandler() {
             if (!adLoaded) {
                 adLoaded = true;
