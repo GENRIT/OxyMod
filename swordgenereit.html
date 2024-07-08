@@ -29,23 +29,36 @@
         }
 
         function drawSword(ctx) {
-            const swordColors = ["#8B8B8B", "#E5E5E5", "#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"];
-            const handleColor = "#3B3B3B";
-            const guardColor = "#D4A017";
+            const handleColor = "#2C2C2C";
+            const guardColor = "#333333";
+            const bladeColors = ["#4BC6FF", "#70E5FF", "#86F3FF", "#A4FFFF"];
 
-            // Рисуем клинок меча (повернутый на 90 градусов вправо)
-            const bladeColor = swordColors[Math.floor(Math.random() * swordColors.length)];
-            ctx.fillStyle = bladeColor;
-            ctx.fillRect(0, 7, 12, 2);
+            // Рисуем клинок меча (повернутый на 45 градусов вправо)
+            drawPixel(ctx, 8, 0, bladeColors[0]);
+            drawPixel(ctx, 9, 1, bladeColors[1]);
+            drawPixel(ctx, 10, 2, bladeColors[1]);
+            drawPixel(ctx, 11, 3, bladeColors[2]);
+            drawPixel(ctx, 12, 4, bladeColors[3]);
+            drawPixel(ctx, 13, 5, bladeColors[3]);
+            drawPixel(ctx, 14, 6, bladeColors[2]);
+            drawPixel(ctx, 15, 7, bladeColors[1]);
 
             // Рисуем гарду
-            ctx.fillStyle = guardColor;
-            ctx.fillRect(12, 6, 1, 4);
-            ctx.fillRect(13, 5, 1, 6);
+            drawPixel(ctx, 7, 1, guardColor);
+            drawPixel(ctx, 6, 2, guardColor);
+            drawPixel(ctx, 5, 3, guardColor);
+            drawPixel(ctx, 4, 4, guardColor);
+            drawPixel(ctx, 3, 5, guardColor);
+            drawPixel(ctx, 2, 6, guardColor);
 
             // Рисуем рукоятку меча
-            ctx.fillStyle = handleColor;
-            ctx.fillRect(12, 7, 16, 2);
+            drawPixel(ctx, 1, 7, handleColor);
+            drawPixel(ctx, 0, 8, handleColor);
+        }
+
+        function drawPixel(ctx, x, y, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, 1, 1);
         }
     </script>
 </body>
