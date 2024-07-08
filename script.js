@@ -13,3 +13,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, 1000);
     });
 });
+
+
+
+async function getResponse() {
+    const userInput = document.getElementById('user-input').value;
+
+    const url = "https://api.pawan.krd/cosmosrp/v1/chat/completions";
+    const headers = {
+        "Content-Type": "application/json"
+    };
+    const data = {
+        "model": "cosmosrp",
+        "messages": [
+            {"role": "system", "content": "You are a fantasy world dungeon master."},
+            {"role": "user", "content": userInput}
+        ]
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        document.getElementById('response-output').value = result.choices[0].message.content;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
