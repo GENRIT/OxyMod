@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Генератор пиксельных мечей</title>
+</head>
+<body>
+    <canvas id="swordCanvas" width="160" height="160"></canvas>
+    <button onclick="generateSwords()">Сгенерировать мечи</button>
+    <script>
+        function generateSwords() {
+            const canvas = document.getElementById('swordCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Очистить холст
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < 10; i++) {
+                const x = (i % 5) * 32;
+                const y = Math.floor(i / 5) * 80;
+                drawSword(ctx, x, y);
+            }
+        }
+
+        function drawSword(ctx, offsetX, offsetY) {
+            const swordColors = ["#8B8B8B", "#E5E5E5", "#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"];
+            const handleColor = "#3B3B3B";
+            const guardColor = "#D4A017";
+
+            // Рисуем рукоятку меча
+            ctx.fillStyle = handleColor;
+            ctx.fillRect(offsetX + 7, offsetY + 12, 2, 16);
+
+            // Рисуем гарду
+            ctx.fillStyle = guardColor;
+            ctx.fillRect(offsetX + 6, offsetY + 11, 4, 1);
+            ctx.fillRect(offsetX + 5, offsetY + 10, 6, 1);
+
+            // Рисуем клинок меча
+            const bladeColor = swordColors[Math.floor(Math.random() * swordColors.length)];
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(offsetX + 7, offsetY, 2, 12);
+        }
+    </script>
+</body>
+</html>
