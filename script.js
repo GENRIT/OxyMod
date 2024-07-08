@@ -16,33 +16,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-async function getResponse() {
+async function sendMessage() {
     const userInput = document.getElementById('user-input').value;
     if (!userInput.trim()) return;  // Не отправлять пустые сообщения
 
     addMessage(userInput, 'user');
     document.getElementById('user-input').value = '';  // Очистить поле ввода
 
-    const url = "https://api.pawan.krd/cosmosrp/v1/chat/completions";
-    const headers = {
-        "Content-Type": "application/json"
-    };
-    const data = {
-        "model": "cosmosrp",
-        "messages": [
-            {"Программист на html css": "system", "code for website": "You are a fantasy world dungeon master."},
-            {"Программист на html css": "user", "нужды": userInput}
-        ]
-    };
+    const messages = [
+        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "user", "content": userInput}
+    ];
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch('http://localhost:5000/generate', {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify(data)
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ messages })
         });
-        const result = await response.json();
-        const botMessage = result.choices[0].message.content;
+        const botMessage = await response.json();
         addMessage(botMessage, 'bot');
     } catch (error) {
         console.error('Error:', error);
