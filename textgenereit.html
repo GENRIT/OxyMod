@@ -28,17 +28,14 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Fantasy World Dungeon Master</h1>
+    <div class="chat-container">
+        <div id="chat-box" class="chat-box">
+            <!-- Сообщения будут добавлены сюда динамически -->
+        </div>
         <div class="input-area">
-            <label for="user-input">Enter your prompt:</label>
-            <textarea id="user-input"></textarea>
+            <textarea id="user-input" placeholder="Enter your prompt..."></textarea>
+            <button onclick="getResponse()">Send</button>
         </div>
-        <div class="output-area">
-            <label for="response-output">Response:</label>
-            <textarea id="response-output" readonly></textarea>
-        </div>
-        <button onclick="getResponse()">Generate Text</button>
     </div>
     <script src="script.js"></script>
 </body>
