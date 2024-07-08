@@ -95,15 +95,47 @@ button:hover {
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div id="chat-box" class="chat-box">
-            <!-- Сообщения будут добавлены сюда динамически -->
-        </div>
-        <div class="input-area">
-            <textarea id="user-input" placeholder="Ваше сообщение..."></textarea>
-            <button onclick="sendMessage()">Отправить</button>
-        </div>
+    <div class="container">
+        <h1>Eden AI Text Generation</h1>
+        <textarea id="inputText" placeholder="Введите текст для генерации..."></textarea>
+        <button onclick="generateText()">Generate</button>
+        <div class="output" id="outputText"></div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        async function generateText() {
+            const inputText = document.getElementById('inputText').value;
+            const outputText = document.getElementById('outputText');
+            outputText.innerHTML = "Generating...";
+
+            const url = "https://api.edenai.run/v1/pretrained/text/generation";
+            const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjhkYjllYmUtOTJlMC00MGFjLThkMzQtMjE2ZTc4ZmM5MTZhIiwidHlwZSI6ImFwaV90b2tlbiJ9.7Z9OvtEILyi5IEMVFjIo95xnrXRUOYtM00DRLsHnlOo";
+
+            const data = {
+                text: inputText,
+                model: "openai-gpt-3.5-turbo",
+                max_tokens: 100
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${apiKey}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const json = await response.json();
+                    outputText.innerHTML = json.generated_text;
+                } else {
+                    outputText.innerHTML = "Error: " + response.status;
+                }
+            } catch (error) {
+                outputText.innerHTML = "Error: " + error.message;
+            }
+        }
+    </script>
 </body>
 </html>
