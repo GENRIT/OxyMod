@@ -4,12 +4,33 @@
     <title>Генератор пиксельных мечей</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        .canvas-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .canvas-container canvas {
+            margin: 5px;
+            border: 1px solid #000;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="generateAndDownloadSwords()">Сгенерировать и скачать мечи</button>
+    <button onclick="generateAndDisplaySwords()">Сгенерировать и показать мечи</button>
+    <div class="canvas-container" id="canvasContainer"></div>
     <script>
-        async function generateAndDownloadSwords() {
-            const zip = new JSZip();
+        function generateRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function generateAndDisplaySwords() {
+            const container = document.getElementById('canvasContainer');
+            container.innerHTML = '';  // Clear previous swords
 
             for (let i = 0; i < 10; i++) {
                 const canvas = document.createElement('canvas');
@@ -19,41 +40,53 @@
 
                 drawSword(ctx);
 
-                const dataUrl = canvas.toDataURL('image/png');
-                const base64Data = dataUrl.replace(/^data:image\/(png|jpg);base64,/, "");
-                zip.file(`sword${i + 1}.png`, base64Data, { base64: true });
+                container.appendChild(canvas);
             }
-
-            const content = await zip.generateAsync({ type: "blob" });
-            saveAs(content, "swords.zip");
         }
 
         function drawSword(ctx) {
-            const handleColor = "#2C2C2C";
-            const guardColor = "#333333";
-            const bladeColors = ["#4BC6FF", "#70E5FF", "#86F3FF", "#A4FFFF"];
+            const handleColor = generateRandomColor();
+            const guardColor = generateRandomColor();
+            const bladeColors = [generateRandomColor(), generateRandomColor(), generateRandomColor(), generateRandomColor()];
 
-            // Рисуем клинок меча (повернутый на 45 градусов вправо)
-            drawPixel(ctx, 8, 0, bladeColors[0]);
-            drawPixel(ctx, 9, 1, bladeColors[1]);
-            drawPixel(ctx, 10, 2, bladeColors[1]);
-            drawPixel(ctx, 11, 3, bladeColors[2]);
-            drawPixel(ctx, 12, 4, bladeColors[3]);
-            drawPixel(ctx, 13, 5, bladeColors[3]);
-            drawPixel(ctx, 14, 6, bladeColors[2]);
-            drawPixel(ctx, 15, 7, bladeColors[1]);
+            // Рисуем клинок меча
+            const bladePixels = [
+                { x: 7, y: 0, color: bladeColors[0] },
+                { x: 8, y: 1, color: bladeColors[1] },
+                { x: 9, y: 2, color: bladeColors[1] },
+                { x: 10, y: 3, color: bladeColors[2] },
+                { x: 11, y: 4, color: bladeColors[3] },
+                { x: 12, y: 5, color: bladeColors[3] },
+                { x: 13, y: 6, color: bladeColors[2] },
+                { x: 14, y: 7, color: bladeColors[1] }
+            ];
+
+            for (const pixel of bladePixels) {
+                drawPixel(ctx, pixel.x, pixel.y, pixel.color);
+            }
 
             // Рисуем гарду
-            drawPixel(ctx, 7, 1, guardColor);
-            drawPixel(ctx, 6, 2, guardColor);
-            drawPixel(ctx, 5, 3, guardColor);
-            drawPixel(ctx, 4, 4, guardColor);
-            drawPixel(ctx, 3, 5, guardColor);
-            drawPixel(ctx, 2, 6, guardColor);
+            const guardPixels = [
+                { x: 6, y: 7, color: guardColor },
+                { x: 5, y: 8, color: guardColor },
+                { x: 4, y: 9, color: guardColor },
+                { x: 3, y: 10, color: guardColor }
+            ];
+
+            for (const pixel of guardPixels) {
+                drawPixel(ctx, pixel.x, pixel.y, pixel.color);
+            }
 
             // Рисуем рукоятку меча
-            drawPixel(ctx, 1, 7, handleColor);
-            drawPixel(ctx, 0, 8, handleColor);
+            const handlePixels = [
+                { x: 2, y: 11, color: handleColor },
+                { x: 1, y: 12, color: handleColor },
+                { x: 0, y: 13, color: handleColor }
+            ];
+
+            for (const pixel of handlePixels) {
+                drawPixel(ctx, pixel.x, pixel.y, pixel.color);
+            }
         }
 
         function drawPixel(ctx, x, y, color) {
