@@ -161,6 +161,7 @@
             if (testAd.offsetHeight === 0) {
                 adBlockEnabled = true;
                 adblockMessage.style.display = 'block';
+                document.querySelector('.content-container').style.display = 'none'; // Скрыть основное содержимое
             }
             testAd.remove();
         }, 100);
