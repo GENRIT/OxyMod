@@ -1,5 +1,7 @@
 document.getElementById('start-animation').addEventListener('click', () => {
     const head = document.getElementById('head');
+    const leftArm = document.getElementById('left-arm');
+    const rightArm = document.getElementById('right-arm');
     const nickname = document.getElementById('nickname');
     const nicknameInput = document.getElementById('nickname-input').value;
     const glitchColor = document.getElementById('glitch-color').value;
@@ -9,13 +11,19 @@ document.getElementById('start-animation').addEventListener('click', () => {
 
     // Start the fall animation
     head.style.animation = 'fall 1s forwards';
+    leftArm.style.animation = 'fall 1s forwards';
+    rightArm.style.animation = 'fall 1s forwards';
 
     // After fall animation, start the bounce and explode animations
     head.addEventListener('animationend', () => {
         head.style.animation = 'bounce 0.5s infinite alternate';
+        leftArm.style.animation = 'bounce 0.5s infinite alternate';
+        rightArm.style.animation = 'bounce 0.5s infinite alternate';
         
         setTimeout(() => {
             head.style.animation = 'explode 0.5s forwards';
+            leftArm.style.animation = 'explode 0.5s forwards';
+            rightArm.style.animation = 'explode 0.5s forwards';
             
             // After explosion, move nickname into view and start glitch effect
             head.addEventListener('animationend', () => {
@@ -37,10 +45,33 @@ document.getElementById('skin-upload').addEventListener('change', (event) => {
             img.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
-                canvas.width = 256;
-                canvas.height = 256;
-                context.drawImage(img, -8, -8, 64, 64, 0, 0, 256, 256); // Extract and upscale head
-                document.getElementById('head').style.backgroundImage = `url(${canvas.toDataURL()})`;
+                canvas.width = 64;
+                canvas.height = 64;
+                context.drawImage(img, 0, 0, 64, 64);
+
+                // Extract and upscale head
+                const headCanvas = document.createElement('canvas');
+                const headContext = headCanvas.getContext('2d');
+                headCanvas.width = 256;
+                headCanvas.height = 256;
+                headContext.drawImage(canvas, 8, 8, 8, 8, 0, 0, 256, 256);
+                document.getElementById('head').style.backgroundImage = `url(${headCanvas.toDataURL()})`;
+
+                // Extract and upscale left arm
+                const leftArmCanvas = document.createElement('canvas');
+                const leftArmContext = leftArmCanvas.getContext('2d');
+                leftArmCanvas.width = 128;
+                leftArmCanvas.height = 128;
+                leftArmContext.drawImage(canvas, 44, 20, 4, 12, 0, 0, 128, 128);
+                document.getElementById('left-arm').style.backgroundImage = `url(${leftArmCanvas.toDataURL()})`;
+
+                // Extract and upscale right arm
+                const rightArmCanvas = document.createElement('canvas');
+                const rightArmContext = rightArmCanvas.getContext('2d');
+                rightArmCanvas.width = 128;
+                rightArmCanvas.height = 128;
+                rightArmContext.drawImage(canvas, 36, 52, 4, 12, 0, 0, 128, 128);
+                document.getElementById('right-arm').style.backgroundImage = `url(${rightArmCanvas.toDataURL()})`;
             };
             img.src = e.target.result;
         };
