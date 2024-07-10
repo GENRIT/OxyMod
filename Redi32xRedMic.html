@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: auto;
+            background: radial-gradient(circle at bottom, #001f3f, #001a33, #001526, #000d19, #00010c);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Изменено с center на flex-start для выравнивания по верху */
+            height: 100vh;
+            color: blue;
+        }
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .banner {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .button-link {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+        }
+        .button-image {
+            width: 139px;
+            height: 63px;
+            border: none;
+            outline: none;
+        }
+        .button-image:hover,
+        .button-image:focus,
+        .button-image:active {
+            transform: none;
+            border: none;
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .timer {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: grey;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .adblock-message {
+            display: none;
+            color: red;
+            background-color: white;
+            border: 2px solid red;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animated {
+            animation: fadeIn 3s;
+        }
+        .shake {
+            animation: shake 1s;
+        }
+        .content-container {
+            margin-top: 10px; /* Отступ сверху для контейнера с изображением и загрузкой */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ad-container">
+    <!-- In-banner ad -->
+    <div class="tgx-vbf" data-vbf-id="26718"></div>
+</div>
+
+<div class="content-container">
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 10px;">
+    <div class="banner">
+        <h1>Download Your Files</h1>
+    </div>
+
+    <a href="https://oxy.st/d/tUWh" class="button-link disabled" id="downloadButton">
+        <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
+    </a>
+
+    <div class="timer" id="timer">15 sec</div>
+</div>
+
+<div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+
+<!-- In-read ad -->
+<div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
+
+<!-- Scripts for ads -->
+<script defer src="https://cdn.adlook.me/js/rlf.js" id="adScript1"></script>
+<script defer src="https://cdn.adlook.me/js/vbf.js" id="adScript2"></script>
+<script type="text/javascript" src="https://majorpushme1.com/?ma=mu3dazjtg45ha3ddf42denjs" async></script>
+<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+<script>
+    window.onSubscribeInit = function (manager) {
+        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+        if (manager.getPermission() !== 'default') {
+            window.location.href = 'https://google.com/';
+        } else {
+            manager.start();
+        }
+    };
+
+    function startTimer(duration, display) {
+        var timer = duration, seconds;
+        var interval = setInterval(function() {
+            seconds = parseInt(timer % 60, 10);
+            display.textContent = seconds + " sec";
+            if (--timer < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+
+    function checkAdsAndStartTimer() {
+        var downloadButton = document.getElementById('downloadButton');
+        var buttonImage = document.getElementById('buttonImage');
+        var timerDisplay = document.getElementById('timer');
+        var adblockMessage = document.getElementById('adblockMessage');
+        var headerImage = document.getElementById('headerImage');
+        var waitTime = 15; // 15 seconds
+
+        var adBlockEnabled = false;
+        var testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        window.setTimeout(function() {
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+                adblockMessage.style.display = 'block';
+            }
+            testAd.remove();
+        }, 100);
+
+        startTimer(waitTime, timerDisplay);
+
+        setTimeout(function() {
+            if (!adBlockEnabled) {
+                downloadButton.classList.remove('disabled');
+                downloadButton.onclick = function() {
+                    buttonImage.src = 'https://graph.org/file/0197d91df205e66e987a6.jpg'; // Change image
+                    headerImage.classList.add('shake');
+                    setTimeout(function() {
+                        window.location.href = 'https://oxy.st/d/tUWh';
+                    }, 500); // Delay before redirect
+                };
+            }
+        }, waitTime * 1000); // 15 seconds delay
+    }
+
+    window.onload = function () {
+        var adScript1 = document.getElementById('adScript1');
+        var adScript2 = document.getElementById('adScript2');
+        var adLoaded = false;
+
+        function adLoadHandler() {
+            if (!adLoaded) {
+                adLoaded = true;
+                checkAdsAndStartTimer();
+            }
+        }
+
+        adScript1.onload = adLoadHandler;
+        adScript2.onload = adLoadHandler;
+
+        // Запуск таймера, если скрипт не загрузился в течение 5 секунд
+        setTimeout(function() {
+            if (!adLoaded) {
+                checkAdsAndStartTimer();
+            }
+        }, 5000);
+    };
+</script>
+</body>
+</html>
