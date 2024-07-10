@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssemblyAI Transcription</title>
+    <style>
+        body {
+            background-image: url('https://i.imgur.com/3I4gDNb.jpg');
+            background-size: cover;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        #transcription {
+            font-size: 1.5em;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background 0.5s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #f06595, #ff6b6b);
+        }
+    </style>
+</head>
+<body>
+    <h1>AssemblyAI Transcription</h1>
+    <button class="btn" onclick="transcribeAudio()">Transcribe Audio</button>
+    <div id="transcription">Your transcription will appear here...</div>
+
+    <script>
+        async function transcribeAudio() {
+            const apiKey = '327dc407c67648318c64646a63395d54';
+            const audioUrl = 'https://storage.googleapis.com/aai-web-samples/news.mp4';
+
+            const response = await fetch('https://api.assemblyai.com/v2/transcript', {
+                method: 'POST',
+                headers: {
+                    'authorization': apiKey,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'audio_url': audioUrl
+                })
+            });
+
+            const json = await response.json();
+            const transcriptId = json.id;
+
+            let transcript = 'Transcription in progress...';
+            document.getElementById('transcription').innerText = transcript;
+
+            while (transcript === 'Transcription in progress...') {
+                const transcriptResponse = await fetch(`https://api.assemblyai.com/v2/transcript/${transcriptId}`, {
+                    method: 'GET',
+                    headers: {
+                        'authorization': apiKey
+                    }
+                });
+                const transcriptJson = await transcriptResponse.json();
+
+                if (transcriptJson.status === 'completed') {
+                    transcript = transcriptJson.text;
+                } else if (transcriptJson.status === 'failed') {
+                    transcript = 'Transcription failed.';
+                } else {
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                }
+
+                document.getElementById('transcription').innerText = transcript;
+            }
+        }
+    </script>
+</body>
+</html>
