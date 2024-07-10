@@ -2,8 +2,10 @@ document.getElementById('start-animation').addEventListener('click', () => {
     const head = document.getElementById('head');
     const nickname = document.getElementById('nickname');
     const nicknameInput = document.getElementById('nickname-input').value;
+    const glitchColor = document.getElementById('glitch-color').value;
     
     nickname.textContent = nicknameInput;
+    nickname.style.color = glitchColor;
 
     // Start the fall animation
     head.style.animation = 'fall 1s forwards';
@@ -15,11 +17,11 @@ document.getElementById('start-animation').addEventListener('click', () => {
         setTimeout(() => {
             head.style.animation = 'explode 0.5s forwards';
             
-            // After explosion, move nickname into view
+            // After explosion, move nickname into view and start glitch effect
             head.addEventListener('animationend', () => {
                 nickname.style.left = '50%';
                 nickname.style.transform = 'translateX(-50%)';
-                addStars();
+                nickname.style.animation = 'glitch 1s infinite';
             });
         }, 1000);
     });
@@ -37,7 +39,7 @@ document.getElementById('skin-upload').addEventListener('change', (event) => {
                 const context = canvas.getContext('2d');
                 canvas.width = 256;
                 canvas.height = 256;
-                context.drawImage(img, -8, -8, 256, 256);
+                context.drawImage(img, -8, -8, 64, 64, 0, 0, 256, 256); // Extract and upscale head
                 document.getElementById('head').style.backgroundImage = `url(${canvas.toDataURL()})`;
             };
             img.src = e.target.result;
@@ -45,17 +47,6 @@ document.getElementById('skin-upload').addEventListener('change', (event) => {
         reader.readAsDataURL(file);
     }
 });
-
-function addStars() {
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 50; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.top = Math.random() * window.innerHeight + 'px';
-        star.style.left = Math.random() * window.innerWidth + 'px';
-        starsContainer.appendChild(star);
-    }
-}
 
 // Handle video download
 document.getElementById('download-video').addEventListener('click', async () => {
