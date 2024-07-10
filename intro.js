@@ -19,6 +19,7 @@ document.getElementById('start-animation').addEventListener('click', () => {
             head.addEventListener('animationend', () => {
                 nickname.style.left = '50%';
                 nickname.style.transform = 'translateX(-50%)';
+                addStars();
             });
         }, 1000);
     });
@@ -34,13 +35,50 @@ document.getElementById('skin-upload').addEventListener('change', (event) => {
             img.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
-                canvas.width = 8;
-                canvas.height = 8;
-                context.drawImage(img, -8, -8);
+                canvas.width = 256;
+                canvas.height = 256;
+                context.drawImage(img, -8, -8, 256, 256);
                 document.getElementById('head').style.backgroundImage = `url(${canvas.toDataURL()})`;
             };
             img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
+});
+
+function addStars() {
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = Math.random() * window.innerHeight + 'px';
+        star.style.left = Math.random() * window.innerWidth + 'px';
+        starsContainer.appendChild(star);
+    }
+}
+
+// Handle video download
+document.getElementById('download-video').addEventListener('click', async () => {
+    const container = document.getElementById('animation-container');
+    const frames = [];
+    
+    for (let i = 0; i < 120; i++) { // Capture 120 frames (4 seconds at 30 fps)
+        const canvas = await html2canvas(container);
+        frames.push(canvas);
+    }
+
+    const ffmpeg = FFmpeg.createFFmpeg({ log: true });
+    await ffmpeg.load();
+    
+    frames.forEach((canvas, i) => {
+        ffmpeg.FS('writeFile', `frame${i}.png`, new Uint8Array(canvas.toDataURL('image/png').split(',')[1].map(c => c.charCodeAt(0))));
+    });
+
+    await ffmpeg.run('-framerate', '30', '-i', 'frame%d.png', '-pix_fmt', 'yuv420p', 'intro.mp4');
+
+    const data = ffmpeg.FS('readFile', 'intro.mp4');
+    const video = document.createElement('a');
+    video.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    video.download = 'intro.mp4';
+    video.click();
 });
