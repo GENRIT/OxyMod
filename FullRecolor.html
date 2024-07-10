@@ -5,105 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Full Recolor</title>
     <style>
-        /* Основные стили для тела страницы */
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #000000;
-        }
+/* Основные стили для тела страницы */
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #000000;
+}
 
-        /* Контейнер с тенью и закругленными краями */
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-            margin: 20px auto;
-            color: #ffffff;
-            position: relative;
-            z-index: 1;
-        }
+/* Контейнер с тенью и закругленными краями */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    margin: 20px auto;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
 
-        /* Заголовок с современным стилем */
-        .container h1 {
-            color: #ffffff;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+/* Заголовок с современным стилем */
+.container h1 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 
-        /* Кнопки загрузки и конвертации с минималистичным дизайном */
-        .upload-btn {
-            background: #007aff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: #ffffff;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            width: 100%;
-            max-width: 100%;
-            transition: background 0.3s ease;
-        }
+/* Кнопки загрузки и конвертации с галактическим стилем */
+.upload-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
 
-        /* Эффект наведения для кнопок */
-        .upload-btn:hover {
-            background: #005bb5;
-        }
+/* Эффект наведения для кнопок */
+.upload-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.7);
+}
 
-        /* Выпадающий список с минималистичным стилем */
-        .color-select {
-            margin: 20px 0;
-            text-align: left;
-        }
+/* Выпадающий список с минималистичным стилем */
+.color-select {
+    margin: 20px 0;
+    text-align: left;
+}
 
-        /* Метка для выпадающего списка */
-        .color-select label {
-            color: #ffffff;
-            font-size: 16px;
-            margin-right: 10px;
-        }
+/* Метка для выпадающего списка */
+.color-select label {
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 10px;
+}
 
-        /* Стили для выпадающего списка */
-        .color-select select {
-            background: #333333;
-            border: 1px solid #666666;
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 16px;
-            color: #ffffff;
-            transition: border-color 0.3s ease;
-        }
+/* Стили для выпадающего списка */
+.color-select select {
+    background: #333333;
+    border: 1px solid #666666;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #ffffff;
+    transition: border-color 0.3s ease;
+}
 
-        /* Эффект фокуса для выпадающего списка */
-        .color-select select:focus {
-            border-color: #007aff;
-            outline: none;
-        }
+/* Эффект фокуса для выпадающего списка */
+.color-select select:focus {
+    border-color: #007aff;
+    outline: none;
+}
 
-        /* Стили для лоадера */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #007aff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 2s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-        }
+/* Стили для лоадера */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007aff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
 
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
     </style>
 </head>
 <body>
