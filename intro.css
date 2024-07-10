@@ -3,15 +3,15 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: #000;
+    background-color: #008000; /* Green background */
 }
 
 #head {
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 256px;
+    height: 256px;
     background-size: cover;
-    top: -64px;
+    top: -256px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -27,8 +27,24 @@
     transition: left 2s;
 }
 
+#stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    animation: fly 3s linear infinite;
+}
+
 @keyframes fall {
-    0% { top: -64px; }
+    0% { top: -256px; }
     100% { top: 50%; transform: translate(-50%, -50%) rotate(360deg); }
 }
 
@@ -40,4 +56,15 @@
 @keyframes explode {
     0% { transform: scale(1); }
     100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes fly {
+    from {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100vh) translateX(100vw);
+        opacity: 0;
+    }
 }
