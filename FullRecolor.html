@@ -10,29 +10,33 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: #000000;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: #ffffff;
 }
 
 /* Контейнер с тенью и закругленными краями */
 .container {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     padding: 40px;
     text-align: center;
     max-width: 400px;
     width: 100%;
     margin: 20px auto;
-    color: #ffffff;
     position: relative;
     z-index: 1;
+    backdrop-filter: blur(10px);
 }
 
 /* Заголовок с современным стилем */
 .container h1 {
-    color: #000000;
-    font-size: 24px;
+    color: #ffffff;
+    font-size: 28px;
     margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Кнопки загрузки и конвертации с галактическим стилем */
@@ -47,13 +51,14 @@ body {
     margin-top: 10px;
     width: 100%;
     max-width: 100%;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 /* Эффект наведения для кнопок */
 .upload-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
 }
 
 /* Выпадающий список с минималистичным стилем */
@@ -71,8 +76,8 @@ body {
 
 /* Стили для выпадающего списка */
 .color-select select {
-    background: #333333;
-    border: 1px solid #666666;
+    background: rgba(51, 51, 51, 0.9);
+    border: 1px solid rgba(102, 102, 102, 0.7);
     border-radius: 8px;
     padding: 8px 12px;
     font-size: 16px;
@@ -88,7 +93,7 @@ body {
 
 /* Стили для лоадера */
 .loader {
-    border: 4px solid #f3f3f3;
+    border: 4px solid rgba(255, 255, 255, 0.3);
     border-top: 4px solid #007aff;
     border-radius: 50%;
     width: 40px;
