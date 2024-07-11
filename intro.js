@@ -91,11 +91,20 @@ document.getElementById('download-video').addEventListener('click', async () => 
 
     const ffmpeg = FFmpeg.createFFmpeg({ log: true });
     await ffmpeg.load();
-    
-    frames.forEach((canvas, i) => {
-        ffmpeg.FS('writeFile', `frame${i}.png`, new Uint8Array(canvas.toDataURL('image/png').split(',')[1].map(c => c.charCodeAt(0))));
-    });
 
+    // Write frames to FFmpeg filesystem
+    for (let i = 0; i < frames.length; i++) {
+        const dataURL = frames[i].toDataURL('image/png');
+        const byteString = atob(dataURL.split(',')[1]);
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const uintArray = new Uint8Array(arrayBuffer);
+        for (let j = 0; j < byteString.length; j++) {
+            uintArray[j] = byteString.charCodeAt(j);
+        }
+        await ffmpeg.FS('writeFile', `frame${i}.png`, uintArray);
+    }
+
+    // Convert frames to video
     await ffmpeg.run('-framerate', '30', '-i', 'frame%d.png', '-pix_fmt', 'yuv420p', 'intro.mp4');
 
     const data = ffmpeg.FS('readFile', 'intro.mp4');
