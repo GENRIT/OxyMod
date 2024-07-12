@@ -260,25 +260,26 @@ function convertImages() {
                             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                             const data = imageData.data;
 
-                            // Преобразование изображения в выбранный оттенок
-                            for (let i = 0; i < data.length; i += 4) {
-                                const r = data[i];
-                                const g = data[i + 1];
-                                const b = data[i + 2];
+// Преобразование изображения в выбранный оттенок
+for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
 
-                                // Преобразование RGB в HSV
-                                const hsv = rgbToHsv(r, g, b);
-                                // Установка оттенка на выбранный цвет
-                                if (customR && customG && customB) {
-                                    const customHSV = rgbToHsv(parseInt(customR), parseInt(customG), parseInt(customB));
-                                    hsv[0] = customHSV[0];
-                                    hsv[1] = Math.min(hsv[1] * 0.3, 1); // Уменьшенная насыщенность
-                                    hsv[2] = Math.min(hsv[2] * 0.1, 1); // Значительно уменьшенная яркость
-                                } else {
-                                    hsv[0] = selectedColor / 360;
-                                    hsv[1] = Math.min(hsv[1] * 0.3, 1); // Уменьшенная насыщенность
-                                    hsv[2] = Math.min(hsv[2] * 0.1, 1); // Значительно уменьшенная яркость
-                                }
+    // Преобразование RGB в HSV
+    const hsv = rgbToHsv(r, g, b);
+    // Установка оттенка на выбранный цвет
+    if (customR && customG && customB) {
+        const customHSV = rgbToHsv(parseInt(customR), parseInt(customG), parseInt(customB));
+        hsv[0] = customHSV[0];
+        hsv[1] = Math.min(hsv[1] * 0.7614988159145482, 1); // Насыщенность, взятая с брони
+        hsv[2] = Math.min(hsv[2] * 0.5709709803921569, 1); // Яркость, взятая с брони
+    } else {
+        hsv[0] = selectedColor / 360;
+        hsv[1] = Math.min(hsv[1] * 0.7614988159145482, 1); // Насыщенность, взятая с брони
+        hsv[2] = Math.min(hsv[2] * 0.5709709803921569, 1); // Яркость, взятая с брони
+    }
+}
 
                                 // Преобразование обратно в RGB
                                 const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
