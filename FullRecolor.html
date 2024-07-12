@@ -113,24 +113,24 @@ body {
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Full Recolor</h1>
-        <input type="file" id="fileInput" class="upload-btn" accept=".zip">
-        <div class="color-select">
-            <label for="color">Выбери цвет:</label>
-            <select id="color">
-                <option value="270">Purple</option>
-                <option value="0">Red</option>
-                <option value="30">Orange</option>
-                <option value="60">Yellow</option>
-                <option value="120">Green</option>
-                <option value="180">Turquoise</option>
-                <option value="240">Blue</option>
-            </select>
-        </div>
-        <button class="upload-btn" onclick="convertImages()">»НАЧАТЬ«</button>
-        <div class="loader" id="loader"></div>
+<div class="container">
+    <h1>Full Recolor</h1>
+    <input type="file" id="fileInput" class="upload-btn" accept=".zip">
+    <div class="color-select">
+        <label for="color">Выбери цвет:</label>
+        <select id="color">
+            <option value="270">Purple</option>
+            <option value="0" data-r="150" data-g="41" data-b="41">Red</option>
+            <option value="30">Orange</option>
+            <option value="60">Yellow</option>
+            <option value="120">Green</option>
+            <option value="180">Turquoise</option>
+            <option value="240">Blue</option>
+        </select>
     </div>
+    <button class="upload-btn" onclick="convertImages()">»НАЧАТЬ«</button>
+    <div class="loader" id="loader"></div>
+</div>
     <canvas id="stars"></canvas>
     <div id="galaxy"></div>
     <style>
@@ -219,105 +219,142 @@ body {
         resizeCanvas();
         animateStars();
 
+function convertImages() {
+    const fileInput = document.getElementById('fileInput');
+    const loader = document.getElementById('loader');
+    if (fileInput.files.length === 0) {
+        alert('Жду .zip файл с Изображениями');
+        return;
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jszip-utils@0.1.0/dist/jszip-utils.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-    <script>
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                JSZip.loadAsync(file).then(async function(zip) {
-                    const transformedZip = new JSZip();
-                    const files = zip.file(/.*/);
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-                        const content = await file.async("blob");
-                        const img = await loadImage(content);
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        const data = imageData.data;
+    loader.style.display = 'block'; // Показать лоадер
 
-                        // Set target red color from the armor
-                        const targetRed = { r: 230, g: 0, b: 0 }; // примерный цвет брони игрока
-                        const [targetH, targetS, targetV] = rgbToHsv(targetRed.r, targetRed.g, targetRed.b);
+    const file = fileInput.files[0];
+    const reader = new FileReader();
 
-                        for (let j = 0; j < data.length; j += 4) {
-                            let [r, g, b] = [data[j], data[j + 1], data[j + 2]];
-                            let [h, s, v] = rgbToHsv(r, g, b);
+    reader.onload = function(event) {
+        const jszip = new JSZip();
+        jszip.loadAsync(event.target.result).then(zip => {
+            const newZip = new JSZip();
+            const promises = [];
+            const colorSelect = document.getElementById('color');
+            const selectedColor = colorSelect.value;
+            const selectedOption = colorSelect.options[colorSelect.selectedIndex];
+            const customR = selectedOption.getAttribute('data-r');
+            const customG = selectedOption.getAttribute('data-g');
+            const customB = selectedOption.getAttribute('data-b');
 
-                            // Replace hue with target red hue
-                            h = targetH;
-                            s = Math.min(1, s * 1.2); // Slightly increase saturation
-                            v = Math.min(1, v * 1.1); // Slightly increase brightness
+            zip.forEach((relativePath, file) => {
+                const promise = file.async('base64').then(content => {
+                    return new Promise(resolve => {
+                        const img = new Image();
+                        img.src = 'data:image/png;base64,' + content;
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
 
-                            [r, g, b] = hsvToRgb(h, s, v);
-                            [data[j], data[j + 1], data[j + 2]] = [r, g, b];
-                        }
-                        ctx.putImageData(imageData, 0, 0);
-                        const newDataUrl = canvas.toDataURL();
-                        const newBlob = await (await fetch(newDataUrl)).blob();
-                        transformedZip.file(file.name, newBlob);
-                    }
-                    transformedZip.generateAsync({ type: "blob" }).then(function(content) {
-                        saveAs(content, "transformed_images.zip");
-                        document.getElementById('downloadButton').style.display = 'block';
+                            // Получение данных изображения
+                            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            const data = imageData.data;
+
+                            // Преобразование изображения в выбранный оттенок
+                            for (let i = 0; i < data.length; i += 4) {
+                                const r = data[i];
+                                const g = data[i + 1];
+                                const b = data[i + 2];
+
+                                // Преобразование RGB в HSV
+                                const hsv = rgbToHsv(r, g, b);
+                                // Установка оттенка на выбранный цвет
+                                if (customR && customG && customB) {
+                                    const customHSV = rgbToHsv(parseInt(customR), parseInt(customG), parseInt(customB));
+                                    hsv[0] = customHSV[0];
+                                    hsv[1] = customHSV[1];
+                                    hsv[2] = Math.min(hsv[2] * 1.2, 1); // Легкое осветление изображения
+                                } else {
+                                    hsv[0] = selectedColor / 360;
+                                    hsv[1] = Math.min(hsv[1] * 0.8, 1); // Слегка уменьшенная насыщенность
+                                    hsv[2] = Math.min(hsv[2] * 1.2, 1); // Легкое осветление изображения
+                                }
+
+                                // Преобразование обратно в RGB
+                                const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
+
+                                data[i] = rgb[0];
+                                data[i + 1] = rgb[1];
+                                data[i + 2] = rgb[2];
+                            }
+
+                            // Обновление данных изображения
+                            ctx.putImageData(imageData, 0, 0);
+
+                            // Преобразование canvas обратно в blob
+                            canvas.toBlob(blob => {
+                                newZip.file(relativePath, blob);
+                                resolve();
+                            });
+                        };
                     });
                 });
-            }
-        });
-
-        function loadImage(blob) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = reject;
-                img.src = URL.createObjectURL(blob);
+                promises.push(promise);
             });
-        }
 
-        function rgbToHsv(r, g, b) {
-            r /= 255, g /= 255, b /= 255;
-            const max = Math.max(r, g, b), min = Math.min(r, g, b);
-            let h, s, v = max;
-            const d = max - min;
-            s = max === 0 ? 0 : d / max;
-            if (max === min) {
-                h = 0; // achromatic
-            } else {
-                switch (max) {
-                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                    case g: h = (b - r) / d + 2; break;
-                    case b: h = (r - g) / d + 4; break;
-                }
-                h /= 6;
-            }
-            return [h, s, v];
-        }
+            Promise.all(promises).then(() => {
+                newZip.generateAsync({ type: 'blob' }).then(blob => {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = 'converted_images.zip';
+                    downloadLink.click();
+                    loader.style.display = 'none'; // Скрыть лоадер после завершения
+                });
+            });
+        });
+    };
 
-        function hsvToRgb(h, s, v) {
-            let r, g, b;
-            const i = Math.floor(h * 6);
-            const f = h * 6 - i;
-            const p = v * (1 - s);
-            const q = v * (1 - f * s);
-            const t = v * (1 - (1 - f) * s);
-            switch (i % 6) {
-                case 0: r = v, g = t, b = p; break;
-                case 1: r = q, g = v, b = p; break;
-                case 2: r = p, g = v, b = t; break;
-                case 3: r = p, g = q, b = v; break;
-                case 4: r = t, g = p, b = v; break;
-                case 5: r = v, g = p, b = q; break;
-            }
-            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-        }
-    </script>
+    reader.readAsArrayBuffer(file);
+}
 
+function rgbToHsv(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, v = max;
+    const d = max - min;
+    s = max === 0 ? 0 : d / max;
+    if (max === min) {
+        h = 0;
+    } else {
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    return [h, s, v];
+}
+
+function hsvToRgb(h, s, v) {
+    let r, g, b;
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 
     <style>
         body {
