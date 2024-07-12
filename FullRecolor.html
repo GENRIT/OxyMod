@@ -272,12 +272,12 @@ function convertImages() {
                                 if (customR && customG && customB) {
                                     const customHSV = rgbToHsv(parseInt(customR), parseInt(customG), parseInt(customB));
                                     hsv[0] = customHSV[0];
-                                    hsv[1] = customHSV[1];
-                                    hsv[2] = Math.min(hsv[2] * 1.2, 1); // Легкое осветление изображения
+                                    hsv[1] = Math.min(hsv[1] * 0.3, 1); // Уменьшенная насыщенность
+                                    hsv[2] = Math.min(hsv[2] * 0.1, 1); // Значительно уменьшенная яркость
                                 } else {
                                     hsv[0] = selectedColor / 360;
-                                    hsv[1] = Math.min(hsv[1] * 0.3, 1); // Слегка уменьшенная насыщенность
-                                    hsv[2] = Math.min(hsv[2] * 1.0, 1); // Легкое осветление изображения
+                                    hsv[1] = Math.min(hsv[1] * 0.3, 1); // Уменьшенная насыщенность
+                                    hsv[2] = Math.min(hsv[2] * 0.1, 1); // Значительно уменьшенная яркость
                                 }
 
                                 // Преобразование обратно в RGB
