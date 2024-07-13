@@ -126,6 +126,7 @@ body {
                 <option value="120">Green</option>
                 <option value="180">Turquoise</option>
                 <option value="240">Blue</option>
+                <option value="0">White</option>
             </select>
         </div>
         <button class="upload-btn" onclick="convertImages()">»НАЧАТЬ«</button>
@@ -264,12 +265,9 @@ body {
 
                                     // Преобразование RGB в HSV
                                     const hsv = rgbToHsv(r, g, b);
-                                    // Установка оттенка на выбранный цвет
-                                    hsv[0] = selectedColor / 360;
-                                    hsv[1] = Math.min(hsv[1] * 0.8, 1); // Слегка уменьшенная насыщенность
-                                    hsv[2] = Math.min(hsv[2] * 1.2, 1); // Легкое осветление изображения
+                                    hsv[0] = selectedColor; // Установка нового оттенка
 
-                                    // Преобразование обратно в RGB
+                                    // Преобразование HSV обратно в RGB
                                     const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
 
                                     data[i] = rgb[0];
@@ -277,10 +275,9 @@ body {
                                     data[i + 2] = rgb[2];
                                 }
 
-                                // Обновление данных изображения
                                 ctx.putImageData(imageData, 0, 0);
 
-                                // Преобразование canvas обратно в blob
+                                // Добавление нового изображения в zip
                                 canvas.toBlob(blob => {
                                     newZip.file(relativePath, blob);
                                     resolve();
@@ -292,12 +289,13 @@ body {
                 });
 
                 Promise.all(promises).then(() => {
-                    newZip.generateAsync({ type: 'blob' }).then(blob => {
+                    newZip.generateAsync({ type: 'blob' }).then(content => {
                         const downloadLink = document.createElement('a');
-                        downloadLink.href = URL.createObjectURL(blob);
+                        downloadLink.href = URL.createObjectURL(content);
                         downloadLink.download = 'converted_images.zip';
                         downloadLink.click();
-                        loader.style.display = 'none'; // Скрыть лоадер после завершения
+
+                        loader.style.display = 'none'; // Скрыть лоадер
                     });
                 });
             });
@@ -306,9 +304,13 @@ body {
         reader.readAsArrayBuffer(file);
     }
 
+    // Преобразование RGB в HSV
     function rgbToHsv(r, g, b) {
-        r /= 255, g /= 255, b /= 255;
-        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
         let h, s, v = max;
         const d = max - min;
         s = max === 0 ? 0 : d / max;
@@ -322,119 +324,27 @@ body {
             }
             h /= 6;
         }
-        return [h, s, v];
+        return [h * 360, s, v];
     }
 
+    // Преобразование HSV в RGB
     function hsvToRgb(h, s, v) {
         let r, g, b;
-        const i = Math.floor(h * 6);
-        const f = h * 6 - i;
+        const i = Math.floor(h / 60);
+        const f = h / 60 - i;
         const p = v * (1 - s);
         const q = v * (1 - f * s);
         const t = v * (1 - (1 - f) * s);
         switch (i % 6) {
-            case 0: r = v, g = t, b = p; break;
-            case 1: r = q, g = v, b = p; break;
-            case 2: r = p, g = v, b = t; break;
-            case 3: r = p, g = q, b = v; break;
-            case 4: r = t, g = p, b = v; break;
-            case 5: r = v, g = p, b = q; break;
+            case 0: r = v; g = t; b = p; break;
+            case 1: r = q; g = v; b = p; break;
+            case 2: r = p; g = v; b = t; break;
+            case 3: r = p; g = q; b = v; break;
+            case 4: r = t; g = p; b = v; break;
+            case 5: r = v; g = p; b = q; break;
         }
         return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
     }
 </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
-
-
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #000;
-            color: #fff;
-            font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
-        }
-        .glitch {
-            position: relative;
-            font-size: 48px;
-            animation: glitch-animation 1s infinite;
-        }
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            animation: glitch-animation 1s infinite;
-        }
-        .glitch::before {
-            color: red;
-            z-index: -1;
-            clip: rect(0, 900px, 0, 0);
-        }
-        .glitch::after {
-            color: blue;
-            z-index: -2;
-            clip: rect(0, 0, 0, 900px);
-        }
-        @keyframes glitch-animation {
-            0% {
-                clip: rect(20px, 9999px, 85px, 0);
-                transform: skew(0.3deg);
-            }
-            10% {
-                clip: rect(85px, 9999px, 75px, 0);
-                transform: skew(0.8deg);
-            }
-            20% {
-                clip: rect(30px, 9999px, 65px, 0);
-                transform: skew(0.5deg);
-            }
-            30% {
-                clip: rect(75px, 9999px, 90px, 0);
-                transform: skew(0.2deg);
-            }
-            40% {
-                clip: rect(90px, 9999px, 45px, 0);
-                transform: skew(0.6deg);
-            }
-            50% {
-                clip: rect(45px, 9999px, 95px, 0);
-                transform: skew(0.4deg);
-            }
-            60% {
-                clip: rect(95px, 9999px, 55px, 0);
-                transform: skew(0.1deg);
-            }
-            70% {
-                clip: rect(55px, 9999px, 20px, 0);
-                transform: skew(0.7deg);
-            }
-            80% {
-                clip: rect(20px, 9999px, 80px, 0);
-                transform: skew(0.5deg);
-            }
-            90% {
-                clip: rect(80px, 9999px, 60px, 0);
-                transform: skew(0.3deg);
-            }
-            100% {
-                clip: rect(60px, 9999px, 40px, 0);
-                transform: skew(0.6deg);
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="glitch" data-text="Glitch Effect">Glitch Effect</div>
-
-    <script>
-        // JavaScript can be used to dynamically change the text if needed
-        const glitchElement = document.querySelector('.glitch');
-        glitchElement.textContent = 'New Color Pack';
-        glitchElement.setAttribute('data-text', 'New Color Pack');
-    </script>
 </body>
 </html>
