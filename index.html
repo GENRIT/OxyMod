@@ -31,126 +31,352 @@
   gtag('config', 'G-4MJ1WYC4WQ');
 </script>
 
-<nav class="navbar">
-    <div class="menu-dots">☰</div>
-    <div class="dropdown-menu">
-        <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
-        <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --neumorphic-light: #e0e0e0;
+            --neumorphic-dark: #bebebe;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--neumorphic-light);
+            transition: background-color 0.3s ease;
+        }
+
+        .neumorphic {
+            background: var(--neumorphic-light);
+            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .neumorphic:hover {
+            box-shadow: inset 5px 5px 10px var(--neumorphic-dark), inset -5px -5px 10px #ffffff;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem;
+            background: rgba(224, 224, 224, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-dots {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: var(--neumorphic-light);
+            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu img {
+            width: 24px;
+            height: 24px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .item {
+            flex: 0 0 auto;
+            width: 300px;
+            scroll-snap-align: start;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .description {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .button-link {
+            margin-left: auto;
+        }
+
+        .button-image {
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer {
+            background: var(--neumorphic-light);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .join-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .join-btn:hover {
+            background: #45a049;
+        }
+
+        #darkModeToggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--neumorphic-light);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        #darkModeToggle:hover {
+            box-shadow: inset 5px 5px 10px var(--neumorphic-dark), inset -5px -5px 10px #ffffff;
+        }
+
+        .dark-mode {
+            --neumorphic-light: #333333;
+            --neumorphic-dark: #292929;
+            color: #ffffff;
+        }
+
+        .dark-mode .navbar {
+            background: rgba(51, 51, 51, 0.8);
+        }
+
+        .dark-mode .dropdown-menu a {
+            color: #ffffff;
+        }
+
+        .dark-mode .join-btn {
+            background: #45a049;
+        }
+
+        .dark-mode .join-btn:hover {
+            background: #4CAF50;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="navbar neumorphic">
+        <div class="menu-dots">☰</div>
+        <div class="dropdown-menu">
+            <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
+            <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+        </div>
+    </nav>
+
+    <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
+
+    <script>
+        window.onSubscribeInit = function (manager) {
+            if (manager.getPermission() !== 'default') {
+                window.location.href = 'https://google.com/';
+            } else {
+                manager.start();
+            }
+        };
+    </script>
+    <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+    <img src="https://picsum.photos/2000/600?random=1" alt="OxyMod" id="headerImage1" class="w-full h-auto object-cover mb-8 mt-16">
+
+    <div class="ad-container">
+        <div class="tgx-vbf" data-vbf-id="26764"></div>
     </div>
-</nav>
 
-<script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
+    <div class="container mx-auto px-4">
+        <!-- Posts will be added here through JavaScript -->
+    </div>
 
-<script>
-    window.onSubscribeInit = function (manager) {
-        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
-        if (manager.getPermission() !== 'default') {
-            window.location.href = 'https://google.com/';
-        } else {
-            manager.start();
-        }
-    };
-</script>
-<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+    <div class="footer neumorphic">
+        <p class="mb-2">
+            <span lang="ru">Создаете Текстур Паки, от которых захватывает дух?</span>
+            <span lang="en">Do you create Texture Packs that take your breath away?</span>
+        </p>
+        <p class="mb-4">
+            <span lang="ru">Тогда вам к нам!</span>
+            <span lang="en">Then join us!</span>
+        </p>
+        <button class="join-btn neumorphic" lang="en">Join Us</button>
+        <button class="join-btn neumorphic" lang="ru">Присоединиться</button>
+    </div>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+    <button id="darkModeToggle">🌓</button>
 
-<!-- Рекламный блок -->
-<div class="ad-container">
-    <div class="tgx-vbf" data-vbf-id="26764"></div>
-</div>
+    <script>
+        document.querySelector('.menu-dots').addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('show');
+        });
 
-<div class="container">
-    <!-- Посты будут добавлены сюда через JavaScript -->
-</div>
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
 
-<div class="footer">
-  &copy; <span lang="ru">Создаете Текстур Паки, от которых захватывает дух?</span>
-  <span lang="en">Do you create Texture Packs that take your breath away?</span>
-  <br>
-  <span lang="ru">Тогда вам к нам!</span>
-  <span lang="en">Then join us!</span>
-  <button class="join-btn" lang="en">Join Us</button>
-  <button class="join-btn" lang="ru">Присоединиться</button>
-</div>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('posts.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(posts => {
+                    console.log('Posts loaded:', posts);
 
-<!-- Скрипт для работы меню -->
-<script>
-    document.querySelector('.menu-dots').addEventListener('click', function() {
-        document.querySelector('.dropdown-menu').classList.toggle('show');
-    });
+                    posts.sort((a, b) => b.views - a.views);
 
-    document.addEventListener('click', (event) => {
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
-            dropdownMenu.classList.remove('show');
-        }
-    });
-</script>
-
-<!-- Скрипт для динамического отображения постов -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('posts.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(posts => {
-                console.log('Posts loaded:', posts);
-
-                // Сортируем посты по количеству просмотров
-                posts.sort((a, b) => b.views - a.views);
-
-                const container = document.querySelector('.container');
-                if (!container) {
-                    console.error('Container not found');
-                    return;
-                }
-
-                let block;
-
-                posts.forEach((post, index) => {
-                    // Создаем новый блок для каждых трех постов
-                    if (index % 3 === 0) {
-                        block = document.createElement('div');
-                        block.classList.add('scroll-container');
-                        container.appendChild(block);
+                    const container = document.querySelector('.container');
+                    if (!container) {
+                        console.error('Container not found');
+                        return;
                     }
 
-                    const item = document.createElement('div');
-                    item.classList.add('item');
+                    let block;
 
-                    item.innerHTML = `
-                        <div class="image-container">
-                            <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
-                        </div>
-                        <div class="description">
-                            <img class="avatar" src="${post.avatar}" alt="Avatar">
-                            <div>
-                                <p>${post.author}</p>
-                                <p>${post.type}</p>
-                                <p>${post.title}</p>
+                    posts.forEach((post, index) => {
+                        if (index % 3 === 0) {
+                            block = document.createElement('div');
+                            block.classList.add('scroll-container');
+                            container.appendChild(block);
+                        }
+
+                        const item = document.createElement('div');
+                        item.classList.add('item', 'neumorphic');
+
+                        item.innerHTML = `
+                            <div class="image-container">
+                                <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
                             </div>
-                            <a href="${post.link}" class="button-link">
-                                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
-                            </a>
-                        </div>
-                    `;
+                            <div class="description">
+                                <img class="avatar" src="${post.avatar}" alt="Avatar">
+                                <div>
+                                    <p class="font-bold">${post.author}</p>
+                                    <p class="text-sm text-gray-600">${post.type}</p>
+                                    <p class="text-lg">${post.title}</p>
+                                </div>
+                                <a href="${post.link}" class="button-link">
+                                    <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                                </a>
+                            </div>
+                        `;
 
-                    block.appendChild(item);
-                });
-            })
-            .catch(error => console.error('Error loading posts:', error));
-    });
-</script>
+                        block.appendChild(item);
+                    });
 
-<!-- Скрипт для встраивания рекламного блока -->
-<script defer src="https://cdn.adlook.me/js/vbf.js"></script>
-<script defer src="https://cdn.adlook.me/js/rlf.js"></script>
+                    // Initialize animations
+                    gsap.from(".item", {
+                        duration: 1,
+                        opacity: 0,
+                        y: 50,
+                        stagger: 0.2,
+                        ease: "power3.out"
+                    });
+                })
+                .catch(error => console.error('Error loading posts:', error));
+        });
 
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // 3D background animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+
+    <script defer src="https://cdn.adlook.me/js/vbf.js"></script>
+    <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
 </body>
 </html>
 
