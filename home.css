@@ -230,4 +230,55 @@ body {
     }
 }
 
+/* New Footer Styles */
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.footer span {
+    font-size: 14px;
+}
+
+.join-btn {
+    display: block;
+    margin: 20px auto;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.join-btn:hover {
+    background-color: #0069d9;
+    transform: scale(1.05);
+}
+
+/* Language-specific display rules */
+[lang="ru"] .footer span[lang="en"],
+[lang="ru"] .join-btn[lang="en"] {
+    display: none;
+}
+
+:not([lang="ru"]) .footer span[lang="ru"],
+:not([lang="ru"]) .join-btn[lang="ru"] {
+    display: none;
+}
+
+.ad-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 </style>
