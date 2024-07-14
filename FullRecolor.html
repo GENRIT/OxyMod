@@ -16,7 +16,7 @@
         button { background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; border-radius: 5px; }
         #colorContainer { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
         .color-item { display: flex; align-items: center; }
-        #preview { max-width: 100%; height: auto; margin-top: 20px; }
+        #preview { max-width: 100%; height: auto; margin-top: 20px; display: none; }
     </style>
 </head>
 <body>
@@ -32,6 +32,7 @@
         <div class="controls">
             <input type="file" id="zipInput" accept=".zip">
             <button id="processBtn">Process Images</button>
+            <button id="downloadBtn" style="display: none;">Download Processed Images</button>
         </div>
         <img id="preview" alt="Preview">
     </div>
@@ -41,7 +42,9 @@
         const addColorBtn = document.getElementById('addColor');
         const zipInput = document.getElementById('zipInput');
         const processBtn = document.getElementById('processBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
         const preview = document.getElementById('preview');
+        let processedZipBlob;
 
         addColorBtn.addEventListener('click', addColorPicker);
 
@@ -57,6 +60,7 @@
         }
 
         processBtn.addEventListener('click', processImages);
+        downloadBtn.addEventListener('click', () => saveAs(processedZipBlob, 'processed_images.zip'));
 
         async function processImages() {
             const file = zipInput.files[0];
@@ -83,8 +87,8 @@
                 }
             }
 
-            const processedZipBlob = await processedZip.generateAsync({type: 'blob'});
-            saveAs(processedZipBlob, 'processed_images.zip');
+            processedZipBlob = await processedZip.generateAsync({type: 'blob'});
+            downloadBtn.style.display = 'block';
         }
 
         async function processImage(imageData, colors) {
@@ -111,6 +115,7 @@
 
                     // Update preview
                     preview.src = canvas.toDataURL();
+                    preview.style.display = 'block';
                 });
             });
         }
