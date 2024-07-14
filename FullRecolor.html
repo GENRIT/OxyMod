@@ -88,7 +88,7 @@
             const zip = new JSZip();
             const loadedZip = await zip.loadAsync(file);
             const processedZip = new JSZip();
-            const totalFiles = Object.entries(loadedZip.files).length;
+            const totalFiles = Object.keys(loadedZip.files).filter(filename => !loadedZip.files[filename].dir).length;
             let processedFiles = 0;
 
             for (const [filename, zipEntry] of Object.entries(loadedZip.files)) {
@@ -96,9 +96,9 @@
                     const imageData = await zipEntry.async('arraybuffer');
                     const processedImage = await processImage(imageData, colors);
                     processedZip.file(filename, processedImage);
+                    processedFiles++;
+                    progress.style.width = `${(processedFiles / totalFiles) * 100}%`;
                 }
-                processedFiles++;
-                progress.style.width = `${(processedFiles / totalFiles) * 100}%`;
             }
 
             processedZipBlob = await processedZip.generateAsync({type: 'blob'});
@@ -108,30 +108,31 @@
 
         async function processImage(imageData, colors) {
             return new Promise((resolve) => {
-                fabric.Image.fromURL(URL.createObjectURL(new Blob([imageData])), img => {
-                    const canvas = new fabric.Canvas(null, { width: img.width, height: img.height });
-                    canvas.add(img);
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
 
                     colors.forEach((color, index) => {
-                        const filter = new fabric.Image.filters.BlendColor({
-                            color: color,
-                            mode: 'tint',
-                            alpha: 1 / colors.length
-                        });
-                        img.filters.push(filter);
+                        ctx.globalCompositeOperation = 'color';
+                        ctx.globalAlpha = 1 / colors.length;
+                        ctx.fillStyle = color;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
                     });
 
-                    img.applyFilters();
-                    canvas.renderAll();
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.globalAlpha = 1;
 
-                    canvas.toBlob(blob => {
-                        resolve(blob);
-                    });
+                    canvas.toBlob(resolve);
 
                     // Update preview
                     preview.src = canvas.toDataURL();
                     preview.style.display = 'block';
-                });
+                };
+                img.src = URL.createObjectURL(new Blob([imageData]));
             });
         }
 
