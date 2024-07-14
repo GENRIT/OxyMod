@@ -347,6 +347,55 @@ html {
     --direction: 0.3;
 }
 
+ .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .footer span {
+    font-size: 14px; /* make text smaller */
+  }
+
+  .join-btn {
+    display: block;
+    margin: 20px auto; /* center the button */
+    background-color: #007bff; /* blue color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px; /* make button slightly smaller */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px; /* rounded corners */
+    text-decoration: none; /* remove underline from links */
+  }
+
+  .join-btn:hover {
+    background-color: #0069d9; /* darker blue color on hover */
+  }
+
+  /* hide English text and button for Russian users */
+  [lang="ru"] .footer span[lang="en"],
+  [lang="ru"] .join-btn[lang="en"] {
+      display: none;
+  }
+
+  /* hide Russian text and button for non-Russian users */
+  :not([lang="ru"]) .footer span[lang="ru"],
+  :not([lang="ru"]) .join-btn[lang="ru"] {
+      display: none;
+  }
+
+  .ad-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
 
 /* home.css */
 
