@@ -36,191 +36,410 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-        :root {
-            --neumorphic-light: #e0e0e0;
-            --neumorphic-dark: #bebebe;
-        }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--neumorphic-light);
-            transition: background-color 0.3s ease;
-        }
+/* General Styles */
+body {
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: radial-gradient(circle at bottom, #001f3f, #001a33, #001526, #000d19, #00010c);
+    font-family: 'Arial', sans-serif; /* Ensure a consistent font throughout */
+    color: #ffffff; /* Set default text color to white for better contrast */
+}
 
-        .neumorphic {
-            background: var(--neumorphic-light);
-            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
 
-        .neumorphic:hover {
-            box-shadow: inset 5px 5px 10px var(--neumorphic-dark), inset -5px -5px 10px #ffffff;
-        }
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Increased opacity for better visibility */
+    padding: 1em;
+    position: sticky; /* Make navbar sticky */
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Add a blur effect to the navbar background */
+}
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1rem;
-            background: rgba(224, 224, 224, 0.8);
-            backdrop-filter: blur(10px);
-        }
+/* Menu Button Styles */
+.navbar .menu-dots {
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px; /* Increased padding for better touch targets */
+    border-radius: 50px; /* Rounded button */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
 
-        .menu-dots {
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
+.navbar .menu-dots:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background: var(--neumorphic-light);
-            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
-            border-radius: 15px;
-            padding: 1rem;
-            margin-top: 0.5rem;
-        }
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    display: none;
+    position: fixed;
+    top: 70px; /* Adjusted to account for navbar height */
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 15px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 
-        .dropdown-menu.show {
-            display: block;
-        }
+.dropdown-menu.show {
+    display: block;
+    animation: fadeInDown 0.5s ease forwards;
+}
 
-        .dropdown-menu a {
-            display: block;
-            padding: 0.5rem;
-            color: #333;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
+.dropdown-menu.hide {
+    display: block;
+    animation: fadeOutUp 0.5s ease forwards;
+}
 
-        .dropdown-menu a:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
+.dropdown-menu a {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
 
-        .dropdown-menu img {
-            width: 24px;
-            height: 24px;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
+.dropdown-menu a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+.dropdown-menu a:hover {
+    background-color: #0056b3;
+    transform: translateX(5px); /* Slight movement on hover */
+}
 
-        .scroll-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 1rem;
-            padding: 1rem 0;
-            scroll-snap-type: x mandatory;
-        }
+/* Keyframe Animations */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .item {
-            flex: 0 0 auto;
-            width: 300px;
-            scroll-snap-align: start;
-        }
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
 
-        .image-container img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
+/* Blur Effect Styles */
+.blur-top, .blur-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 70px; /* Increased height for more pronounced effect */
+    pointer-events: none;
+    z-index: 999;
+}
 
-        .image-container img:hover {
-            transform: scale(1.05);
-        }
+.blur-top {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+}
 
-        .description {
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-        }
+.blur-bottom {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
 
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 1rem;
-        }
+/* Container and Scroll Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
 
-        .button-link {
-            margin-left: auto;
-        }
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    width: 95%;
+    padding: 20px 10px;
+    gap: 20px;
+    cursor: grab;
+    scrollbar-width: thin;
+    scrollbar-color: #007bff rgba(0, 0, 0, 0.2);
+}
 
-        .button-image {
-            width: 24px;
-            height: 24px;
-        }
+.scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
 
-        .footer {
-            background: var(--neumorphic-light);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
+.scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
 
-        .join-btn {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+}
 
-        .join-btn:hover {
-            background: #45a049;
-        }
+.scroll-container:active {
+    cursor: grabbing;
+}
 
-        #darkModeToggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--neumorphic-light);
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 5px 5px 10px var(--neumorphic-dark), -5px -5px 10px #ffffff;
-            transition: all 0.3s ease;
-        }
+/* Item Styles */
+.item {
+    position: relative;
+    text-align: center;
+    flex-shrink: 0;
+    width: 300px;
+    background-color: rgba(0, 191, 255, 0.15);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(100px);
+    animation: slideUp 1s forwards;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 
-        #darkModeToggle:hover {
-            box-shadow: inset 5px 5px 10px var(--neumorphic-dark), inset -5px -5px 10px #ffffff;
-        }
+.item:hover {
+    background-color: rgba(0, 191, 255, 0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
 
-        .dark-mode {
-            --neumorphic-light: #333333;
-            --neumorphic-dark: #292929;
-            color: #ffffff;
-        }
+.image-container {
+    position: relative;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
 
-        .dark-mode .navbar {
-            background: rgba(51, 51, 51, 0.8);
-        }
+.image-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
 
-        .dark-mode .dropdown-menu a {
-            color: #ffffff;
-        }
+.item:hover .image-container img {
+    transform: scale(1.05);
+}
 
-        .dark-mode .join-btn {
-            background: #45a049;
-        }
+/* Animation Keyframes */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .dark-mode .join-btn:hover {
-            background: #4CAF50;
-        }
+@keyframes crazyAnimation {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(3deg) scale(1.05); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-3deg) scale(1.05); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.crazy {
+    animation: crazyAnimation 8s infinite;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Floating Lanterns */
+.lantern {
+    position: absolute;
+    bottom: -100px;
+    width: 50px;
+    animation: float linear infinite, flicker 3s ease-in-out infinite;
+    opacity: 0;
+    filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.5));
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-150vh) translateX(calc(50vw * (var(--direction) - 0.5))) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    50% { opacity: 0.8; filter: brightness(0.8); }
+}
+
+/* Lantern variations */
+.lantern:nth-child(2) {
+    width: 60px;
+    animation-duration: 22s, 3.5s;
+    animation-delay: 2s, 1s;
+    --direction: 0.2;
+}
+
+.lantern:nth-child(3) {
+    width: 45px;
+    animation-duration: 18s, 4s;
+    animation-delay: 4s, 1.5s;
+    --direction: 0.7;
+}
+
+.lantern:nth-child(4) {
+    width: 55px;
+    animation-duration: 26s, 3s;
+    animation-delay: 6s, 2s;
+    --direction: 0.4;
+}
+
+.lantern:nth-child(5) {
+    width: 50px;
+    animation-duration: 24s, 3.8s;
+    animation-delay: 8s, 1.2s;
+    --direction: 0.6;
+}
+
+.lantern:nth-child(6) {
+    width: 48px;
+    animation-duration: 20s, 3.2s;
+    animation-delay: 10s, 0.8s;
+    --direction: 0.3;
+}
+
+/* Home Page Specific Styles */
+.animated {
+    animation: fadeInUp 1s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.animated.show {
+    opacity: 1;
+}
+
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Footer Styles */
+.footer {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #ffffff;
+}
+
+.join-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
     </style>
 </head>
 <body class="bg-gray-100">
