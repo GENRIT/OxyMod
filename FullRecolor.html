@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bulk Image Recolor Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.3.6/konva.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -109,43 +110,46 @@
             return new Promise((resolve) => {
                 const img = new Image();
                 img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const data = imageData.data;
-
-                    colors.forEach(color => {
-                        const [r, g, b] = hexToRgb(color);
-                        for (let i = 0; i < data.length; i += 4) {
-                            if (data[i + 3] > 0) { // Check if pixel is not transparent
-                                data[i] = (data[i] + r) / 2;
-                                data[i + 1] = (data[i + 1] + g) / 2;
-                                data[i + 2] = (data[i + 2] + b) / 2;
-                            }
-                        }
+                    const stage = new Konva.Stage({
+                        container: document.createElement('div'), // container for Konva
+                        width: img.width,
+                        height: img.height
                     });
 
-                    ctx.putImageData(imageData, 0, 0);
-                    canvas.toBlob(resolve);
+                    const layer = new Konva.Layer();
+                    stage.add(layer);
 
-                    // Update preview
-                    preview.src = canvas.toDataURL();
-                    preview.style.display = 'block';
+                    const konvaImage = new Konva.Image({
+                        image: img,
+                        width: img.width,
+                        height: img.height
+                    });
+
+                    layer.add(konvaImage);
+                    layer.draw();
+
+                    colors.forEach(color => {
+                        const filterColor = Konva.Util.getRGB(color);
+                        konvaImage.cache();
+                        konvaImage.filters([Konva.Filters.RGBA]);
+                        konvaImage.blue(filterColor.b);
+                        konvaImage.green(filterColor.g);
+                        konvaImage.red(filterColor.r);
+                        konvaImage.alpha(1);
+                    });
+
+                    layer.draw();
+
+                    stage.toCanvas().toBlob(blob => {
+                        resolve(blob);
+
+                        // Update preview
+                        preview.src = URL.createObjectURL(blob);
+                        preview.style.display = 'block';
+                    });
                 };
                 img.src = URL.createObjectURL(new Blob([imageData]));
             });
-        }
-
-        function hexToRgb(hex) {
-            const bigint = parseInt(hex.slice(1), 16);
-            const r = (bigint >> 16) & 255;
-            const g = (bigint >> 8) & 255;
-            const b = bigint & 255;
-            return [r, g, b];
         }
 
         // Add initial color picker
