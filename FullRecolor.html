@@ -17,6 +17,8 @@
         #colorContainer { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
         .color-item { display: flex; align-items: center; }
         #preview { max-width: 100%; height: auto; margin-top: 20px; display: none; }
+        #loader { display: none; margin-top: 10px; width: 100%; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; }
+        #loader .progress { height: 100%; width: 0; background-color: #4CAF50; transition: width 0.5s; }
     </style>
 </head>
 <body>
@@ -34,6 +36,9 @@
             <button id="processBtn">Process Images</button>
             <button id="downloadBtn" style="display: none;">Download Processed Images</button>
         </div>
+        <div id="loader">
+            <div class="progress"></div>
+        </div>
         <img id="preview" alt="Preview">
     </div>
 
@@ -44,6 +49,8 @@
         const processBtn = document.getElementById('processBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const preview = document.getElementById('preview');
+        const loader = document.getElementById('loader');
+        const progress = document.querySelector('#loader .progress');
         let processedZipBlob;
 
         addColorBtn.addEventListener('click', addColorPicker);
@@ -75,9 +82,14 @@
                 return;
             }
 
+            loader.style.display = 'block';
+            progress.style.width = '0%';
+
             const zip = new JSZip();
             const loadedZip = await zip.loadAsync(file);
             const processedZip = new JSZip();
+            const totalFiles = Object.entries(loadedZip.files).length;
+            let processedFiles = 0;
 
             for (const [filename, zipEntry] of Object.entries(loadedZip.files)) {
                 if (!zipEntry.dir && filename.match(/\.(jpe?g|png|gif)$/i)) {
@@ -85,10 +97,13 @@
                     const processedImage = await processImage(imageData, colors);
                     processedZip.file(filename, processedImage);
                 }
+                processedFiles++;
+                progress.style.width = `${(processedFiles / totalFiles) * 100}%`;
             }
 
             processedZipBlob = await processedZip.generateAsync({type: 'blob'});
             downloadBtn.style.display = 'block';
+            loader.style.display = 'none';
         }
 
         async function processImage(imageData, colors) {
