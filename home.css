@@ -1,38 +1,49 @@
-/* Из файла app.css */
-
 /* Общие стили */
 body {
     margin: 0;
     overflow: auto;
-    background: radial-gradient(circle at bottom, #001f3f, #001a33, #001526, #000d19, #00010c);
+    background: radial-gradient(circle at bottom, #002851, #002040, #00172f, #00101f, #00010c);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
 }
 
+/* Плавная прокрутка */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 1em;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Кнопка меню */
 .navbar .menu-dots {
     font-size: 24px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 8px 8px;
     border-radius: 7px;
-    transition: background-color 0.9s;
+    transition: background-color 0.3s;
     margin-left: 5px;
 }
 
-
-/* Плавная прокрутка */
-html {
-    scroll-behavior: smooth;
+.navbar .menu-dots:hover {
+    background-color: #218838;
 }
 
 /* Выпадающее меню */
@@ -41,7 +52,7 @@ html {
     position: fixed;
     top: 50px;
     right: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
     padding: 10px;
     z-index: 1000;
@@ -55,13 +66,8 @@ html {
     animation: fadeInDown 0.5s ease forwards;
 }
 
-.dropdown-menu.hide {
-    display: block;
-    animation: fadeOutUp 0.5s ease forwards;
-}
-
 .dropdown-menu a {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     text-decoration: none;
     display: flex;
@@ -72,14 +78,8 @@ html {
     transition: background-color 0.3s;
 }
 
-.dropdown-menu a img {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-}
-
 .dropdown-menu a:hover {
-    background-color: #0056b3;
+    background-color: #218838;
 }
 
 @keyframes fadeInDown {
@@ -90,17 +90,6 @@ html {
     100% {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@keyframes fadeOutUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
     }
 }
 
@@ -123,7 +112,6 @@ html {
     bottom: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
-
 
 /* Контейнер для прокрутки */
 .container {
@@ -153,7 +141,7 @@ html {
     text-align: center;
     flex-shrink: 0;
     width: 299px;
-    background-color: rgba(0, 191, 255, 0.2);
+    background-color: rgba(40, 167, 69, 0.2);
     border-radius: 10px;
     overflow: hidden;
     transition: background-color 0.3s;
@@ -163,7 +151,7 @@ html {
 }
 
 .item:hover {
-    background-color: rgba(0, 191, 255, 0.3);
+    background-color: rgba(40, 167, 69, 0.3);
 }
 
 .image-container {
@@ -180,7 +168,7 @@ html {
 }
 
 .image-container img:hover {
-    transform: scale(1.0);
+    transform: scale(1.1);
     box-shadow: 0 0 10px #000;
 }
 
@@ -219,8 +207,7 @@ html {
 }
 
 .button-image:hover {
-    transform: scale(1.0);
-    content: url('https://graph.org/file/0197d91df205e66e987a6.jpg');
+    transform: scale(1.2);
 }
 
 /* Анимации */
@@ -233,55 +220,6 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-@keyframes crazyAnimation {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(-3deg); }
-    100% { transform: rotate(0deg); }
-}
-
-.crazy {
-    animation: crazyAnimation 8s infinite;
-}
-
-/* Модальные окна */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px; 
-    border: 1px solid #888;
-    width: 80%; 
-    max-width: 500px;
-    border-radius: 10px;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 /* Летающие фонарики */
@@ -326,28 +264,8 @@ html {
     --direction: 0.7;
 }
 
-.lantern:nth-child(4) {
-    width: 55px;
-    animation-duration: 26s, 3s;
-    animation-delay: 6s, 2s;
-    --direction: 0.4;
-}
-
-.lantern:nth-child(5) {
-    width: 50px;
-    animation-duration: 24s, 3.8s;
-    animation-delay: 8s, 1.2s;
-    --direction: 0.6;
-}
-
-.lantern:nth-child(6) {
-    width: 48px;
-    animation-duration: 20s, 3.2s;
-    animation-delay: 10s, 0.8s;
-    --direction: 0.3;
-}
-
- .footer {
+/* Footer */
+.footer {
     margin-top: 20px;
     text-align: center;
     font-size: 1em;
@@ -355,67 +273,43 @@ html {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
     border-radius: 10px;
-  }
+}
 
-  .footer span {
-    font-size: 14px; /* make text smaller */
-  }
+.footer span {
+    font-size: 14px;
+}
 
-  .join-btn {
+.join-btn {
     display: block;
-    margin: 20px auto; /* center the button */
-    background-color: #007bff; /* blue color */
+    margin: 20px auto;
+    background-color: #28a745;
     color: #ffffff;
     border: none;
-    padding: 10px 20px; /* make button slightly smaller */
+    padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 10px; /* rounded corners */
-    text-decoration: none; /* remove underline from links */
-  }
+    border-radius: 10px;
+    text-decoration: none;
+}
 
-  .join-btn:hover {
-    background-color: #0069d9; /* darker blue color on hover */
-  }
+.join-btn:hover {
+    background-color: #218838;
+}
 
-  /* hide English text and button for Russian users */
-  [lang="ru"] .footer span[lang="en"],
-  [lang="ru"] .join-btn[lang="en"] {
-      display: none;
-  }
+/* hide English text and button for Russian users */
+[lang="ru"] .footer span[lang="en"],
+[lang="ru"] .join-btn[lang="en"] {
+    display: none;
+}
 
-  /* hide Russian text and button for non-Russian users */
-  :not([lang="ru"]) .footer span[lang="ru"],
-  :not([lang="ru"]) .join-btn[lang="ru"] {
-      display: none;
-  }
+/* hide Russian text and button for non-Russian users */
+:not([lang="ru"]) .footer span[lang="ru"],
+:not([lang="ru"]) .join-btn[lang="ru"] {
+    display: none;
+}
 
-  .ad-container {
+.ad-container {
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
-  }
-
-
-/* home.css */
-
-/* Анимация появления */
-@keyframes fadeInUp {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.animated {
-    animation: fadeInUp 1s ease-in-out;
-    opacity: 1.0; /* Прозрачность 90% */
-}
-
-.animated.show {
-    opacity: 1;
 }
