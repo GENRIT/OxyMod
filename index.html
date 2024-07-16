@@ -53,7 +53,8 @@
 </script>
 <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated show" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 20px;">
+<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated">
+<img src="path/to/your/sword_image.jpg" alt="Sword" id="headerImage2" class="animated" style="display: none;">
 
 <!-- Рекламный блок -->
 <div class="ad-container">
@@ -85,6 +86,18 @@
         if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
             dropdownMenu.classList.remove('show');
         }
+    });
+</script>
+
+<!-- Скрипт для анимации изображений -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const headerImage1 = document.getElementById('headerImage1');
+        const headerImage2 = document.getElementById('headerImage2');
+        
+        headerImage1.addEventListener('animationend', function() {
+            headerImage2.style.display = 'block';
+        });
     });
 </script>
 
