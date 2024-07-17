@@ -1,40 +1,62 @@
-// Массив доступных цветов
-let colors = ["Red", "Green", "Blue", "Purple", "Pink", "Orange", "Yellow", "Black", "White"];
+// Import posts data
+import posts from './posts.json';
 
-// Получаем элемент для рекомендаций
-let recommended = document.querySelector(".recommended");
+// Get recommendations container
+let recommendations = document.querySelector('.recommendations'); 
 
-// Проходимся по массиву цветов
-colors.forEach(color => {
+// Load on page load  
+window.addEventListener('load', () => {
 
-  // Массив поддерживаемых размеров
-  let sizes = [16, 32, 64, 128, 512];  
+  // Find active post
+  let activePost = posts.find(post => post.id === '1');
 
-  // Генерируем рекомендации для каждого размера
-  sizes.forEach(size => {
+  // Extract color and size from post
+  let color = activePost.title.split(' ')[0];
+  let size = 16;
 
-    // Создаем элемент ссылки
-    let a = document.createElement('a');  
-
-    // Устанавливаем ссылку
-    a.href = `https://oxymod.netlify.app/${color.toLowerCase()}${size}x${color.toLowerCase()}vic`;
-
-    // Добавляем класс
-    a.classList.add('image-link');
-
-    // Создаем элемент изображения
-    let img = document.createElement('img');
-
-    // Устанавливаем src и alt
-    img.src = `https://graph.org/file/texture_pack_${size}x_${color}.jpg`;
-    img.alt = `${color} ${size}x Texture Pack`;
-
-    // Добавляем изображение в ссылку  
-    a.appendChild(img);
-
-    // Добавляем ссылку в раздел рекомендаций
-    recommended.appendChild(a);
-
-  });
+  // Generate recommendations
+  generateRecommendations();
 
 });
+
+// Generate recommendations function
+function generateRecommendations() {
+
+  // Recommendation count
+  let count = 0;
+
+  while(count < 2) {
+
+    // Generate recommendation
+    generateRecommendation(color, size);
+
+    count++;
+
+  }
+
+}
+
+// Generate single recommendation
+function generateRecommendation(color, size) {
+
+  // Create link
+  let link = document.createElement('a');
+
+  // Set href
+  link.href = `/${color.toLowerCase()}${size}x${color.toLowerCase()}`;  
+
+  // Add other link properties
+
+  // Create img
+  let img = document.createElement('img');
+
+  // Set img src and properties
+
+  // Append img to link
+
+  // Only add if under limit
+  if(count < 2) {
+    recommendations.appendChild(link); 
+  }
+
+}
