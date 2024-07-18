@@ -142,23 +142,19 @@ function findSimilarPosts(post, allPosts) {
 }
 
 function main() {
-    const postToRecommend = posts.find(post => post.title === "Kotori 16x [Red]");
-    const similarPosts = findSimilarPosts(postToRecommend, posts);
+  const randomPost = posts[Math.floor(Math.random() * posts.length)]
 
-    const recommendationsDiv = document.getElementById('recommendations');
-    recommendationsDiv.innerHTML = '';
+  const recommendationsDiv = document.getElementById('recommendations');
+  recommendationsDiv.innerHTML = '';
 
-    similarPosts.forEach(similarPost => {
-        const postElement = document.createElement('div');
-        postElement.className = 'recommendation';
-        postElement.innerHTML = `
-            <a href="${similarPost.link}">
-                <img src="${similarPost.image}" alt="${similarPost.title}">
-                <h2>${similarPost.title}</h2>
-            </a>
-        `;
-        recommendationsDiv.appendChild(postElement);
-    });
+  const postElement = document.createElement('div');
+  postElement.className = 'recommendation';
+  postElement.innerHTML = `
+    <a href="${randomPost.link}">
+      <img src="${randomPost.image}" alt="${randomPost.title}">
+      <h2>${randomPost.title}</h2>
+    </a>
+  `;
+
+  recommendationsDiv.appendChild(postElement);
 }
-
-main();
