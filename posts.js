@@ -154,12 +154,10 @@ function main() {
 
     similarPosts.forEach(similarPost => {
         const postElement = document.createElement('div');
+        postElement.className = 'recommendation';
         postElement.innerHTML = `
+            <img src="${similarPost.image}" alt="${similarPost.title}">
             <h2>${similarPost.title}</h2>
-            <p>Author: ${similarPost.author}</p>
-            <p>Type: ${similarPost.type}</p>
-            <p>Views: ${similarPost.views}</p>
-            <a href="${similarPost.link}">View Post</a>
         `;
         recommendationsDiv.appendChild(postElement);
     });
