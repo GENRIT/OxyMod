@@ -63,14 +63,14 @@ const posts = [
 
 function findSimilarPosts(targetPost, allPosts) {
     const targetTitle = targetPost.title;
-    const targetColor = targetTitle.match(/\[(.*?)\]/)[1];
+    const targetColor = targetTitle.match(/\[(.*?)\]/)[1].toLowerCase();
     const targetPixel = targetTitle.match(/(\d+x)/)[0];
     
     return allPosts
         .filter(post => {
-            const postColor = post.title.match(/\[(.*?)\]/)[1];
+            const postColor = post.title.match(/\[(.*?)\]/)[1].toLowerCase();
             const postPixel = post.title.match(/(\d+x)/)[0];
-            return post !== targetPost && postColor.toLowerCase() === targetColor.toLowerCase() && postPixel === targetPixel;
+            return post !== targetPost && postColor === targetColor && postPixel === targetPixel;
         })
         .slice(0, 2);
 }
@@ -78,14 +78,21 @@ function findSimilarPosts(targetPost, allPosts) {
 function main() {
     const currentPageTitle = document.title;
     const postToRecommend = posts.find(post => post.title === currentPageTitle);
+    
     if (!postToRecommend) {
         console.error('Post not found for the current page title:', currentPageTitle);
         return;
     }
+
     const similarPosts = findSimilarPosts(postToRecommend, posts);
 
     const recommendationsDiv = document.getElementById('recommendations');
     recommendationsDiv.innerHTML = '';
+
+    if (similarPosts.length === 0) {
+        console.log('No similar posts found.');
+        return;
+    }
 
     similarPosts.forEach(similarPost => {
         const postElement = document.createElement('div');
