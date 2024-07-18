@@ -116,7 +116,7 @@ body {
         animation: slideUp 1s ease-out;
     }
 
-    .recommended {
+    .recommendations {
        display: flex;
        justify-content: center;
        gap: 5px;
