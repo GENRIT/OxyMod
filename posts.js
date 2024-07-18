@@ -9,96 +9,159 @@ const posts = [
         "title": "Core 16x [Red]",
         "views": 500
     },
-    // Остальные данные из posts.json
+    {
+        "image": "https://graph.org/file/3e7a1ec81295f4004759e.jpg",
+        "link": "Core16xPurplePost.html",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Core 16x [Purple]",
+        "views": 400
+    },
+    {
+        "image": "https://graph.org/file/76d7325ee73bc48ee559d.jpg",
+        "link": "Decker16xBluePost.html",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Decker 16x [Blue]",
+        "views": 300
+    },
+    {
+        "image": "https://graph.org/file/411eb46cdde67963355ef.jpg",
+        "link": "https://oxymod.netlify.app/fy16xpinkpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Fy 16x [Purple]",
+        "views": 11000
+    },
+    {
+       "image": "https://graph.org/file/ebf8a842d93d12b5f8b10.jpg",
+        "link": "https://oxymod.netlify.app/rod16xbluepost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Rod 16x [Blue]",
+        "views": 14333
+    },
+    {
+       "image": "https://graph.org/file/6e2d7ad68c64f3ab6fff3.jpg",
+        "link": "https://oxymod.netlify.app/kotori16xredpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Kotori 16x [Red]",
+        "views": 12433
+    },
+    {
+       "image": "https://graph.org/file/14f3183591e8d14a17e99.jpg",
+        "link": "https://oxymod.netlify.app/chika32xpinkpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "CHIKA 16x [Pink]",
+        "views": 13433
+    },
+    {
+        "image": "https://graph.org/file/c7ff0123bce14337feb0d.jpg",
+        "link": "https://oxymod.netlify.app/sexynut32xblackpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "SexyNut 32x [Black]",
+        "views": 12000
+    },
+    {
+        "image": "https://graph.org/file/7526e2ac7034a038afdab.jpg",
+        "link": "https://oxymod.netlify.app/uny16xpinkpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Uny 16x [Pink]",
+        "views": 12201
+    },
+    {
+        "image": "https://graph.org/file/8bc285355aee6e8136bbd.jpg",
+        "link": "https://oxymod.netlify.app/july16xredpost",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "July 16x [Red]",
+        "views": 12200
+    },
+    {
+        "image": "https://graph.org/file/522df164a26a5390e1266.jpg",
+        "link": "ICE16xRedPost.html",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "ICE 16x [Red]",
+        "views": 560
+    },
+    {
+        "image": "https://graph.org/file/e2cff71c9a4ffd27c1a09.jpg",
+        "link": "Yumeno32xWhitePost.html",
+        "avatar": "https://graph.org/file/0a0634d2613432450c901.jpg",
+        "author": "clayni",
+        "type": "Texture Pack",
+        "title": "Yumeno 32x [White]",
+        "views": 566
+    }
 ];
 
-// Функция для загрузки изображения
-async function loadImage(url) {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return createImageBitmap(blob);
-}
+// Функция для извлечения разрешения и цвета из заголовка
+function extractResolutionAndColor(title) {
+    const resolutionMatch = title.match(/\d+x/);
+    const colorMatch = title.match(/\[(.*?)\]/);
 
-// Функция для получения основных цветов изображения
-async function getMainColors(imageUrl) {
-    const img = await loadImage(imageUrl);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 64;
-    canvas.height = 64;
-    ctx.drawImage(img, 0, 0, 64, 64);
+    const resolution = resolutionMatch ? resolutionMatch[0] : null;
+    const color = colorMatch ? colorMatch[1] : null;
 
-    const imageData = ctx.getImageData(0, 0, 64, 64);
-    const data = imageData.data;
-
-    const pixels = [];
-    for (let i = 0; i < data.length; i += 4) {
-        pixels.push([data[i], data[i + 1], data[i + 2]]);
-    }
-
-    const kmeans = await tf.tidy(() => tf.clusterKMeans(tf.tensor(pixels), 5));
-    const centroids = await kmeans.centroids.arraySync();
-    return centroids;
-}
-
-// Функция для получения разрешения изображения
-async function getImageResolution(imageUrl) {
-    const img = await loadImage(imageUrl);
-    return { width: img.width, height: img.height };
-}
-
-// Функция для вычисления расстояния между цветами
-function colorDistance(color1, color2) {
-    return Math.sqrt(
-        Math.pow(color1[0] - color2[0], 2) +
-        Math.pow(color1[1] - color2[1], 2) +
-        Math.pow(color1[2] - color2[2], 2)
-    );
+    return { resolution, color };
 }
 
 // Функция для нахождения похожих постов
-async function findSimilarPosts(post, allPosts) {
-    const mainColors = await getMainColors(post.image);
-    const resolution = await getImageResolution(post.image);
-
+function findSimilarPosts(post, allPosts) {
+    const { resolution: targetResolution, color: targetColor } = extractResolutionAndColor(post.title);
     const similarPosts = [];
 
     for (const otherPost of allPosts) {
         if (post.link === otherPost.link) continue;
 
-        const otherMainColors = await getMainColors(otherPost.image);
-        const otherResolution = await getImageResolution(otherPost.image);
+        const { resolution, color } = extractResolutionAndColor(otherPost.title);
 
-        // Сравнение по цветам
-        let colorSimilarity = 0;
-        for (let i = 0; i < mainColors.length; i++) {
-            colorSimilarity += colorDistance(mainColors[i], otherMainColors[i]);
+        let score = 0;
+        if (resolution === targetResolution) score += 1;
+        if (color === targetColor) score += 1;
+
+        if (score > 0) {
+            similarPosts.push({ post: otherPost, score });
         }
-
-        // Сравнение по разрешению
-        const resolutionSimilarity = Math.abs(
-            resolution.width - otherResolution.width
-        ) + Math.abs(resolution.height - otherResolution.height);
-
-        // Добавление в список с показателем сходства
-        similarPosts.push({ post: otherPost, similarity: colorSimilarity + resolutionSimilarity });
     }
 
-    // Сортировка по показателю сходства и выбор двух наиболее похожих
-    similarPosts.sort((a, b) => a.similarity - b.similarity);
+    similarPosts.sort((a, b) => b.score - a.score);
     return similarPosts.slice(0, 2).map(item => item.post);
 }
 
 // Основная функция для запуска
-async function main() {
-    const postToRecommend = posts[0]; // Пост, для которого ищем рекомендации
-    const similarPosts = await findSimilarPosts(postToRecommend, posts);
-    const recommendationsDiv = document.getElementById('recommendations');
+function main() {
+    const postToRecommend = posts[5]; // Выберите пост, для которого хотите рекомендации
+    const similarPosts = findSimilarPosts(postToRecommend, posts);
 
-    similarPosts.forEach(post => {
-        const postDiv = document.createElement('div');
-        postDiv.innerHTML = `<p>${post.title}</p><img src="${post.image}" alt="${post.title}" style="width: 100px;">`;
-        recommendationsDiv.appendChild(postDiv);
+    const recommendationsDiv = document.getElementById('recommendations');
+    recommendationsDiv.innerHTML = '';
+
+    similarPosts.forEach(similarPost => {
+        const postElement = document.createElement('div');
+        postElement.innerHTML = `
+            <h2>${similarPost.title}</h2>
+            <p>Author: ${similarPost.author}</p>
+            <p>Type: ${similarPost.type}</p>
+            <p>Views: ${similarPost.views}</p>
+            <a href="${similarPost.link}">View Post</a>
+        `;
+        recommendationsDiv.appendChild(postElement);
     });
 }
 
