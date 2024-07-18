@@ -1,4 +1,3 @@
-const posts = [
     {
         "image": "https://graph.org/file/e9276b0fd82eb5075b878.jpg",
         "link": "Core16xRedPost.html",
@@ -108,57 +107,3 @@ const posts = [
         "views": 566
     }
 ];
-
-function extractResolutionAndColor(title) {
-    const resolutionMatch = title.match(/\d+x/);
-    const colorMatch = title.match(/\[(.*?)\]/);
-
-    const resolution = resolutionMatch ? resolutionMatch[0] : null;
-    const color = colorMatch ? colorMatch[1] : null;
-
-    return { resolution, color };
-}
-
-function findSimilarPosts(post, allPosts) {
-    const { resolution: targetResolution, color: targetColor } = extractResolutionAndColor(post.title);
-    const similarPosts = [];
-
-    for (const otherPost of allPosts) {
-        if (post.link === otherPost.link) continue;
-
-        const { resolution, color } = extractResolutionAndColor(otherPost.title);
-
-        let score = 0;
-        if (resolution === targetResolution) score += 1;
-        if (color === targetColor) score += 1;
-
-        if (score > 0) {
-            similarPosts.push({ post: otherPost, score });
-        }
-    }
-
-    similarPosts.sort((a, b) => b.score - a.score);
-    return similarPosts.slice(0, 2).map(item => item.post);
-}
-
-function main() {
-    const postToRecommend = posts.find(post => post.title === "Kotori 16x [Red]");
-    const similarPosts = findSimilarPosts(postToRecommend, posts);
-
-    const recommendationsDiv = document.getElementById('recommendations');
-    recommendationsDiv.innerHTML = '';
-
-    similarPosts.forEach(similarPost => {
-        const postElement = document.createElement('div');
-        postElement.className = 'recommendation';
-        postElement.innerHTML = `
-            <a href="${similarPost.link}">
-                <img src="${similarPost.image}" alt="${similarPost.title}">
-                <h2>${similarPost.title}</h2>
-            </a>
-        `;
-        recommendationsDiv.appendChild(postElement);
-    });
-}
-
-main();
