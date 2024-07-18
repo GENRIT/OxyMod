@@ -5,6 +5,16 @@ const posts = [
         "title": "Core 16x [Red]"
     },
     {
+        "image": "https://graph.org/file/8263980d2d68e37d60637.jpg",
+        "link": "https://oxymod.netlify.app/trump16xredpost",
+        "title": "Trump 16x [Red]"
+    },
+    {
+        "image": "https://graph.org/file/4b12f26c9cc8baec77cf8.jpg",
+        "link": "https://oxymod.netlify.app/redi32xbluepost",
+        "title": "Redi 32x [Blue]"
+    },
+    {
         "image": "https://graph.org/file/3e7a1ec81295f4004759e.jpg",
         "link": "Core16xPurplePost.html",
         "title": "Core 16x [Purple]"
