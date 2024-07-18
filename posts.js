@@ -1,4 +1,3 @@
-// Пример данных posts.json
 const posts = [
     {
         "image": "https://graph.org/file/e9276b0fd82eb5075b878.jpg",
@@ -110,7 +109,6 @@ const posts = [
     }
 ];
 
-// Функция для извлечения разрешения и цвета из заголовка
 function extractResolutionAndColor(title) {
     const resolutionMatch = title.match(/\d+x/);
     const colorMatch = title.match(/\[(.*?)\]/);
@@ -121,7 +119,6 @@ function extractResolutionAndColor(title) {
     return { resolution, color };
 }
 
-// Функция для нахождения похожих постов
 function findSimilarPosts(post, allPosts) {
     const { resolution: targetResolution, color: targetColor } = extractResolutionAndColor(post.title);
     const similarPosts = [];
@@ -144,9 +141,8 @@ function findSimilarPosts(post, allPosts) {
     return similarPosts.slice(0, 2).map(item => item.post);
 }
 
-// Основная функция для запуска
 function main() {
-    const postToRecommend = posts[5]; // Выберите пост, для которого хотите рекомендации
+    const postToRecommend = posts.find(post => post.title === "Kotori 16x [Red]");
     const similarPosts = findSimilarPosts(postToRecommend, posts);
 
     const recommendationsDiv = document.getElementById('recommendations');
@@ -156,8 +152,10 @@ function main() {
         const postElement = document.createElement('div');
         postElement.className = 'recommendation';
         postElement.innerHTML = `
-            <img src="${similarPost.image}" alt="${similarPost.title}">
-            <h2>${similarPost.title}</h2>
+            <a href="${similarPost.link}">
+                <img src="${similarPost.image}" alt="${similarPost.title}">
+                <h2>${similarPost.title}</h2>
+            </a>
         `;
         recommendationsDiv.appendChild(postElement);
     });
