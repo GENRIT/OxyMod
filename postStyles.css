@@ -124,11 +124,12 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #121212; /* Темный фон */
+    color: #e0e0e0; /* Светлый текст */
 }
 
 h1 {
-    color: #333;
+    color: #ffffff; /* Белый цвет для заголовков */
 }
 
 .recommendations {
@@ -141,9 +142,9 @@ h1 {
 
 .recommendation {
     display: inline-block; /* Обеспечивает горизонтальное выравнивание */
-    background-color: white;
+    background-color: #1f1f1f; /* Темный фон для карточек */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Более темная тень */
     overflow: hidden;
     width: 200px;
     opacity: 0;
@@ -167,7 +168,7 @@ h1 {
     font-size: 18px;
     margin: 10px;
     text-align: center;
-    color: #333;
+    color: #e0e0e0; /* Светлый текст */
 }
 
 @keyframes fadeInUp {
