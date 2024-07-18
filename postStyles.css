@@ -134,6 +134,8 @@ h1 {
 .recommendations {
     display: flex;
     gap: 20px;
+    overflow-x: auto; /* Позволяет прокручивать, если элементы не помещаются по ширине */
+    padding: 20px;
 }
 
 .recommendation {
@@ -146,6 +148,7 @@ h1 {
     transform: translateY(50px);
     animation: fadeInUp 0.5s forwards;
     transition: transform 0.2s ease;
+    flex-shrink: 0; /* Предотвращает сжатие элементов */
 }
 
 .recommendation:hover {
