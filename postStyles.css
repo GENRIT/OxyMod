@@ -128,7 +128,6 @@ body {
 }
 
 h1 {
-    color: #333;
 }
 
 .recommendations {
@@ -167,7 +166,6 @@ h1 {
     font-size: 18px;
     margin: 10px;
     text-align: center;
-    color: #333;
 }
 
 @keyframes fadeInUp {
