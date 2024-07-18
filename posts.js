@@ -109,21 +109,52 @@ const posts = [
     }
 ];
 
-function getMainPost(posts) {
-  return posts.find(post => post.image === IMAGE_URL);
+function extractResolutionAndColor(title) {
+    const resolutionMatch = title.match(/\d+x/);
+    const colorMatch = title.match(/\[(.*?)\]/);
+
+    const resolution = resolutionMatch ? resolutionMatch[0] : null;
+    const color = colorMatch ? colorMatch[1] : null;
+
+    return { resolution, color };
 }
 
-function findSimilarPosts(mainPost, allPosts) {
-  // извлекаем резолюцию и цвет из названия
-  // ищем похожие по этим параметрам
-  
-  return similarPosts; 
+function findSimilarPosts(post, allPosts) {
+    const { resolution: targetResolution, color: targetColor } = extractResolutionAndColor(post.title);
+    const similarPosts = [];
+
+    for (const otherPost of allPosts) {
+        if (post.link === otherPost.link) continue;
+
+        const { resolution, color } = extractResolutionAndColor(otherPost.title);
+
+        let score = 0;
+        if (resolution === targetResolution) score += 1;
+        if (color === targetColor) score += 1;
+
+        if (score > 0) {
+            similarPosts.push({ post: otherPost, score });
+        }
+    }
+
+    similarPosts.sort((a, b) => b.score - a.score);
+    return similarPosts.slice(0, 2).map(item => item.post);
 }
 
-function showRecommendations() {
-  const mainPost = getMainPost(posts);
-  
-  const similarPosts = findSimilarPosts(mainPost, posts);
+function main() {
+  const randomPost = posts[Math.floor(Math.random() * posts.length)]
 
-  // рендерим рекомендации
+  const recommendationsDiv = document.getElementById('recommendations');
+  recommendationsDiv.innerHTML = '';
+
+  const postElement = document.createElement('div');
+  postElement.className = 'recommendation';
+  postElement.innerHTML = `
+    <a href="${randomPost.link}">
+      <img src="${randomPost.image}" alt="${randomPost.title}">
+      <h2>${randomPost.title}</h2>
+    </a>
+  `;
+
+  recommendationsDiv.appendChild(postElement);
 }
