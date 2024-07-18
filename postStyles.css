@@ -136,9 +136,11 @@ h1 {
     gap: 20px;
     overflow-x: auto; /* Позволяет прокручивать, если элементы не помещаются по ширине */
     padding: 20px;
+    white-space: nowrap; /* Запрещает перенос строк */
 }
 
 .recommendation {
+    display: inline-block; /* Обеспечивает горизонтальное выравнивание */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
