@@ -70,7 +70,7 @@ function findSimilarPosts(targetPost, allPosts) {
         .filter(post => {
             const postColor = post.title.match(/\[(.*?)\]/)[1];
             const postPixel = post.title.match(/(\d+x)/)[0];
-            return post !== targetPost && postColor === targetColor && postPixel === targetPixel;
+            return post !== targetPost && postColor.toLowerCase() === targetColor.toLowerCase() && postPixel === targetPixel;
         })
         .slice(0, 2);
 }
@@ -78,6 +78,10 @@ function findSimilarPosts(targetPost, allPosts) {
 function main() {
     const currentPageTitle = document.title;
     const postToRecommend = posts.find(post => post.title === currentPageTitle);
+    if (!postToRecommend) {
+        console.error('Post not found for the current page title:', currentPageTitle);
+        return;
+    }
     const similarPosts = findSimilarPosts(postToRecommend, posts);
 
     const recommendationsDiv = document.getElementById('recommendations');
