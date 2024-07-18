@@ -133,8 +133,6 @@ h1 {
 
 .recommendations {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 20px;
 }
 
@@ -147,11 +145,17 @@ h1 {
     opacity: 0;
     transform: translateY(50px);
     animation: fadeInUp 0.5s forwards;
+    transition: transform 0.2s ease;
+}
+
+.recommendation:hover {
+    transform: translateY(0) scale(1.05);
 }
 
 .recommendation img {
     width: 100%;
     display: block;
+    cursor: pointer;
 }
 
 .recommendation h2 {
