@@ -5,6 +5,16 @@ const posts = [
         "title": "Core 16x [Red]"
     },
     {
+        "image": "https://graph.org/file/cc1047ed477bde4e137e9.jpg",
+        "link": "https://oxymod.netlify.app/rod16xredpost",
+        "title": "Rod 16x [Red]"
+    },
+    {
+        "image": "https://graph.org/file/f3ee1621e73d6eb63a7cc.jpg",
+        "link": "https://oxymod.netlify.app/uny16xgreenpost",
+        "title": "Uny 16x [Green]"
+    },
+    {
         "image": "https://graph.org/file/8263980d2d68e37d60637.jpg",
         "link": "https://oxymod.netlify.app/trump16xredpost",
         "title": "Trump 16x [Red]"
@@ -13,6 +23,11 @@ const posts = [
         "image": "https://graph.org/file/4b12f26c9cc8baec77cf8.jpg",
         "link": "https://oxymod.netlify.app/redi32xbluepost",
         "title": "Redi 32x [Blue]"
+    },
+    {
+        "image": "https://graph.org/file/861c5fb88724006f3a7d0.jpg",
+        "link": "https://oxymod.netlify.app/redi32xredpost",
+        "title": "Redi 32x [Red]"
     },
     {
         "image": "https://graph.org/file/3e7a1ec81295f4004759e.jpg",
