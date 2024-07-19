@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Креативный сайт с Google Поиском</title>
+    <title>Креативный сайт с поиском DuckDuckGo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,35 +89,30 @@
     <div class="results" id="results"></div>
 
     <script>
-        const apiKey = 'YOUR_API_KEY';
-        const cx = 'YOUR_SEARCH_ENGINE_ID';
-
         async function performSearch() {
             const query = document.getElementById('searchQuery').value;
-            const response = await fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${query}`);
+            const response = await fetch(`https://api.duckduckgo.com/?q=${query}&format=json&no_redirect=1&skip_disambig=1`);
             const data = await response.json();
-            displayResults(data.items);
+            displayResults(data.RelatedTopics);
         }
 
         function displayResults(items) {
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';
 
-            if (items) {
+            if (items.length > 0) {
                 items.forEach(item => {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
+                    if (item.Text && item.FirstURL) {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'result-item';
 
-                    const title = document.createElement('a');
-                    title.href = item.link;
-                    title.textContent = item.title;
-                    resultItem.appendChild(title);
+                        const title = document.createElement('a');
+                        title.href = item.FirstURL;
+                        title.textContent = item.Text;
+                        resultItem.appendChild(title);
 
-                    const snippet = document.createElement('p');
-                    snippet.textContent = item.snippet;
-                    resultItem.appendChild(snippet);
-
-                    resultsDiv.appendChild(resultItem);
+                        resultsDiv.appendChild(resultItem);
+                    }
                 });
             } else {
                 resultsDiv.textContent = 'Нет результатов';
