@@ -10,15 +10,18 @@ async function performSearch() {
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
 
+        // Попробуем обновить селекторы
         const items = doc.querySelectorAll('.serp-item');
         const results = [];
 
         items.forEach(item => {
             const titleElement = item.querySelector('h2 a');
+            const snippetElement = item.querySelector('.text-container .text');
             if (titleElement) {
                 results.push({
                     title: titleElement.textContent,
-                    url: titleElement.href
+                    url: titleElement.href,
+                    snippet: snippetElement ? snippetElement.textContent : ''
                 });
             }
         });
@@ -42,6 +45,12 @@ function displayResults(results) {
         title.href = result.url;
         title.textContent = result.title;
         resultItem.appendChild(title);
+
+        if (result.snippet) {
+            const snippet = document.createElement('p');
+            snippet.textContent = result.snippet;
+            resultItem.appendChild(snippet);
+        }
 
         resultsDiv.appendChild(resultItem);
     });
