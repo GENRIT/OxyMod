@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Креативный сайт с Google Поиском</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .logo {
+            font-size: 24px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: width 0.4s ease-in-out;
+        }
+        .search-input:focus {
+            width: 80%;
+            outline: none;
+        }
+        .search-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .search-button:hover {
+            background-color: #45a049;
+        }
+        .results {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .result-item {
+            margin-bottom: 15px;
+        }
+        .result-item a {
+            text-decoration: none;
+            color: #1a0dab;
+            font-size: 18px;
+        }
+        .result-item p {
+            color: #4d5156;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Креативный сайт</div>
+    </header>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Поиск..." id="searchQuery">
+        <button class="search-button" onclick="performSearch()">Поиск</button>
+    </div>
+    <div class="results" id="results"></div>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+        const cx = 'YOUR_SEARCH_ENGINE_ID';
+
+        async function performSearch() {
+            const query = document.getElementById('searchQuery').value;
+            const response = await fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${query}`);
+            const data = await response.json();
+            displayResults(data.items);
+        }
+
+        function displayResults(items) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (items) {
+                items.forEach(item => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+
+                    const title = document.createElement('a');
+                    title.href = item.link;
+                    title.textContent = item.title;
+                    resultItem.appendChild(title);
+
+                    const snippet = document.createElement('p');
+                    snippet.textContent = item.snippet;
+                    resultItem.appendChild(snippet);
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            } else {
+                resultsDiv.textContent = 'Нет результатов';
+            }
+        }
+    </script>
+</body>
+</html>
