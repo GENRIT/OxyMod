@@ -14,10 +14,10 @@ async function performSearch() {
         const results = [];
 
         items.forEach(item => {
-            const titleElement = item.querySelector('a.link');
+            const titleElement = item.querySelector('h2 a');
             if (titleElement) {
                 results.push({
-                    title: titleElement.innerText,
+                    title: titleElement.textContent,
                     url: titleElement.href
                 });
             }
