@@ -1,4 +1,33 @@
 const express = require('express');
+const proxy = require('express-http-proxy');
+
+const app = express();
+
+app.use(express.json());
+
+app.post('/proxy', (req, res) => {
+
+  proxy.proxyRequest(req, res, {
+    target: req.body.url
+  });
+
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
+
+
+
+
+
+
+
+
+
+
+
+const express = require('express');
 const fs = require('fs');
 const app = express();
 const PORT = 3000;
