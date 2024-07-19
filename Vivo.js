@@ -1,6 +1,6 @@
 async function performSearch() {
     const query = document.getElementById('searchQuery').value;
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const proxyUrl = 'https://cors.bridged.cc/';
     const yandexUrl = `https://yandex.ru/search/?text=${encodeURIComponent(query)}`;
 
     try {
