@@ -1,61 +1,60 @@
-    async function getYandexResults(query) {
+async function searchEcosia(query) {
 
-      const response = await fetch(
-        `https://yandex.ru/search?text=${query}`,
-        {mode: 'no-cors'}  
-      );
+  const response = await fetch(
+    `https://www.ecosia.org/search?q=${query}`, 
+    {mode: 'no-cors'}
+  );
 
-      return parseHTML(await response.text());
+  const html = await response.text();
 
+  const results = parseResults(html);
+
+  return results;
+
+}
+
+function parseResults(html) {
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const items = doc.querySelectorAll('.result');
+
+  return [...items].slice(0,10).map(item => {
+
+    const title = item.querySelector('h3').textContent;
+    const url = item.querySelector('h3 a').href;
+
+    return {
+      title,
+      url
     }
 
-    function parseHTML(text) {
+  });
 
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
-    
-      const items = doc.querySelectorAll('.serp-item');
+}
 
-      return [...items].map(item => {
-        return {
-          title: item.querySelector('h2 a').text,
-          url: item.querySelector('h2 a').href
-        }  
-      });
+async function displayResults() {
 
-    }
+  // Get query
+  const query = document.querySelector('input').value;
 
-  </script>
-</head>
-<body>
+  // Search
+  const results = await searchEcosia(query);
 
-  <input id="query">
-  <button onclick="search()">Search</button>
+  // Display results
+  results.forEach(result => {
 
-  <div id="results"></div>
+    const a = document.createElement('a');
+    a.href = result.url;
+    a.text = result.title;
+    a.target = '_blank';
 
-  <script>
+    document.body.appendChild(a);
 
-    async function search() {
+  });
 
-      const query = document.getElementById('query').value;
-      const results = await getYandexResults(query);
+}
 
-      displayResults(results);
-
-    }
-
-    function displayResults(results) {
-
-      const container = document.getElementById('results');
-
-      results.forEach(result => {
-
-        const item = document.createElement('div');
-        // добавить результат
-
-        container.appendChild(item);
-
-      });
-
-    }
+// Attach to button click
+document.querySelector('button').onclick = displayResults;
