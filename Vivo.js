@@ -1,40 +1,61 @@
-async function fetchViaProxy(url) {
+    async function getYandexResults(query) {
 
-  const proxyUrl = 'http://localhost:3000/proxy';
+      const response = await fetch(
+        `https://yandex.ru/search?text=${query}`,
+        {mode: 'no-cors'}  
+      );
 
-  const response = await fetch(proxyUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({url})
-  });
+      return parseHTML(await response.text());
 
-  return await response.json();
+    }
 
-}
+    function parseHTML(text) {
 
-async function getYandexResults(query) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+    
+      const items = doc.querySelectorAll('.serp-item');
 
-  const results = await fetchViaProxy(
-    `https://yandex.ru/search?text=${query}`
-  );
+      return [...items].map(item => {
+        return {
+          title: item.querySelector('h2 a').text,
+          url: item.querySelector('h2 a').href
+        }  
+      });
 
-  return results.map(result => ({
-    title: result.title,
-    url: result.url  
-  }));
+    }
 
-}
+  </script>
+</head>
+<body>
 
-async function displayResults() {
+  <input id="query">
+  <button onclick="search()">Search</button>
 
-  const query = document.querySelector('input').value;
+  <div id="results"></div>
 
-  const results = await getYandexResults(query);
+  <script>
 
-  // отрисовка results...
+    async function search() {
 
-}
+      const query = document.getElementById('query').value;
+      const results = await getYandexResults(query);
 
-document.querySelector('button').addEventListener('click', displayResults);
+      displayResults(results);
+
+    }
+
+    function displayResults(results) {
+
+      const container = document.getElementById('results');
+
+      results.forEach(result => {
+
+        const item = document.createElement('div');
+        // добавить результат
+
+        container.appendChild(item);
+
+      });
+
+    }
