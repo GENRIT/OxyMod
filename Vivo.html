@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Космический Мульти-поисковик</title>
+    <title>Космический Поисковик</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
@@ -115,6 +115,9 @@
             padding: 1rem;
             margin-bottom: 1rem;
             transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
 
         .result-item:hover {
@@ -125,22 +128,27 @@
         .result-item h3 {
             color: var(--primary-color);
             margin-top: 0;
+            margin-bottom: 0.5rem;
         }
 
         .result-item p {
             color: var(--text-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
         }
 
-        .result-item a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .result-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .result-item a:hover {
-            color: var(--primary-color);
-            text-shadow: 0 0 5px var(--primary-color);
+        .result-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         #loading {
@@ -167,7 +175,7 @@
 <body>
     <div id="space-background"></div>
     <div class="container">
-        <h1>Космический Мульти-поисковик</h1>
+        <h1>Космический Поисковик</h1>
         <form id="searchForm">
             <input type="text" id="searchInput" placeholder="Введите запрос..." required>
             <button type="submit" id="searchButton"><i class="fas fa-search"></i></button>
@@ -223,25 +231,8 @@
         });
 
         async function performSearch(query) {
-            // DuckDuckGo
             const duckDuckGoResults = await searchDuckDuckGo(query);
-            displayResults('DuckDuckGo', duckDuckGoResults);
-
-            // Wikipedia
-            const wikipediaResults = await searchWikipedia(query);
-            displayResults('Wikipedia', wikipediaResults);
-
-            // News API
-            const newsResults = await searchNews(query);
-            displayResults('Новости', newsResults);
-
-            // Open Library
-            const bookResults = await searchBooks(query);
-            displayResults('Книги', bookResults);
-
-            // TVMaze
-            const tvResults = await searchTVShows(query);
-            displayResults('ТВ Шоу', tvResults);
+            displayResults('Результаты поиска', duckDuckGoResults);
         }
 
         async function searchDuckDuckGo(query) {
@@ -249,7 +240,7 @@
             try {
                 const response = await fetch(endpoint);
                 const data = await response.json();
-                return data.RelatedTopics.slice(0, 5).map(topic => ({
+                return data.RelatedTopics.slice(0, 10).map(topic => ({
                     title: topic.Text.split(' - ')[0],
                     description: topic.Text.split(' - ')[1] || '',
                     url: topic.FirstURL
@@ -260,72 +251,11 @@
             }
         }
 
-        async function searchWikipedia(query) {
-            const endpoint = `https://ru.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(query)}`;
-            try {
-                const response = await fetch(endpoint);
-                const data = await response.json();
-                return data.query.search.map(result => ({
-                    title: result.title,
-                    description: result.snippet,
-                    url: `https://ru.wikipedia.org/?curid=${result.pageid}`
-                }));
-            } catch (error) {
-                console.error('Ошибка при поиске в Wikipedia:', error);
-                return [];
-            }
-        }
-
-        async function searchNews(query) {
-            const endpoint = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&apiKey=YOUR_NEWS_API_KEY&pageSize=5`;
-            try {
-                const response = await fetch(endpoint);
-                const data = await response.json();
-                return data.articles.map(article => ({
-                    title: article.title,
-                    description: article.description,
-                    url: article.url
-                }));
-            } catch (error) {
-                console.error('Ошибка при поиске новостей:', error);
-                return [];
-            }
-        }
-
-        async function searchBooks(query) {
-            const endpoint = `http://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5`;
-            try {
-                const response = await fetch(endpoint);
-                const data = await response.json();
-                return data.docs.map(book => ({
-                    title: book.title,
-                    description: `Автор: ${book.author_name ? book.author_name.join(', ') : 'Неизвестно'}`,
-                    url: `https://openlibrary.org${book.key}`
-                }));
-            } catch (error) {
-                console.error('Ошибка при поиске книг:', error);
-                return [];
-            }
-        }
-
-        async function searchTVShows(query) {
-            const endpoint = `http://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`;
-            try {
-                const response = await fetch(endpoint);
-                const data = await response.json();
-                return data.slice(0, 5).map(item => ({
-                    title: item.show.name,
-                    description: item.show.summary ? item.show.summary.replace(/<[^>]*>/g, '') : 'Нет описания',
-                    url: item.show.url
-                }));
-            } catch (error) {
-                console.error('Ошибка при поиске ТВ шоу:', error);
-                return [];
-            }
-        }
-
         function displayResults(sectionTitle, results) {
-            if (results.length === 0) return;
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p>Результаты не найдены.</p>';
+                return;
+            }
 
             const section = document.createElement('div');
             section.classList.add('result-section');
@@ -334,10 +264,18 @@
             results.forEach(result => {
                 const resultItem = document.createElement('div');
                 resultItem.classList.add('result-item');
+                resultItem.onclick = () => window.open(result.url, '_blank');
+                
+                const favicon = `https://www.google.com/s2/favicons?domain=${new URL(result.url).hostname}&sz=32`;
+                
                 resultItem.innerHTML = `
-                    <h3>${result.title}</h3>
-                    <p>${result.description}</p>
-                    <a href="${result.url}" target="_blank">Подробнее <i class="fas fa-external-link-alt"></i></a>
+                    <div class="result-icon">
+                        <img src="${favicon}" alt="Site icon" onerror="this.src='https://picsum.photos/32/32?random=${Math.random()}';">
+                    </div>
+                    <div>
+                        <h3>${result.title}</h3>
+                        <p>${result.description}</p>
+                    </div>
                 `;
                 section.appendChild(resultItem);
             });
