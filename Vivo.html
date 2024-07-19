@@ -100,7 +100,7 @@
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';
 
-            if (items.length > 0) {
+            if (items && items.length > 0) {
                 items.forEach(item => {
                     if (item.Text && item.FirstURL) {
                         const resultItem = document.createElement('div');
@@ -110,6 +110,10 @@
                         title.href = item.FirstURL;
                         title.textContent = item.Text;
                         resultItem.appendChild(title);
+
+                        const snippet = document.createElement('p');
+                        snippet.textContent = item.Text;
+                        resultItem.appendChild(snippet);
 
                         resultsDiv.appendChild(resultItem);
                     }
