@@ -1,60 +1,40 @@
-// Функция для получения результатов через JSONP
-function getYandexResults(query, callback) {
+async function fetchViaProxy(url) {
 
-  const url = `https://yandex.ru/search/jsonp?callback=${callback}&text=${query}`;
+  const proxyUrl = 'http://localhost:3000/proxy';
 
-  // Генерация скрипта
-  const script = document.createElement('script');
-  script.src = url;
-
-  document.body.appendChild(script);
-
-}
-
-// Обработчик callback 
-function handleResults(results) {
-
-  const parsedResults = results.map(result => ({
-    title: result.title, 
-    url: result.url
-  }));
-
-  displayResults(parsedResults.slice(0,10));
-
-}
-
-// Отображение результатов
-function displayResults(results) {
-
-  const container = document.getElementById('results');
-  container.innerHTML = '';
-
-  results.forEach(result => {
-
-    const item = document.createElement('div');
-
-    const title = document.createElement('a');
-    title.href = result.url;
-    title.textContent = result.title;
-
-    item.appendChild(title);
-
-    container.appendChild(item);
-
+  const response = await fetch(proxyUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({url})
   });
 
-}
-
-// Инициализация
-function init() {
-
-  // Получение запроса
-  const query = document.getElementById('query').value;
-  
-  // Вызов функции для получения результатов
-  getYandexResults(query, 'handleResults');
+  return await response.json();
 
 }
 
-// Запуск
-init();
+async function getYandexResults(query) {
+
+  const results = await fetchViaProxy(
+    `https://yandex.ru/search?text=${query}`
+  );
+
+  return results.map(result => ({
+    title: result.title,
+    url: result.url  
+  }));
+
+}
+
+async function displayResults() {
+
+  const query = document.querySelector('input').value;
+
+  const results = await getYandexResults(query);
+
+  // отрисовка results...
+
+}
+
+document.querySelector('button').addEventListener('click', displayResults);
