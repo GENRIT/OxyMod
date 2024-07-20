@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas: canvas,
     width: window.innerWidth,
     height: window.innerHeight,
-    skin: "https://example.com/your-skin-url.png"
+    skin: "3333333.png"
   });
   skinViewer.camera.position.set(0, 0, 70);
 
