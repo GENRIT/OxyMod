@@ -96,18 +96,3 @@ function animate() {
 }
 
 animate();
-
-// script.js additions
-
-const bgMusic = new Audio('path/to/background-music.mp3');
-bgMusic.loop = true;
-bgMusic.play();
-
-const attackSound = new Audio('path/to/attack-sound.mp3');
-
-// Play attack sound
-attackButton.addEventListener('click', () => {
-  isAttacking = true;
-  attackSound.play();
-  setTimeout(() => { isAttacking = false; }, 500); // Attack duration
-});
