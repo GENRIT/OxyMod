@@ -32,17 +32,9 @@ body, html {
   align-items: center;
 }
 
-#joystick {
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  position: relative;
-}
-
-#attackButton {
+#upgradeButton {
   padding: 10px 20px;
-  background: red;
+  background: blue;
   border: none;
   border-radius: 5px;
   color: #fff;
