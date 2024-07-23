@@ -2,14 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-    margin: 0;
-    font-family: 'Press Start 2P', cursive, sans-serif;
-    font-size: 12px; /* Уменьшенный размер шрифта */
-    background: url('https://graph.org/file/17e1c9e23163914a475ee.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    overflow-x: hidden;
-}
+        font-family: 'Press Start 2P', cursive, sans-serif;
+        font-size: 12px; /* Уменьшенный размер шрифта */
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-image: url('https://graph.org/file/17e1c9e23163914a475ee.jpg'); /* Первое изображение */
+        background-size: cover;
+        background-position: center;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        z-index: -1;
+    }
 
 .navbar {
     background: rgba(0, 0, 139, 0.8);
@@ -45,7 +51,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     z-index: 1000;
-    font-size: 8px; /* Уменьшенный размер шрифта */
+    font-size: 11px; /* Уменьшенный размер шрифта */
 }
 
 .dropdown-menu.show {
