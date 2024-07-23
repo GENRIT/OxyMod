@@ -28,7 +28,7 @@ style.textContent = `
         height: 100%;
         pointer-events: none;
         overflow: hidden;
-        z-index: 1000;
+        z-index: -1;
     }
 
     .raindrop {
