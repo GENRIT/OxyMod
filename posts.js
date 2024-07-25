@@ -70,6 +70,11 @@ const posts = [
         "title": "Uny 16x [Pink]"
     },
     {
+        "image": "https://graph.org/file/9cf8140adcb2af0a1fb47.jpg",
+        "link": "https://oxymod.netlify.app/nakano16redpost",
+        "title": "Nakano 16x [Red]"
+    },
+    {
         "image": "https://graph.org/file/8bc285355aee6e8136bbd.jpg",
         "link": "https://oxymod.netlify.app/july16xredpost",
         "title": "July 16x [Red]"
