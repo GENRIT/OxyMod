@@ -364,6 +364,10 @@
                 adContainer.style.display = 'none';
                 if (!isAdWatched) {
                     resetGame(false);
+                } else {
+                    resetGame(true);
+                    burgerCount = burgerCountBeforeAd;
+                    document.getElementById('burgerCount').innerText = `Burgers Eaten: ${burgerCount}`;
                 }
             }, 30000);
         }
@@ -376,15 +380,12 @@
         document.getElementById('watchAdButton').addEventListener('click', () => {
             hideMenu();
             showAd();
+            burgerCountBeforeAd = burgerCount;
             const adScript = document.createElement('script');
             adScript.defer = true;
             adScript.src = 'https://cdn.adlook.me/js/rlf.js';
             adScript.onload = () => {
                 isAdWatched = true;
-                const adContainer = document.querySelector('.tgx-rlf');
-                if (adContainer) {
-                    adContainer.style.display = 'block';
-                }
             };
             adScript.onerror = () => {
                 isAdWatched = false;
@@ -418,7 +419,6 @@
     </div>
 </div>
 
-<!-- Paste next line before closing BODY tag -->
 <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
 
 </body>
