@@ -1,28 +1,126 @@
-#include <iostream>
-#include <fstream>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center center;
+        }
+        .book-card {
+            transition: transform 0.2s;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title has-text-white">
+                    Motivational Books
+                </h1>
+                <h2 class="subtitle has-text-white">
+                    Discover the best books to inspire and motivate you
+                </h2>
+            </div>
+        </div>
+    </section>
 
-int main() {
-    std::ofstream file("index.html");
-    if (file.is_open()) {
-        file << "<!DOCTYPE html>\n";
-        file << "<html lang=\"en\">\n";
-        file << "<head>\n";
-        file << "    <meta charset=\"UTF-8\">\n";
-        file << "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
-        file << "    <title>My GitHub Page</title>\n";
-        file << "    <style>\n";
-        file << "        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }\n";
-        file << "        h1 { color: #333; }\n";
-        file << "    </style>\n";
-        file << "</head>\n";
-        file << "<body>\n";
-        file << "    <h1>Welcome to My GitHub Page</h1>\n";
-        file << "    <p>This page is generated using C++!</p>\n";
-        file << "</body>\n";
-        file << "</html>\n";
-        file.close();
-    } else {
-        std::cerr << "Unable to open file for writing\n";
-    }
-    return 0;
-}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-multiline">
+                <!-- Book 1 -->
+                <div class="column is-one-third">
+                    <div class="card book-card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="https://images-na.ssl-images-amazon.com/images/I/81GEu6VFeXL.jpg" alt="Atomic Habits">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">Atomic Habits</p>
+                                    <p class="subtitle is-6">by James Clear</p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                An Easy & Proven Way to Build Good Habits & Break Bad Ones. This book reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="column is-one-third">
+                    <div class="card book-card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="https://images-na.ssl-images-amazon.com/images/I/71g2ednj0JL.jpg" alt="The Power of Now">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">The Power of Now</p>
+                                    <p class="subtitle is-6">by Eckhart Tolle</p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                A Guide to Spiritual Enlightenment. This book is a spiritual guidebook that leads readers on a journey to find their true and deepest self and reach the ultimate in personal growth and spirituality: the discovery of truth and light.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 3 -->
+                <div class="column is-one-third">
+                    <div class="card book-card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="https://images-na.ssl-images-amazon.com/images/I/81-KI+RdkEL.jpg" alt="The 7 Habits of Highly Effective People">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">The 7 Habits of Highly Effective People</p>
+                                    <p class="subtitle is-6">by Stephen R. Covey</p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                Powerful Lessons in Personal Change. This book presents a principle-centered approach for solving personal and professional problems. With penetrating insights and pointed anecdotes, Covey reveals a step-by-step pathway for living with fairness, integrity, honesty, and human dignity.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more books here -->
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Motivational Books</strong> by <a href="https://your-website.com">Your Name</a>. 
+                The source code is available on <a href="https://github.com/your-repo">GitHub</a>.
+            </p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.adlook.me/js/vbf.js"></script>
+</body>
+</html>
