@@ -1,0 +1,28 @@
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ofstream file("index.html");
+    if (file.is_open()) {
+        file << "<!DOCTYPE html>\n";
+        file << "<html lang=\"en\">\n";
+        file << "<head>\n";
+        file << "    <meta charset=\"UTF-8\">\n";
+        file << "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
+        file << "    <title>My GitHub Page</title>\n";
+        file << "    <style>\n";
+        file << "        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }\n";
+        file << "        h1 { color: #333; }\n";
+        file << "    </style>\n";
+        file << "</head>\n";
+        file << "<body>\n";
+        file << "    <h1>Welcome to My GitHub Page</h1>\n";
+        file << "    <p>This page is generated using C++!</p>\n";
+        file << "</body>\n";
+        file << "</html>\n";
+        file.close();
+    } else {
+        std::cerr << "Unable to open file for writing\n";
+    }
+    return 0;
+}
