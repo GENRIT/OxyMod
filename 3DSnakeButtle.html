@@ -129,7 +129,6 @@
             cubeSize = 1;
             speed = 0.5;
             burgerCount = 0;
-            turnSpeed = 0.1;
 
             // Create ground
             let groundGeometry = new THREE.PlaneGeometry(2500, 2500);
@@ -176,15 +175,17 @@
             burgerTexture = new THREE.TextureLoader().load('https://i.imgur.com/bYRsoMJ.png');
             burgers = [];
 
-            function spawnBurger() {
-                let x = Math.floor(Math.random() * 2500 - 1250);
-                let z = Math.floor(Math.random() * 2500 - 1250);
-                let burger = createCube(x, 0.5, z, 0xffffff);
-                burger.material.map = burgerTexture;
-                burgers.push(burger);
+            function spawnBurgers() {
+                for (let i = 0; i < 10; i++) { // Spawn 10 burgers at a time
+                    let x = Math.floor(Math.random() * 2500 - 1250);
+                    let z = Math.floor(Math.random() * 2500 - 1250);
+                    let burger = createCube(x, 0.5, z, 0xffffff);
+                    burger.material.map = burgerTexture;
+                    burgers.push(burger);
+                }
             }
 
-            setInterval(spawnBurger, 1000); // Spawn burgers every second
+            setInterval(spawnBurgers, 1000); // Spawn burgers every second
 
             // Move snake
             function moveSnake() {
