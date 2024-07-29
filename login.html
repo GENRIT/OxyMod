@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация / Вход</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive, sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://graph.org/file/17e1c9e23163914a475ee.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-container.large {
+            height: 450px;
+        }
+
+        .carousel-container.medium {
+            height: 375px;
+        }
+
+        .carousel {
+            display: flex;
+            flex-wrap: nowrap;
+            animation: scroll 20s linear infinite;
+        }
+
+        .carousel img {
+            width: calc(33.33%);
+            height: auto;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .carousel-container.large .carousel img {
+            height: calc(100% / 3 * 16 / 9);
+        }
+
+        .carousel-container.medium .carousel img {
+            height: calc(100% / 3 * 16 / 9);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .form-container {
+            background: rgba(0, 0, 139, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .form-toggle {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .form-toggle button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-toggle button.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-content form {
+            display: none;
+        }
+
+        .form-content form.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button[type="submit"] {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container large">
+        <div class="carousel"></div>
+    </div>
+    <div class="carousel-container medium">
+        <div class="carousel"></div>
+    </div>
+    <div class="carousel-container small">
+        <div class="carousel"></div>
+    </div>
+    <div class="carousel-container">
+        <div class="carousel"></div>
+    </div>
+    <div class="form-container">
+        <div class="form-toggle">
+            <button id="register-btn" class="active">Регистрация</button>
+            <button id="login-btn">Вход</button>
+        </div>
+        <div class="form-content">
+            <form id="register-form" class="active">
+                <h2>Регистрация</h2>
+                <label for="nickname">Ник:</label>
+                <input type="text" id="nickname" name="nickname" required>
+                <label for="email">Почта:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="skin">Загрузить скин:</label>
+                <input type="file" id="skin" name="skin" accept=".png" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            <form id="login-form">
+                <h2>Вход</h2>
+                <label for="login-nickname">Ник:</label>
+                <input type="text" id="login-nickname" name="login-nickname" required>
+                <label for="login-password">Пароль:</label>
+                <input type="password" id="login-password" name="login-password" required>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerBtn = document.getElementById('register-btn');
+            const loginBtn = document.getElementById('login-btn');
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+            const carousels = document.querySelectorAll('.carousel');
+
+            // Показ и скрытие форм
+            registerBtn.addEventListener('click', function() {
+                registerBtn.classList.add('active');
+                loginBtn.classList.remove('active');
+                registerForm.classList.add('active');
+                loginForm.classList.remove('active');
+            });
+
+            loginBtn.addEventListener('click', function() {
+                loginBtn.classList.add('active');
+                registerBtn.classList.remove('active');
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            });
+
+            // Регистрация
+            registerForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nickname = document.getElementById('nickname').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const skin = document.getElementById('skin').files[0];
+
+                // Отправка данных в Telegram бот
+                const formData = new FormData();
+                formData.append('nickname', nickname);
+                formData.append('email', email);
+                formData.append('skin', skin);
+
+                // Отправляем текстовые данные
+                fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendMessage?chat_id=@Clayni0&text=Никнейм: ${nickname}, Почта: ${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Отправляем файл скина
+                    fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('Регистрация прошла успешно!');
+                    })
+                    .catch(error => {
+                        console.error('Ошибка отправки файла:', error);
+                        alert('Произошла ошибка при отправке файла. Попробуйте еще раз.');
+                    });
+                })
+                .catch(error => {
+                    console.error('Ошибка отправки данных:', error);
+                    alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
+                });
+            });
+
+            // Вход
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nickname = document.getElementById('login-nickname').value;
+                const password = document.getElementById('login-password').value;
+
+                // Проверяем данные пользователя (на данный момент проверка на клиенте, рекомендуется реализовать серверную проверку)
+                alert('Вход в систему...');
+            });
+        });
+    </script>
+</body>
+</html>
