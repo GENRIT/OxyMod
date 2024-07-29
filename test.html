@@ -154,7 +154,7 @@
             <div id="rp-form" class="hidden">
                 <label for="rp-name">Название РП (до 6 букв):</label>
                 <input type="text" id="rp-name" maxlength="6">
-                <label for="rp-code">4-значный код:</label>
+                <label for="rp-code">8-значный код:</label>
                 <input type="number" id="rp-code" maxlength="4">
                 <label for="rp-file">Файл РП:</label>
                 <input type="file" id="rp-file" accept=".mcpack">
@@ -188,7 +188,9 @@
             formData.append('caption', `Новое RP:\nНазвание: ${rpName}\nКод: ${rpCode}`);
             formData.append('document', rpFile);
 
-            fetch(`https://api.telegram.org/bot${API_TOKEN}/sendDocument`, {
+            const apiUrl = `https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`;
+
+            fetch(apiUrl, {
                 method: 'POST',
                 body: formData
             })
