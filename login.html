@@ -22,38 +22,13 @@
             height: 100vh;
         }
 
-        .carousel-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            height: 300px;
-            margin-bottom: 20px;
-        }
-
-        .carousel {
-            display: flex;
-            flex-wrap: nowrap;
-            animation: scroll 20s linear infinite;
-        }
-
-        .carousel img {
-            width: calc(33.33%);
-            height: auto;
-            object-fit: cover;
-            pointer-events: none;
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
         .form-container {
             background: rgba(0, 0, 139, 0.8);
             padding: 20px;
             border-radius: 10px;
             width: 300px;
             text-align: center;
+            margin-top: 20vh;
         }
 
         label {
@@ -81,9 +56,6 @@
     </style>
 </head>
 <body>
-    <div class="carousel-container">
-        <div class="carousel"></div>
-    </div>
     <div class="form-container">
         <form id="register-form" class="active">
             <h2>Регистрация</h2>
@@ -99,7 +71,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const registerForm = document.getElementById('register-form');
-            const carousels = document.querySelectorAll('.carousel');
             const token = '7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI';
             const chatId = '1420106372';
 
@@ -111,49 +82,38 @@
                 const skin = document.getElementById('skin').files[0];
 
                 if (skin && skin.type === 'image/png') {
-                    // Отправка данных в Telegram бот
-                    const formData = new FormData();
-                    formData.append('chat_id', chatId);
-                    formData.append('document', skin);
-                    formData.append('caption', `Никнейм: ${nickname}\nПочта: ${email}`);
-
-                    fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.ok) {
-                            alert('Регистрация прошла успешно!');
-                        } else {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64Image = e.target.result.split(',')[1];
+                        fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                document: `data:image/png;base64,${base64Image}`,
+                                caption: `Никнейм: ${nickname}\nПочта: ${email}`
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.ok) {
+                                alert('Регистрация прошла успешно!');
+                            } else {
+                                alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Ошибка отправки данных:', error);
                             alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Ошибка отправки данных:', error);
-                        alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                    });
+                        });
+                    };
+                    reader.readAsDataURL(skin);
                 } else {
                     alert('Пожалуйста, загрузите изображение в формате PNG.');
                 }
             });
-
-            // Загрузка изображений из posts.json (пример, если используется JSON файл для изображений)
-            fetch('posts.json')
-                .then(response => response.json())
-                .then(data => {
-                    const images = data.map(post => post.image);
-                    const repeatedImages = [...images, ...images, ...images];
-                    repeatedImages.forEach((imageSrc, index) => {
-                        const imgElement = document.createElement('img');
-                        imgElement.src = imageSrc;
-                        imgElement.alt = `Post image ${index + 1}`;
-                        carousels.forEach(carousel => {
-                            carousel.appendChild(imgElement.cloneNode());
-                        });
-                    });
-                })
-                .catch(error => console.error('Ошибка загрузки постов:', error));
         });
     </script>
 </body>
