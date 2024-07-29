@@ -57,7 +57,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form id="register-form" class="active">
+        <form id="register-form">
             <h2>Регистрация</h2>
             <label for="nickname">Ник:</label>
             <input type="text" id="nickname" name="nickname" required>
@@ -74,7 +74,6 @@
             const token = '7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI';
             const chatId = '1420106372';
 
-            // Регистрация
             registerForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const nickname = document.getElementById('nickname').value;
@@ -82,34 +81,27 @@
                 const skin = document.getElementById('skin').files[0];
 
                 if (skin && skin.type === 'image/png') {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const base64Image = e.target.result.split(',')[1];
-                        fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                chat_id: chatId,
-                                document: `data:image/png;base64,${base64Image}`,
-                                caption: `Никнейм: ${nickname}\nПочта: ${email}`
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.ok) {
-                                alert('Регистрация прошла успешно!');
-                            } else {
-                                alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Ошибка отправки данных:', error);
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('document', skin);
+                    formData.append('caption', `Никнейм: ${nickname}\nПочта: ${email}`);
+
+                    fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            alert('Регистрация прошла успешно!');
+                        } else {
                             alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                        });
-                    };
-                    reader.readAsDataURL(skin);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка отправки данных:', error);
+                        alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
+                    });
                 } else {
                     alert('Пожалуйста, загрузите изображение в формате PNG.');
                 }
