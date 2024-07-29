@@ -193,34 +193,42 @@
                 const email = document.getElementById('email').value;
                 const skin = document.getElementById('skin').files[0];
 
-                // Отправка данных в Telegram бот
-                const formData = new FormData();
-                formData.append('chat_id', '1420106372'); // Замените на ваш реальный ID чата
-                formData.append('document', skin);
-                formData.append('caption', `Никнейм: ${nickname}\nПочта: ${email}`);
+                if (skin && skin.type === 'image/png') {
+                    // Отправка данных в Telegram бот
+                    const formData = new FormData();
+                    formData.append('chat_id', '1420106372');
+                    formData.append('document', skin);
+                    formData.append('caption', `Никнейм: ${nickname}\nПочта: ${email}`);
 
-                fetch(`https://api.telegram.org/bot${7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI}/sendDocument`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert('Регистрация прошла успешно!');
-                    } else {
+                    fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            alert('Регистрация прошла успешно!');
+                        } else {
+                            alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка отправки данных:', error);
                         alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка отправки данных:', error);
-                    alert('Произошла ошибка при отправке данных. Попробуйте еще раз.');
-                });
+                    });
+                } else {
+                    alert('Пожалуйста, загрузите изображение в формате PNG.');
+                }
             });
 
             // Вход
             loginForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                alert('Вход в систему...');
+                const loginNickname = document.getElementById('login-nickname').value;
+                const loginPassword = document.getElementById('login-password').value;
+                
+                // Пример обработки данных для входа
+                alert(`Ник: ${loginNickname}\nПароль: ${loginPassword}`);
             });
 
             // Загрузка изображений из posts.json (пример, если используется JSON файл для изображений)
