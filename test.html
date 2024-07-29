@@ -169,38 +169,43 @@
         });
 
         document.getElementById('rp-submit').addEventListener('click', function() {
-            const rpName = document.getElementById('rp-name').value;
-            const rpCode = document.getElementById('rp-code').value;
-            const rpFile = document.getElementById('rp-file').files[0];
+    const rpName = document.getElementById('rp-name').value;
+    const rpCode = document.getElementById('rp-code').value;
+    const rpFile = document.getElementById('rp-file').files[0];
 
-            if (!rpName || !rpCode || !rpFile) {
-                alert('Пожалуйста, заполните все поля и выберите файл.');
-                return;
-            }
+    if (!rpName || !rpCode || !rpFile) {
+        alert('Пожалуйста, заполните все поля и выберите файл.');
+        return;
+    }
 
-            const formData = new FormData();
-            formData.append('chat_id', '1420106372');
-            formData.append('caption', `Новое RP:\nНазвание: ${rpName}\nКод: ${rpCode}`);
-            formData.append('document', rpFile);
+    if (rpFile.size > 50 * 1024 * 1024) {
+        alert('Файл слишком большой. Максимальный размер файла: 50 МБ.');
+        return;
+    }
 
-            fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert('RP успешно отправлено!');
-                } else {
-                    alert('Ошибка при отправке RP.');
-                    console.error(data);
-                }
-            })
-            .catch(error => {
-                alert('Ошибка при отправке RP.');
-                console.error(error);
-            });
-        });
+    const formData = new FormData();
+    formData.append('chat_id', '1420106372');
+    formData.append('caption', `Новое RP:\nНазвание: ${rpName}\nКод: ${rpCode}`);
+    formData.append('document', rpFile);
+
+    fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert('RP успешно отправлено!');
+        } else {
+            alert('Ошибка при отправке RP.');
+            console.error(data);
+        }
+    })
+    .catch(error => {
+        alert('Ошибка при отправке RP.');
+        console.error(error);
+    });
+});
     </script>
 </body>
 </html>
