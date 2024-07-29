@@ -3,52 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File</title>
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload File to Telegram Bot</h1>
-    <form id="uploadForm">
-        <input type="file" id="fileInput" name="file" required>
-        <button type="submit">Upload</button>
-    </form>
-    <p id="status"></p>
+    <h1>Upload .mcpack File</h1>
+    <input type="file" id="fileInput" accept=".mcpack">
+    <button onclick="uploadFile()">Upload</button>
 
     <script>
-        const API_TOKEN = '7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI';
-        const OWNER_CHAT_ID = 1420106372;
-
-        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            
+        async function uploadFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             
-            if (file) {
-                const formData = new FormData();
-                formData.append('document', file);
-                
-                const url = `https://api.telegram.org/bot${API_TOKEN}/sendDocument?chat_id=${OWNER_CHAT_ID}`;
-                
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (result.ok) {
-                        document.getElementById('status').textContent = 'File successfully uploaded and sent to Telegram bot';
-                    } else {
-                        document.getElementById('status').textContent = 'Failed to send file: ' + result.description;
-                    }
-                } catch (error) {
-                    document.getElementById('status').textContent = 'Error: ' + error.message;
-                }
-            } else {
-                document.getElementById('status').textContent = 'No file selected';
+            if (!file) {
+                alert('Please select a file');
+                return;
             }
-        });
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('https://api.seenode.net/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    await sendToTelegram(result.file_url);
+                    alert('File uploaded and sent to Telegram successfully');
+                } else {
+                    alert('Failed to upload file');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error uploading file');
+            }
+        }
+
+        async function sendToTelegram(fileUrl) {
+            const apiUrl = `https://api.telegram.org/bot${'7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI'}/sendMessage`;
+            const chatId = 1420106372;
+            const message = `New .mcpack file uploaded: ${fileUrl}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send message to Telegram');
+            }
+        }
     </script>
 </body>
 </html>
