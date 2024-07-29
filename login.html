@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация / Вход</title>
+    <title>Регистрация</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body {
@@ -30,14 +30,6 @@
             margin-bottom: 20px;
         }
 
-        .carousel-container.large {
-            height: 450px;
-        }
-
-        .carousel-container.medium {
-            height: 375px;
-        }
-
         .carousel {
             display: flex;
             flex-wrap: nowrap;
@@ -49,14 +41,6 @@
             height: auto;
             object-fit: cover;
             pointer-events: none;
-        }
-
-        .carousel-container.large .carousel img {
-            height: calc(100% / 3 * 16 / 9);
-        }
-
-        .carousel-container.medium .carousel img {
-            height: calc(100% / 3 * 16 / 9);
         }
 
         @keyframes scroll {
@@ -72,40 +56,12 @@
             text-align: center;
         }
 
-        .form-toggle {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-
-        .form-toggle button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            padding: 10px;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .form-toggle button.active {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .form-content form {
-            display: none;
-        }
-
-        .form-content form.active {
-            display: block;
-        }
-
         label {
             display: block;
             margin: 10px 0 5px;
         }
 
-        input[type="text"], input[type="email"], input[type="file"], input[type="password"] {
+        input[type="text"], input[type="email"], input[type="file"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -125,68 +81,27 @@
     </style>
 </head>
 <body>
-    <div class="carousel-container large">
-        <div class="carousel"></div>
-    </div>
-    <div class="carousel-container medium">
-        <div class="carousel"></div>
-    </div>
-    <div class="carousel-container small">
-        <div class="carousel"></div>
-    </div>
     <div class="carousel-container">
         <div class="carousel"></div>
     </div>
     <div class="form-container">
-        <div class="form-toggle">
-            <button id="register-btn" class="active">Регистрация</button>
-            <button id="login-btn">Вход</button>
-        </div>
-        <div class="form-content">
-            <form id="register-form" class="active">
-                <h2>Регистрация</h2>
-                <label for="nickname">Ник:</label>
-                <input type="text" id="nickname" name="nickname" required>
-                <label for="email">Почта:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="skin">Загрузить скин:</label>
-                <input type="file" id="skin" name="skin" accept=".png" required>
-                <button type="submit">Зарегистрироваться</button>
-            </form>
-            <form id="login-form">
-                <h2>Вход</h2>
-                <label for="login-nickname">Ник:</label>
-                <input type="text" id="login-nickname" name="login-nickname" required>
-                <label for="login-password">Пароль:</label>
-                <input type="password" id="login-password" name="login-password" required>
-                <button type="submit">Войти</button>
-            </form>
-        </div>
+        <form id="register-form" class="active">
+            <h2>Регистрация</h2>
+            <label for="nickname">Ник:</label>
+            <input type="text" id="nickname" name="nickname" required>
+            <label for="email">Почта:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="skin">Загрузить скин:</label>
+            <input type="file" id="skin" name="skin" accept=".png" required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const registerBtn = document.getElementById('register-btn');
-            const loginBtn = document.getElementById('login-btn');
             const registerForm = document.getElementById('register-form');
-            const loginForm = document.getElementById('login-form');
             const carousels = document.querySelectorAll('.carousel');
             const token = '7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI';
             const chatId = '1420106372';
-
-            // Показ и скрытие форм
-            registerBtn.addEventListener('click', function() {
-                registerBtn.classList.add('active');
-                loginBtn.classList.remove('active');
-                registerForm.classList.add('active');
-                loginForm.classList.remove('active');
-            });
-
-            loginBtn.addEventListener('click', function() {
-                loginBtn.classList.add('active');
-                registerBtn.classList.remove('active');
-                loginForm.classList.add('active');
-                registerForm.classList.remove('active');
-            });
 
             // Регистрация
             registerForm.addEventListener('submit', function(event) {
@@ -221,16 +136,6 @@
                 } else {
                     alert('Пожалуйста, загрузите изображение в формате PNG.');
                 }
-            });
-
-            // Вход
-            loginForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const loginNickname = document.getElementById('login-nickname').value;
-                const loginPassword = document.getElementById('login-password').value;
-                
-                // Пример обработки данных для входа
-                alert(`Ник: ${loginNickname}\nПароль: ${loginPassword}`);
             });
 
             // Загрузка изображений из posts.json (пример, если используется JSON файл для изображений)
