@@ -1,77 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload</title>
+    <title>Профиль пользователя</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/skinview3d@1.11.0/build/skinview3d.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+            font-family: 'Press Start 2P', cursive, sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://graph.org/file/17e1c9e23163914a475ee.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            z-index: -1;
         }
-        input[type="file"] {
-            margin: 20px 0;
+
+        .navbar {
+            background: rgba(0, 0, 139, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .profile-container {
+            background: rgba(0, 0, 139, 0.8);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            color: white;
+            padding: 20px 0;
+        }
+
+        #avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 10%;
+            background-color: #e0e0e0;
+            margin-right: 20px;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .submission {
+            padding: 20px 0;
+        }
+
+        #submit-rp-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0;
+            font-size: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #submit-rp-btn::before {
+            content: '+';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #submit-rp-btn:hover {
+            background-color: white;
+            color: #4CAF50;
+        }
+
+        #rp-form {
+            margin-top: 20px;
+        }
+
+        #rp-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #rp-form input[type="text"],
+        #rp-form input[type="file"],   
+        #rp-form input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #rp-submit {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #rp-submit:hover {
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Upload .mcpack File</h1>
-    <input type="file" id="fileInput" accept=".mcpack">
-    <button onclick="uploadFile()">Upload</button>
-
+    <div class="navbar">
+        <img id="avatar" src="https://graph.org/file/17e1c9e23163914a475ee.jpg" alt="Аватарка">
+        <h2 id="username">exampleUser</h2>
+    </div>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div id="skin-container"></div>
+            <div class="profile-info"></div>
+        </div>
+        <div class="submission">
+            <button id="submit-rp-btn"></button>
+            <div id="rp-form" class="hidden">
+                <label for="rp-name">Название РП (до 6 букв):</label>
+                <input type="text" id="rp-name" maxlength="6">
+                <label for="rp-code">4-значный код:</label>
+                <input type="number" id="rp-code" maxlength="4">
+                <label for="rp-file">Файл РП:</label>
+                <input type="file" id="rp-file" accept=".zip,.rar">
+                <button id="rp-submit">Отправить</button>
+            </div>
+        </div>
+    </div>
     <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            
-            if (!file) {
-                alert('Please select a file');
+        document.getElementById('submit-rp-btn').addEventListener('click', function() {
+            const form = document.getElementById('rp-form');
+            form.classList.toggle('hidden');
+        });
+
+        document.getElementById('rp-submit').addEventListener('click', function() {
+            const rpName = document.getElementById('rp-name').value;
+            const rpCode = document.getElementById('rp-code').value;
+            const rpFile = document.getElementById('rp-file').files[0];
+
+            if (!rpName || !rpCode || !rpFile) {
+                alert('Пожалуйста, заполните все поля и выберите файл.');
                 return;
             }
 
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('chat_id', '1420106372');
+            formData.append('caption', `Новое RP:\nНазвание: ${rpName}\nКод: ${rpCode}`);
+            formData.append('document', rpFile);
 
-            try {
-                const response = await fetch('https://api.seenode.net/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    await sendToTelegram(result.file_url);
-                    alert('File uploaded and sent to Telegram successfully');
-                } else {
-                    alert('Failed to upload file');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error uploading file');
-            }
-        }
-
-        async function sendToTelegram(fileUrl) {
-            const apiUrl = `https://api.telegram.org/bot${'7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI'}/sendMessage`;
-            const chatId = 1420106372;
-            const message = `New .mcpack file uploaded: ${fileUrl}`;
-
-            const response = await fetch(apiUrl, {
+            fetch(`https://api.telegram.org/bot7240803057:AAG7xMLwBKljEiRpjN7EYEVfANX9BGthUCI/sendDocument`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('RP успешно отправлено!');
+                } else {
+                    alert('Ошибка при отправке RP.');
+                    console.error(data);
+                }
+            })
+            .catch(error => {
+                alert('Ошибка при отправке RP.');
+                console.error(error);
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to send message to Telegram');
-            }
-        }
+        });
     </script>
 </body>
 </html>
