@@ -209,40 +209,57 @@
         let delay = 0;
 
         paragraphs.forEach((paragraph, pIndex) => {
-            const characters = paragraph.innerText.split('');
+            const text = paragraph.innerText;
             paragraph.innerHTML = '';
-            characters.forEach((char, index) => {
-                const span = document.createElement('span');
-                span.innerText = char;
-                span.style.transitionDelay = `${delay + index * 0.03}s`;
-                span.style.opacity = '0';
-                span.style.display = 'inline-block';
-                if (char === ' ') {
-                    span.style.width = '0.25em'; // Adjust space width as needed
-                }
-                paragraph.appendChild(span);
-            });
-            delay += characters.length * 0.03 + 0.5; // Adding 0.5 seconds buffer between paragraphs
-        });
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            cursor.innerHTML = '|';
+            paragraph.appendChild(cursor);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const spans = entry.target.querySelectorAll('span');
-                    spans.forEach(span => {
-                        span.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        span.style.opacity = '1';
-                        span.style.transform = 'translateY(0)';
-                    });
-                    observer.unobserve(entry.target); // Stop observing after characters appear
+            function typeWriter(text, index) {
+                if (index < text.length) {
+                    if (text.charAt(index) === '\n') {
+                        paragraph.innerHTML += '<br>';
+                    } else {
+                        paragraph.insertBefore(document.createTextNode(text.charAt(index)), cursor);
+                    }
+                    setTimeout(() => typeWriter(text, index + 1), 50); // Adjust typing speed here
+                } else {
+                    cursor.style.display = 'none'; // Hide cursor when typing is complete
                 }
-            });
-        }, { threshold: 0.1 });
+            }
 
-        paragraphs.forEach(p => {
-            observer.observe(p);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => typeWriter(text, 0), delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(paragraph);
+            delay += text.length * 50 + 1000; // Delay for next paragraph
         });
     });
 </script>
+
+<style>
+    @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    .cursor {
+        animation: blink 0.7s infinite;
+        font-weight: bold;
+    }
+
+    p {
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+</style>
 </body>
 </html>
