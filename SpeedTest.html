@@ -1,91 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speed Test</title>
+    <title>Проверка скорости интернета</title>
     <style>
         body {
-            background-color: #ff0000;
-            color: #fff;
+            background-color: #1e1e1e;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
         }
-        #speedCircle {
+
+        .circle {
             width: 200px;
             height: 200px;
-            border: 5px solid #fff;
             border-radius: 50%;
+            border: 5px solid red;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
             position: relative;
-            z-index: 1;
         }
-        #startButton {
+
+        .circle::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(255, 0, 0, 0.5) 100%);
+            border-radius: 50%;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0, 0);
+            }
+            20% {
+                transform: translate(5px, 5px);
+            }
+            40% {
+                transform: translate(-5px, -5px);
+            }
+            60% {
+                transform: translate(5px, -5px);
+            }
+            80% {
+                transform: translate(-5px, 5px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .button {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #fff;
-            color: #ff0000;
+            background-color: red;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.2em;
-            position: relative;
-            z-index: 1;
+            font-size: 16px;
+            transition: transform 0.2s;
         }
-        @keyframes planeAnimation {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100vw, -100vh); }
+
+        .button:hover {
+            transform: scale(1.1);
         }
-        .plane {
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+
+        .result {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            animation: planeAnimation 5s linear infinite;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .flying-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: red;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: fly 10s linear infinite;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translate(0, 100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100%, 0);
+                opacity: 0;
+            }
+        }
+
+        .airplane {
+            animation: fly-plane 5s linear infinite;
+        }
+
+        @keyframes fly-plane {
+            0% {
+                transform: translate(0, 100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100%, 0);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="speedCircle">0 Mbps</div>
-    <button id="startButton">Start</button>
-    <div class="plane" style="animation-delay: 0s;"></div>
-    <div class="plane" style="animation-delay: 1s;"></div>
-    <div class="plane" style="animation-delay: 2s;"></div>
-    <div class="plane" style="animation-delay: 3s;"></div>
-    <div class="plane" style="animation-delay: 4s;"></div>
+    <div class="container">
+        <div class="circle" id="speedCircle">
+            <div class="result" id="resultText">0 Mbps</div>
+        </div>
+        <button class="button" onclick="startSpeedTest()">Start</button>
+    </div>
+    <div class="flying-icons">
+        <div class="icon" style="animation-duration: 8s;"></div>
+        <div class="icon" style="animation-duration: 10s; animation-delay: 2s;"></div>
+        <div class="icon" style="animation-duration: 12s; animation-delay: 4s;"></div>
+        <div class="airplane icon" style="animation-duration: 6s;"></div>
+        <div class="airplane icon" style="animation-duration: 7s; animation-delay: 1s;"></div>
+    </div>
     <script>
-        // Подключаем speedtest.js
-        // Источник библиотеки: https://github.com/librespeed/speedtest
-        var speedtest = document.createElement('script');
-        speedtest.src = 'https://cdn.jsdelivr.net/gh/librespeed/speedtest@latest/speedtest.js';
-        document.head.appendChild(speedtest);
+        function startSpeedTest() {
+            const resultText = document.getElementById('resultText');
+            resultText.textContent = 'Проверка...';
 
-        speedtest.onload = function() {
-            var s = new Speedtest();
-            s.onupdate = function(data) {
-                document.getElementById('speedCircle').innerText = data.dlStatus + ' Mbps';
-            };
-            s.onend = function(aborted) {
-                document.getElementById('startButton').disabled = false;
+            const image = new Image();
+            const startTime = new Date().getTime();
+            let endTime;
+
+            image.onload = function() {
+                endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000;
+                const bitsLoaded = 500000 * 8; // 500KB * 8 bits
+                const speedBps = bitsLoaded / duration;
+                const speedKbps = speedBps / 1024;
+                const speedMbps = speedKbps / 1024;
+                resultText.textContent = `${speedMbps.toFixed(2)} Mbps`;
             };
 
-            document.getElementById('startButton').addEventListener('click', function() {
-                document.getElementById('startButton').disabled = true;
-                s.start();
-            });
-        };
+            image.onerror = function() {
+                resultText.textContent = 'Ошибка проверки';
+            };
+
+            image.src = "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_JPG_RIP_025.jpg?rand=" + Math.random();
+        }
     </script>
 </body>
 </html>
