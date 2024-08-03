@@ -6,6 +6,58 @@
     <title>Nakano 16x [Red]</title>
     <link rel="stylesheet" href="postStyles.css">
     <script src="posts.js" defer></script>
+    <style>
+        /* Add these styles for the new button and modal */
+        .square-button {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 10px;
+            position: relative;
+        }
+
+        .square-button img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            bottom: 0; 
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background-color: white; 
+            border-top: 2px solid #ccc;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .modal .modal-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal .modal-content button {
+            width: 48%;
+            height: 50px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -35,15 +87,18 @@
     <a href="https://oxymod.netlify.app/nakano16xredjij" class="button-link">
         <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
     </a>
+    <div class="square-button" id="trigger-modal">
+        <img src="https://graph.org/file/your-icon-image.jpg" alt="Icon">
+    </div>
     <a href="https://oxymod.netlify.app/" class="back-button">Back</a>
     <div class="description">
         <p>Texture Pack</p>
         <p>Nakano 16x [Red]</p>
     </div>
-        <div class="scroll-container">
-            <img src="https://graph.org/file/8bbb6e8e838080d06ad18.jpg">
-            <img src="https://graph.org/file/92dcbd6060246ff9f69d5.jpg">
-            <img src="https://graph.org/file/0ca023b978660d1388ab6.jpg">
+    <div class="scroll-container">
+        <img src="https://graph.org/file/8bbb6e8e838080d06ad18.jpg">
+        <img src="https://graph.org/file/92dcbd6060246ff9f69d5.jpg">
+        <img src="https://graph.org/file/0ca023b978660d1388ab6.jpg">
     </div>
     <div class="footer">
         <div class="info">
@@ -53,7 +108,40 @@
         <div class="author">
             <img src="https://graph.org/file/0a0634d2613432450c901.jpg" onclick="window.location.href='https://oxymod.netlify.app/Clayni'">
         </div>
-    <div id="recommendations"></div>
+        <div id="recommendations"></div>
     </div>
+
+    <!-- Modal Window -->
+    <div class="modal" id="modal">
+        <div class="close" id="close-modal">✖</div>
+        <div class="modal-content">
+            <button id="copy-link">Copy Link</button>
+            <button id="share-telegram">Share via Telegram</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('trigger-modal').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'block';
+        });
+
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        document.getElementById('copy-link').addEventListener('click', function() {
+            const link = window.location.href;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copied to clipboard');
+            }).catch(err => {
+                alert('Failed to copy link: ' + err);
+            });
+        });
+
+        document.getElementById('share-telegram').addEventListener('click', function() {
+            const message = `Слушай, я нашёл обалденный РП, он соска братан, смотри и качай: ${window.location.href}`;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(message)}`, '_blank');
+        });
+    </script>
 </body>
 </html>
