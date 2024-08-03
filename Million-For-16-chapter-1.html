@@ -203,78 +203,62 @@
             <a href="chapter2.html" class="button">Перейти к Главе 2</a>
         </div>
     </div>
+<style>
+    p {
+        text-align: right; /* Align text to the right */
+        direction: rtl; /* Set text direction to right-to-left */
+    }
+    span {
+        opacity: 0;
+        transition: opacity 0.1s ease-in-out;
+    }
+    .word-appear {
+        opacity: 1;
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const paragraphs = document.querySelectorAll('p');
         let delay = 0;
-
+        
         paragraphs.forEach((paragraph, pIndex) => {
-            const text = paragraph.innerText;
+            const lines = paragraph.innerText.split('\n');
             paragraph.innerHTML = '';
-            const cursor = document.createElement('span');
-            cursor.className = 'cursor';
-            cursor.innerHTML = '|';
-            paragraph.appendChild(cursor);
-
-            function typeWriter(text, index) {
-                if (index < text.length) {
+            
+            lines.forEach((line, lineIndex) => {
+                const words = line.split(' ').reverse(); // Reverse the words in each line
+                const lineElement = document.createElement('div');
+                lineElement.style.textAlign = 'right';
+                
+                words.forEach((word, index) => {
                     const span = document.createElement('span');
-                    span.style.opacity = '0';
-                    span.style.transition = 'opacity 0.1s ease';
-                    
-                    if (text.charAt(index) === '\n') {
-                        span.innerHTML = '<br>';
-                    } else {
-                        span.textContent = text.charAt(index);
-                    }
-                    
-                    paragraph.insertBefore(span, cursor);
-                    
-                    setTimeout(() => {
-                        span.style.opacity = '1';
-                    }, 10);
-
-                    setTimeout(() => typeWriter(text, index + 1), 50); // Adjust typing speed here
-                } else {
-                    cursor.style.display = 'none'; // Hide cursor when typing is complete
-                }
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => typeWriter(text, 0), delay);
-                        observer.unobserve(entry.target);
-                    }
+                    span.innerText = word + (index > 0 ? ' ' : '');
+                    span.style.transitionDelay = `${delay + index * 0.1}s`;
+                    lineElement.insertBefore(span, lineElement.firstChild); // Insert at the beginning
                 });
-            }, { threshold: 0.1 });
+                
+                paragraph.appendChild(lineElement);
+                delay += words.length * 0.1 + 0.2; // Adding 0.2 seconds buffer between lines
+            });
+            
+            delay += 0.5; // Adding 0.5 seconds buffer between paragraphs
+        });
 
-            observer.observe(paragraph);
-            delay += text.length * 50 + 1000; // Delay for next paragraph
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const spans = entry.target.querySelectorAll('span');
+                    spans.forEach(span => span.classList.add('word-appear'));
+                    observer.unobserve(entry.target); // Stop observing after words appear
+                }
+            });
+        }, { threshold: 0.1 });
+
+        paragraphs.forEach(p => {
+            observer.observe(p);
         });
     });
 </script>
-
-<style>
-    @keyframes blink {
-        0% { opacity: 0; }
-        50% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-
-    .cursor {
-        animation: blink 0.7s infinite;
-        font-weight: bold;
-    }
-
-    p {
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    p span {
-        display: inline-block;
-    }
-</style>
 </body>
 </html>
