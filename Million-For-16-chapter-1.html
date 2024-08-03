@@ -218,11 +218,22 @@
 
             function typeWriter(text, index) {
                 if (index < text.length) {
+                    const span = document.createElement('span');
+                    span.style.opacity = '0';
+                    span.style.transition = 'opacity 0.1s ease';
+                    
                     if (text.charAt(index) === '\n') {
-                        paragraph.innerHTML += '<br>';
+                        span.innerHTML = '<br>';
                     } else {
-                        paragraph.insertBefore(document.createTextNode(text.charAt(index)), cursor);
+                        span.textContent = text.charAt(index);
                     }
+                    
+                    paragraph.insertBefore(span, cursor);
+                    
+                    setTimeout(() => {
+                        span.style.opacity = '1';
+                    }, 10);
+
                     setTimeout(() => typeWriter(text, index + 1), 50); // Adjust typing speed here
                 } else {
                     cursor.style.display = 'none'; // Hide cursor when typing is complete
@@ -259,6 +270,10 @@
     p {
         line-height: 1.5;
         margin-bottom: 20px;
+    }
+
+    p span {
+        display: inline-block;
     }
 </style>
 </body>
