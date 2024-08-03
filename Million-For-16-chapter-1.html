@@ -84,13 +84,16 @@
             font-size: 1.2em;
             line-height: 1.6;
             margin: 20px 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 2s ease, transform 2s ease;
         }
-        .fade-in {
+        p span {
+            opacity: 0;
+            display: inline-block;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .word-appear {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
         .quote {
             font-size: 1.5em;
@@ -196,16 +199,31 @@
         </div>
     </div>
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(paragraph => {
+                const words = paragraph.innerText.split(' ');
+                paragraph.innerHTML = '';
+                words.forEach((word, index) => {
+                    const span = document.createElement('span');
+                    span.innerText = word + ' ';
+                    span.style.transitionDelay = `${index * 0.1}s`;
+                    paragraph.appendChild(span);
+                });
             });
-        }, { threshold: 0.1 });
 
-        document.querySelectorAll('p').forEach(p => {
-            observer.observe(p);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const spans = entry.target.querySelectorAll('span');
+                        spans.forEach(span => span.classList.add('word-appear'));
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            paragraphs.forEach(p => {
+                observer.observe(p);
+            });
         });
     </script>
 </body>
