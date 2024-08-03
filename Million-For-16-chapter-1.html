@@ -5,175 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Миллион за 16 - Глава 1</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        :root {
-            --primary-color: #E0F7FF;
-            --secondary-color: #4A90E2;
-            --accent-color: #1E3A8A;
-            --text-color: #333333;
-        }
-
         body {
             font-family: 'Roboto', sans-serif;
-            color: var(--text-color);
+            color: #FFFFFF;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: black;
         }
-
         .container {
             max-width: 800px;
             margin: 50px auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 10;
-            backdrop-filter: blur(10px);
         }
-
         .cover {
             text-align: center;
             padding: 50px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
             margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
         }
-
-        .cover::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg at 50% 50%, var(--secondary-color) 0deg, transparent 60deg, transparent 300deg, var(--secondary-color) 360deg);
-            animation: rotate 20s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .cover img {
             max-width: 100%;
             height: auto;
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
         }
-
-        .cover img:hover {
-            transform: scale(1.05);
-        }
-
         .cover h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5em;
             margin: 0;
-            color: var(--accent-color);
+            color: gold;
             position: relative;
             display: inline-block;
             text-transform: uppercase;
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: glitch 1s infinite;
         }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--secondary-color), 0 0 20px var(--secondary-color);
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
             }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--secondary-color), 0 0 40px var(--secondary-color);
+            25% {
+                text-shadow: 2px 2px 0px #00FFFF, -2px -2px 0px #FF00FF;
+            }
+            50% {
+                text-shadow: -2px -2px 0px #FF00FF, 2px 2px 0px #00FFFF;
+            }
+            75% {
+                text-shadow: -2px -2px 0px #00FFFF, 2px 2px 0px #FF00FF;
+            }
+            100% {
+                text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
             }
         }
-
         h1, h2 {
             font-family: 'Montserrat', sans-serif;
             text-align: center;
-            color: var(--accent-color);
         }
-
         h1 {
             font-size: 2.5em;
         }
-
         h2 {
             font-size: 1.5em;
             margin-top: 20px;
-            position: relative;
-            display: inline-block;
         }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--secondary-color);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        h2:hover::after {
-            transform: scaleX(1);
-        }
-
         p {
             font-size: 1.2em;
             line-height: 1.6;
             margin: 20px 0;
-            text-align: justify;
         }
-
         .quote {
             font-size: 1.5em;
             font-style: italic;
             text-align: center;
             margin: 40px 0;
-            color: var(--accent-color);
-            position: relative;
         }
-
-        .quote::before, .quote::after {
-            content: '"';
-            font-size: 4em;
-            position: absolute;
-            opacity: 0.2;
-        }
-
-        .quote::before {
-            top: -20px;
-            left: -20px;
-        }
-
-        .quote::after {
-            bottom: -60px;
-            right: -20px;
-        }
-
         hr {
             border: 0;
             height: 1px;
-            background: var(--secondary-color);
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--secondary-color), rgba(0, 0, 0, 0));
+            background: #FFFFFF;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
             margin: 40px 0;
         }
-
         .button-container {
             text-align: center;
             margin-top: 40px;
         }
-
         .button {
             display: inline-block;
             padding: 15px 30px;
@@ -181,76 +103,59 @@
             font-family: 'Montserrat', sans-serif;
             text-decoration: none;
             color: #FFFFFF;
-            background-color: var(--accent-color);
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.5s;
-        }
-
-        .button:hover::before {
-            left: 100%;
-        }
-
         .button:hover {
-            background-color: var(--secondary-color);
-            box-shadow: 0 0 20px var(--secondary-color);
-            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.7);
         }
-
-        #particles-js {
-            position: fixed;
+        .stars {
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            background: transparent;
+            overflow: hidden;
+            position: fixed;
             top: 0;
             left: 0;
             z-index: 1;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 15px;
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% {
+                opacity: 0;
             }
-
-            .cover {
-                padding: 30px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.3em;
-            }
-
-            p {
-                font-size: 1em;
-            }
-
-            .quote {
-                font-size: 1.2em;
+            100% {
+                opacity: 1;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
+    <div class="stars">
+        <!-- Generating 100 stars -->
+        <script>
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                star.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
+                document.querySelector('.stars').appendChild(star);
+            }
+        </script>
+    </div>
     <div class="container">
         <div class="cover">
-            <img src="https://picsum.photos/800/400?random=1" alt="Обложка книги">
+            <img src="https://graph.org/file/aa712ea9340bae8537ce6.jpg" alt="Обложка книги">
             <h1>Миллион за 16</h1>
         </div>
         <h1>Глава 1: Начало Пути</h1>
@@ -261,6 +166,12 @@
         <p>Решение действовать — это первый шаг на пути к успеху. Многие люди живут, оттягивая свои мечты и не предпринимая шагов, чтобы осуществить их. Вы должны сделать осознанный выбор — двигаться вперед или оставаться на месте. Принятие решения изменить свою жизнь — это уже половина пути к успеху. Без этого шага ничего не изменится. И помните, что этот шаг не всегда легок. Он требует мужества и решимости. Но только приняв это решение, вы сможете начать действовать.</p>
         <h2>Постановка Целей</h2>
         <p>Постановка целей — это основа успешного достижения. Сформулируйте конкретные, измеримые и достижимые цели. Это поможет вам сосредоточиться на своих усилиях и следить за своим прогрессом. Успешные люди знают, чего хотят достичь, и планируют, как это сделать. Цели дают вам направление и мотивацию. Они помогают удерживать фокус и не отклоняться от намеченного пути. Записывайте свои цели, делите их на более мелкие задачи и отмечайте каждый выполненный шаг.</p>
+        <h2>Мотивация и Действие</h2>
+        <p>Мотивация — это топливо для достижения целей. Без мотивации вы будете просто тратить время и силы зря. Важно найти источники мотивации, которые будут поддерживать вас на протяжении всего пути. Это может быть ваша мечта, желание улучшить свою жизнь или желание доказать что-то самому себе. Поддерживайте мотивацию с помощью позитивных аффирмаций, визуализации своих целей и окружения себя людьми, которые вас поддерживают.</p>
+        <h2>Преодоление Преград</h2>
+        <p>На пути к успеху вам будут встречаться преграды. Это нормально. Успешные люди не избегают трудностей, а учатся преодолевать их. Каждая преграда — это возможность для роста и улучшения. Неудачи и трудности — часть процесса. Они закаляют характер и делают вас сильнее. Отношение к преградам определяет, будете ли вы двигаться вперед или остановитесь. Примите вызов и используйте его для своего роста.</p>
+        <h2>Визуализация Успеха</h2>
+        <p>Визуализируйте свои успехи. Представляйте, как вы достигли своих целей, как изменится ваша жизнь. Визуализация помогает создать четкий образ успеха и мотивирует работать над его достижением. Когда вы ясно представляете себе конечный результат, вы становитесь более решительными и сосредоточенными на своих действиях. Это также помогает преодолеть страхи и сомнения, позволяя вам двигаться вперед с уверенностью.</p>
         <div class="quote">
             <p>"Ваше время ограничено, не тратьте его, живя чужой жизнью." — Стив Джобс</p>
         </div>
@@ -270,26 +181,5 @@
             <a href="chapter2.html" class="button">Перейти к Главе 2</a>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#4A90E2" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: false },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#4A90E2", opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-            },
-            retina_detect: true
-        });
-    </script>
 </body>
 </html>
