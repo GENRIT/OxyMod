@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проверка скорости интернета</title>
+    <title>GlitchSpeed - Ultimate Internet Speed Test</title>
     <style>
-        body {
-            background-color: #1e1e1e;
-            color: white;
-            font-family: 'Arial', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #ff3333;
+            --secondary-color: #ff6666;
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --glitch-color-1: #00ffff;
+            --glitch-color-2: #ff00ff;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
             overflow: hidden;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -19,162 +36,500 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            padding: 20px;
         }
 
-        .circle {
-            width: 200px;
-            height: 200px;
+        .speed-circle {
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            border: 5px solid red;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             position: relative;
+            overflow: hidden;
+            animation: glitch 5s infinite, rotate 20s linear infinite;
         }
 
-        .circle::before {
-            content: "";
+        .speed-circle::before,
+        .speed-circle::after {
+            content: attr(data-text);
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 50%, rgba(255, 0, 0, 0.5) 100%);
-            border-radius: 50%;
-            animation: glitch 2s infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speed-circle::before {
+            color: var(--glitch-color-1);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .speed-circle::after {
+            color: var(--glitch-color-2);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
 
         @keyframes glitch {
             0% {
-                transform: translate(0, 0);
+                transform: translate(0);
             }
             20% {
-                transform: translate(5px, 5px);
+                transform: translate(-5px, 5px);
             }
             40% {
                 transform: translate(-5px, -5px);
             }
             60% {
-                transform: translate(5px, -5px);
+                transform: translate(5px, 5px);
             }
             80% {
-                transform: translate(-5px, 5px);
+                transform: translate(5px, -5px);
             }
             100% {
-                transform: translate(0, 0);
+                transform: translate(0);
             }
         }
 
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: red;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: transform 0.2s;
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
-        .button:hover {
-            transform: scale(1.1);
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+            }
+            100% {
+                clip-path: inset(80% 0 20% 0);
+            }
         }
 
-        .result {
-            position: absolute;
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(40% 0 60% 0);
+            }
+            100% {
+                clip-path: inset(60% 0 40% 0);
+            }
+        }
+
+        .start-button {
+            margin-top: 30px;
+            padding: 15px 40px;
             font-size: 24px;
             font-weight: bold;
-        }
-
-        .flying-icons {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            pointer-events: none;
         }
 
-        .icon {
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .start-button::before {
+            content: '';
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: red;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .start-button:hover::before {
+            transform: scale(1);
+        }
+
+        .flying-element {
+            position: absolute;
+            pointer-events: none;
             animation: fly 10s linear infinite;
         }
 
         @keyframes fly {
             0% {
-                transform: translate(0, 100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
+                transform: translate(-100vw, 100vh) rotate(0deg);
             }
             100% {
-                transform: translate(100%, 0);
-                opacity: 0;
+                transform: translate(100vw, -100vh) rotate(360deg);
             }
         }
 
         .airplane {
-            animation: fly-plane 5s linear infinite;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            animation: fly-airplane 15s linear infinite;
         }
 
-        @keyframes fly-plane {
+        @keyframes fly-airplane {
             0% {
-                transform: translate(0, 100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
+                transform: translate(-100vw, 100vh) rotate(45deg);
             }
             100% {
-                transform: translate(100%, 0);
-                opacity: 0;
+                transform: translate(100vw, -100vh) rotate(45deg);
+            }
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fact-generator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .share-buttons {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .history-button {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--background-color);
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: var(--text-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+        }
+
+        #historyList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #historyList li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-color);
+            animation: loading-glitch 1s infinite;
+        }
+
+        @keyframes loading-glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-5px, 5px);
+            }
+            40% {
+                transform: translate(-5px, -5px);
+            }
+            60% {
+                transform: translate(5px, 5px);
+            }
+            80% {
+                transform: translate(5px, -5px);
+            }
+            100% {
+                transform: translate(0);
             }
         }
     </style>
 </head>
 <body>
+    <div class="loading-screen">
+        <div class="loading-text">Loading...</div>
+    </div>
+
     <div class="container">
-        <div class="circle" id="speedCircle">
-            <div class="result" id="resultText">0 Mbps</div>
+        <div class="speed-circle" data-text="0 Mbps">0 Mbps</div>
+        <button class="start-button">Start Test</button>
+    </div>
+
+    <button class="dark-mode-toggle">🌓</button>
+    <select class="language-selector">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="es">Español</option>
+    </select>
+    <button class="fact-generator">📊 Fun Fact</button>
+    <div class="share-buttons">
+        <button class="share-button" data-platform="telegram">✈️ Telegram</button>
+    </div>
+    <button class="history-button">📜</button>
+
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Speed Test History</h2>
+            <ul id="historyList"></ul>
         </div>
-        <button class="button" onclick="startSpeedTest()">Start</button>
     </div>
-    <div class="flying-icons">
-        <div class="icon" style="animation-duration: 8s;"></div>
-        <div class="icon" style="animation-duration: 10s; animation-delay: 2s;"></div>
-        <div class="icon" style="animation-duration: 12s; animation-delay: 4s;"></div>
-        <div class="airplane icon" style="animation-duration: 6s;"></div>
-        <div class="airplane icon" style="animation-duration: 7s; animation-delay: 1s;"></div>
-    </div>
+
     <script>
-        function startSpeedTest() {
-            const resultText = document.getElementById('resultText');
-            resultText.textContent = 'Проверка...';
+        // JavaScript code here
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.querySelector('.loading-screen');
+            const speedCircle = document.querySelector('.speed-circle');
+            const startButton = document.querySelector('.start-button');
+            const darkModeToggle = document.querySelector('.dark-mode-toggle');
+            const languageSelector = document.querySelector('.language-selector');
+            const factGenerator = document.querySelector('.fact-generator');
+            const shareButtons = document.querySelectorAll('.share-button');
+            const historyButton = document.querySelector('.history-button');
+            const historyModal = document.getElementById('historyModal');
+            const closeModal = document.querySelector('.close');
+            const historyList = document.getElementById('historyList');
 
-            const image = new Image();
-            const startTime = new Date().getTime();
-            let endTime;
+            // Simulated loading time
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 2000);
 
-            image.onload = function() {
-                endTime = new Date().getTime();
-                const duration = (endTime - startTime) / 1000;
-                const bitsLoaded = 500000 * 8; // 500KB * 8 bits
-                const speedBps = bitsLoaded / duration;
-                const speedKbps = speedBps / 1024;
-                const speedMbps = speedKbps / 1024;
-                resultText.textContent = `${speedMbps.toFixed(2)} Mbps`;
-            };
+            // Create flying elements
+            for (let i = 0; i < 10; i++) {
+                createFlyingElement();
+            }
 
-            image.onerror = function() {
-                resultText.textContent = 'Ошибка проверки';
-            };
+            // Create airplanes
+            for (let i = 0; i < 5; i++) {
+                createAirplane();
+            }
 
-            image.src = "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_JPG_RIP_025.jpg?rand=" + Math.random();
-        }
+            // Speed test functionality
+            startButton.addEventListener('click', () => {
+                startSpeedTest();
+            });
+
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+            });
+
+            // Language selector
+            languageSelector.addEventListener('change', (e) => {
+                changeLanguage(e.target.value);
+            });
+
+            // Fact generator
+            factGenerator.addEventListener('click', () => {
+                showRandomFact();
+            });
+
+            // Share buttons
+            shareButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    shareResults(button.dataset.platform);
+                });
+            });
+
+            // History button
+            historyButton.addEventListener('click', () => {
+                showHistory();
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                historyModal.style.display = 'none';
+            });
+
+            // Functions
+            function createFlyingElement() {
+                const element = document.createElement('div');
+                element.classList.add('flying-element');
+                element.style.left = `${Math.random() * 100}vw`;
+                element.style.top = `${Math.random() * 100}vh`;
+                element.style.animationDuration = `${10 + Math.random() * 20}s`;
+                element.innerHTML = '🚀';
+                document.body.appendChild(element);
+            }
+
+            function createAirplane() {
+                const airplane = document.createElement('div');
+                airplane.classList.add('airplane');
+                airplane.style.left = `${Math.random() * 100}vw`;
+                airplane.style.top = `${Math.random() * 100}vh`;
+                airplane.style.animationDuration = `${15 + Math.random() * 10}s`;
+                airplane.innerHTML = '✈️';
+                document.body.appendChild(airplane);
+            }
+
+            function startSpeedTest() {
+                speedCircle.textContent = 'Testing...';
+                speedCircle.dataset.text = 'Testing...';
+                startButton.disabled = true;
+
+                // Simulated speed test
+                setTimeout(() => {
+                    const speed = Math.floor(Math.random() * 100) + 1;
+                    speedCircle.textContent = `${speed} Mbps`;
+                    speedCircle.dataset.text = `${speed} Mbps`;
+                    startButton.disabled = false;
+                    saveTestResult(speed);
+                }, 3000);
+            }
+
+            function changeLanguage(lang) {
+                // Implement language change logic here
+                console.log(`Language changed to ${lang}`);
+            }
+
+            function showRandomFact() {
+                const facts = [
+                    "The first webcam was invented to check the status of a coffee pot!",
+                    "The average internet speed worldwide is around 11 Mbps.",
+                    "Over 4.5 billion people use the internet globally.",
+                    "The first email was sent in 1971 by Ray Tomlinson.",
+                    "The most expensive domain name ever sold was cars.com for $872 million."
+                ];
+                const randomFact = facts[Math.floor(Math.random() * facts.length)];
+                alert(randomFact);
+            }
+
+            function shareResults(platform) {
+                const speed = speedCircle.dataset.text;
+                if (platform === 'telegram') {
+                    const telegramUrl = `https://telegram.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`My internet speed is ${speed}`)}`;
+                    window.open(telegramUrl, '_blank');
+                }
+            }
+
+            function showHistory() {
+                // Simulated history for demonstration purposes
+                const history = JSON.parse(localStorage.getItem('speedTestHistory')) || [];
+                historyList.innerHTML = '';
+                history.forEach(result => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${result.date}: ${result.speed} Mbps`;
+                    historyList.appendChild(listItem);
+                });
+                historyModal.style.display = 'block';
+            }
+
+            function saveTestResult(speed) {
+                const history = JSON.parse(localStorage.getItem('speedTestHistory')) || [];
+                const date = new Date().toLocaleString();
+                history.push({ date, speed });
+                localStorage.setItem('speedTestHistory', JSON.stringify(history));
+            }
+        });
     </script>
 </body>
 </html>
