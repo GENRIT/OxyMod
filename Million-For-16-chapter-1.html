@@ -84,6 +84,13 @@
             font-size: 1.2em;
             line-height: 1.6;
             margin: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease, transform 2s ease;
+        }
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .quote {
             font-size: 1.5em;
@@ -188,5 +195,18 @@
             <a href="chapter2.html" class="button">Перейти к Главе 2</a>
         </div>
     </div>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('p').forEach(p => {
+            observer.observe(p);
+        });
+    </script>
 </body>
 </html>
