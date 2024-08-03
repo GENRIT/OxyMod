@@ -203,37 +203,46 @@
             <a href="chapter2.html" class="button">Перейти к Главе 2</a>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const paragraphs = document.querySelectorAll('p');
-            let delay = 0;
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const paragraphs = document.querySelectorAll('p');
+        let delay = 0;
 
-            paragraphs.forEach((paragraph, pIndex) => {
-                const words = paragraph.innerText.split(' ');
-                paragraph.innerHTML = '';
-                words.forEach((word, index) => {
-                    const span = document.createElement('span');
-                    span.innerText = word + ' ';
-                    span.style.transitionDelay = `${delay + index * 0.1}s`;
-                    paragraph.appendChild(span);
-                });
-                delay += words.length * 0.1 + 0.5; // Adding 0.5 seconds buffer between paragraphs
+        paragraphs.forEach((paragraph, pIndex) => {
+            const characters = paragraph.innerText.split('');
+            paragraph.innerHTML = '';
+            characters.forEach((char, index) => {
+                const span = document.createElement('span');
+                span.innerText = char;
+                span.style.transitionDelay = `${delay + index * 0.03}s`;
+                span.style.opacity = '0';
+                span.style.display = 'inline-block';
+                if (char === ' ') {
+                    span.style.width = '0.25em'; // Adjust space width as needed
+                }
+                paragraph.appendChild(span);
             });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const spans = entry.target.querySelectorAll('span');
-                        spans.forEach(span => span.classList.add('word-appear'));
-                        observer.unobserve(entry.target); // Stop observing after words appear
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            paragraphs.forEach(p => {
-                observer.observe(p);
-            });
+            delay += characters.length * 0.03 + 0.5; // Adding 0.5 seconds buffer between paragraphs
         });
-    </script>
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const spans = entry.target.querySelectorAll('span');
+                    spans.forEach(span => {
+                        span.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0)';
+                    });
+                    observer.unobserve(entry.target); // Stop observing after characters appear
+                }
+            });
+        }, { threshold: 0.1 });
+
+        paragraphs.forEach(p => {
+            observer.observe(p);
+        });
+    });
+</script>
 </body>
 </html>
