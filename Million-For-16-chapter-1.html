@@ -78,7 +78,10 @@
         h2 {
             font-size: 1.5em;
             margin-top: 20px;
-            color: #FFA500;
+            background: linear-gradient(45deg, #FFA500, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
         p {
             font-size: 1.2em;
@@ -112,23 +115,23 @@
             text-align: center;
             margin-top: 40px;
         }
-    .button {
-        display: inline-block;
-        padding: 15px 30px;
-        font-size: 1.2em;
-        font-family: 'Montserrat', sans-serif;
-        text-decoration: none;
-        color: #FFFFFF;
-        background: linear-gradient(45deg, #FFA500, #FFD700);
-        border-radius: 5px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .button:hover {
-        background: linear-gradient(45deg, #FFD700, #FFA500);
-        transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            color: #FFFFFF;
+            background: linear-gradient(45deg, #FFA500, #FFD700);
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        }
         .stars {
             width: 100%;
             height: 100vh;
@@ -210,13 +213,9 @@
                 paragraph.innerHTML = '';
                 words.forEach((word, index) => {
                     const span = document.createElement('span');
-                    span.innerText = word;
-                    const space = document.createElement('span');
-                    space.innerText = ' ';
+                    span.innerText = word + ' ';
                     span.style.transitionDelay = `${delay + index * 0.1}s`;
-                    space.style.transitionDelay = `${delay + index * 0.1}s`;
                     paragraph.appendChild(span);
-                    paragraph.appendChild(space);
                 });
                 delay += words.length * 0.1 + 0.5; // Adding 0.5 seconds buffer between paragraphs
             });
