@@ -121,27 +121,13 @@
         color: #FFFFFF;
         background: linear-gradient(45deg, #FFA500, #FFD700);
         border-radius: 5px;
-        position: relative;
-        overflow: hidden;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        transition: transform 0.3s ease;
-    }
-    .button:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 300%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateX(-50%) skewX(-45deg);
-        transition: transform 0.5s ease;
-    }
-    .button:hover:before {
-        transform: translateX(50%) skewX(-45deg);
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
     .button:hover {
+        background: linear-gradient(45deg, #FFD700, #FFA500);
         transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
     }
         .stars {
             width: 100%;
