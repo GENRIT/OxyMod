@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница с книгами</title>
+    <title>Книжная полка</title>
     <style>
         * {
             box-sizing: border-box;
@@ -83,9 +83,40 @@
             color: #fff;
         }
 
-        .book-author {
+        .book-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .book-genre {
             font-size: 14px;
-            color: #8C81E3;
+            color: #fff;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-genre:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @media (max-width: 768px) {
@@ -119,11 +150,16 @@
         function createBookBlock(book) {
             const bookBlock = document.createElement('div');
             bookBlock.className = 'book-block';
+            
+            const genresHTML = book.genres.map(genre => 
+                `<span class="book-genre">${genre}</span>`
+            ).join('');
+
             bookBlock.innerHTML = `
                 <img src="${book.image}" alt="${book.title}" class="book-image">
                 <div class="book-info">
                     <h2 class="book-title">${book.title}</h2>
-                    <p class="book-author">${book.author}</p>
+                    <div class="book-genres">${genresHTML}</div>
                 </div>
             `;
             return bookBlock;
@@ -132,10 +168,9 @@
         async function displayBooks() {
             const books = await loadBooks();
             const booksContainer = document.getElementById('booksContainer');
-            
+
             books.forEach((book, index) => {
                 if (index % 2 === 0) {
-                    // Создаем новый ряд для каждых двух книг
                     const row = document.createElement('div');
                     row.className = 'books-row';
                     row.style.display = 'flex';
@@ -143,7 +178,7 @@
                     row.style.marginBottom = '30px';
                     booksContainer.appendChild(row);
                 }
-                
+
                 const bookBlock = createBookBlock(book);
                 booksContainer.lastChild.appendChild(bookBlock);
             });
