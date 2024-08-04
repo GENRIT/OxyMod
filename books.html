@@ -119,6 +119,109 @@
             }
         }
 
+        /* New styles for modal and buttons */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #1E1E24;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #8C81E3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #B388FF;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-donate {
+            background-color: #FF4081;
+        }
+
+        .btn-donate:hover {
+            background-color: #FF80AB;
+        }
+
+        .btn-telegram {
+            background-color: #0088cc;
+        }
+
+        .btn-telegram:hover {
+            background-color: #00aced;
+        }
+
+        .donate-modal {
+            text-align: center;
+        }
+
+        .bank-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #8C81E3;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #fff;
+        }
+
+        .donate-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .copy-hint {
+            font-size: 12px;
+            color: #aaa;
+        }
+
         @media (max-width: 768px) {
             .book-block {
                 width: 100%;
@@ -130,9 +233,28 @@
     <div class="container">
         <header class="header">
             <h1>Книжная полка</h1>
-            <div class="menu-icon">&#8942;</div>
+            <div class="menu-icon" id="menuIcon">&#8942;</div>
         </header>
         <main class="books-container" id="booksContainer"></main>
+    </div>
+
+    <!-- Menu Modal -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <button id="donateBtn" class="btn btn-donate">Donate</button>
+            <a href="https://t.me/your_telegram_username" target="_blank" class="btn btn-telegram">Telegram</a>
+        </div>
+    </div>
+
+    <!-- Donate Modal -->
+    <div id="donateModal" class="modal">
+        <div class="modal-content donate-modal">
+            <span class="close">&times;</span>
+            <div class="bank-avatar">$</div>
+            <div id="donateText" class="donate-text">2883i3ii3ieie992828282iw29</div>
+            <p class="copy-hint">Нажмите, чтобы скопировать</p>
+        </div>
     </div>
 
     <script>
@@ -150,7 +272,7 @@
         function createBookBlock(book) {
             const bookBlock = document.createElement('div');
             bookBlock.className = 'book-block';
-            
+
             const genresHTML = book.genres.map(genre => 
                 `<span class="book-genre">${genre}</span>`
             ).join('');
@@ -181,6 +303,47 @@
 
                 const bookBlock = createBookBlock(book);
                 booksContainer.lastChild.appendChild(bookBlock);
+            });
+        }
+
+        // Modal functionality
+        const menuIcon = document.getElementById('menuIcon');
+        const menuModal = document.getElementById('menuModal');
+        const donateModal = document.getElementById('donateModal');
+        const donateBtn = document.getElementById('donateBtn');
+        const closeBtns = document.getElementsByClassName('close');
+        const donateText = document.getElementById('donateText');
+
+        menuIcon.onclick = function() {
+            menuModal.style.display = 'block';
+        }
+
+        donateBtn.onclick = function() {
+            menuModal.style.display = 'none';
+            donateModal.style.display = 'block';
+        }
+
+        for (let closeBtn of closeBtns) {
+            closeBtn.onclick = function() {
+                menuModal.style.display = 'none';
+                donateModal.style.display = 'none';
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == menuModal) {
+                menuModal.style.display = 'none';
+            }
+            if (event.target == donateModal) {
+                donateModal.style.display = 'none';
+            }
+        }
+
+        donateText.onclick = function() {
+            navigator.clipboard.writeText(donateText.textContent).then(() => {
+                alert('Текст скопирован!');
+            }).catch(err => {
+                console.error('Ошибка при копировании: ', err);
             });
         }
 
