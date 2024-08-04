@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Путешествие к центру Земли",
+    "genres": ["Фантастика", "Приключения"],
+    "image": "https://picsum.photos/400/600?random=1"
+  },
+  {
+    "title": "Сила привычки",
+    "genres": ["Мотивационный", "Психология"],
+    "image": "https://picsum.photos/400/600?random=2"
+  },
+  {
+    "title": "Остров сокровищ",
+    "genres": ["Приключения", "Классика"],
+    "image": "https://picsum.photos/400/600?random=3"
+  },
+  {
+    "title": "1984",
+    "genres": ["Антиутопия", "Фантастика"],
+    "image": "https://picsum.photos/400/600?random=4"
+  }
+]
