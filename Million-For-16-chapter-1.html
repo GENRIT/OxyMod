@@ -5,160 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Миллион за 16 - Глава 1</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #FFFFFF;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: #000000;
-            transition: background 0.5s ease;
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: #050317; /* Very dark blue */
+        transition: background 0.5s ease;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: rgba(66, 65, 73, 0.9); /* Dark gray with opacity */
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(66, 65, 73, 0.7); /* Dark gray shadow */
+        position: relative;
+        z-index: 10;
+        transition: background 0.5s ease;
+    }
+    .cover {
+        text-align: center;
+        padding: 50px;
+        background: rgba(21, 21, 28, 0.95); /* Very dark gray with opacity */
+        border-radius: 10px;
+        margin-bottom: 30px;
+        transition: background 0.5s ease;
+    }
+    .cover img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .cover h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5em;
+        margin: 0;
+        color: #8C81E3; /* Light purple */
+        position: relative;
+        display: inline-block;
+        text-transform: uppercase;
+        animation: glitch 1s infinite;
+    }
+    @keyframes glitch {
+        0% {
+            text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
         }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-            position: relative;
-            z-index: 10;
-            transition: background 0.5s ease;
+        25% {
+            text-shadow: 2px 2px 0px #00FFFF, -2px -2px 0px #FF00FF;
         }
-        .cover {
-            text-align: center;
-            padding: 50px;
-            background: rgba(0, 0, 0, 0.95);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            transition: background 0.5s ease;
+        50% {
+            text-shadow: -2px -2px 0px #FF00FF, 2px 2px 0px #00FFFF;
         }
-        .cover img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
+        75% {
+            text-shadow: -2px -2px 0px #00FFFF, 2px 2px 0px #FF00FF;
         }
-        .cover h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5em;
-            margin: 0;
-            color: gold;
-            position: relative;
-            display: inline-block;
-            text-transform: uppercase;
-            animation: glitch 1s infinite;
+        100% {
+            text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
         }
-        @keyframes glitch {
-            0% {
-                text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
-            }
-            25% {
-                text-shadow: 2px 2px 0px #00FFFF, -2px -2px 0px #FF00FF;
-            }
-            50% {
-                text-shadow: -2px -2px 0px #FF00FF, 2px 2px 0px #00FFFF;
-            }
-            75% {
-                text-shadow: -2px -2px 0px #00FFFF, 2px 2px 0px #FF00FF;
-            }
-            100% {
-                text-shadow: 2px 2px 0px #FF00FF, -2px -2px 0px #00FFFF;
-            }
-        }
-        h1, h2 {
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.5em;
-            color: #FFD700;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-top: 20px;
-            background: linear-gradient(45deg, #FFA500, #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-        p span {
+    }
+    h1, h2 {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+    }
+    h1 {
+        font-size: 2.5em;
+        color: #FFD700;
+    }
+    h2 {
+        font-size: 1.5em;
+        margin-top: 20px;
+        background: linear-gradient(45deg, #FFA500, #FFD700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+    p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin: 20px 0;
+    }
+    p span {
+        opacity: 0;
+        display: inline-block;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .word-appear {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .quote {
+        font-size: 1.5em;
+        font-style: italic;
+        text-align: center;
+        margin: 40px 0;
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: #FFFFFF;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+        margin: 40px 0;
+    }
+    .button-container {
+        text-align: center;
+        margin-top: 40px;
+    }
+    .button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+        color: #FFFFFF;
+        background: linear-gradient(45deg, #FFA500, #FFD700);
+        border-radius: 5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .button:hover {
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+    .stars {
+        width: 100%;
+        height: 100vh;
+        background: transparent;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 1.5s infinite alternate;
+    }
+    @keyframes twinkle {
+        0% {
             opacity: 0;
-            display: inline-block;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        .word-appear {
+        100% {
             opacity: 1;
-            transform: translateY(0);
         }
-        .quote {
-            font-size: 1.5em;
-            font-style: italic;
-            text-align: center;
-            margin: 40px 0;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: #FFFFFF;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
-            margin: 40px 0;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-family: 'Montserrat', sans-serif;
-            text-decoration: none;
-            color: #FFFFFF;
-            background: linear-gradient(45deg, #FFA500, #FFD700);
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .button:hover {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-        }
-        .stars {
-            width: 100%;
-            height: 100vh;
-            background: transparent;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 1.5s infinite alternate;
-        }
-        @keyframes twinkle {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="stars">
