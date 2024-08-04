@@ -11,13 +11,14 @@
         <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Intro Avatar" class="intro-avatar">
     </div>
 
-    <div class="container">
+    <div class="container" id="mainContainer">
         <header class="header">
             <div class="genre-select" id="genreSelect">Выбор Жанра</div>
             <div class="menu-icon" id="menuIcon">&#8942;</div>
         </header>
         <main class="books-container" id="booksContainer"></main>
     </div>
+
     <div id="menuModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -25,6 +26,7 @@
             <button class="modal-button" id="telegramButton">Telegram</button>
         </div>
     </div>
+
     <div id="donatModal" class="donat-modal">
         <div class="donat-content">
             <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Bank Avatar" class="bank-avatar">
@@ -33,42 +35,69 @@
         </div>
     </div>
 
+    <div id="genreModal" class="genre-modal">
+        <div class="genre-modal-content">
+            <span class="close">&times;</span>
+            <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Genre Avatar" class="genre-avatar">
+            <div id="genreButtons" class="genre-buttons"></div>
+        </div>
+    </div>
+
     <script>
-        // Существующий код для загрузки книг
-        async function loadBooks() {
-            try {
-                const response = await fetch('books.json');
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Ошибка при загрузке данных:', error);
-                return [];
+        // Existing code...
+
+        // New code for genre modal
+        const genreModal = document.getElementById('genreModal');
+        const genreButtons = document.getElementById('genreButtons');
+        const mainContainer = document.getElementById('mainContainer');
+
+        genreSelect.onclick = function() {
+            genreModal.style.display = 'block';
+            mainContainer.classList.add('blur');
+        }
+
+        async function populateGenreButtons() {
+            const books = await loadBooks();
+            const genres = new Set();
+            books.forEach(book => book.genres.forEach(genre => genres.add(genre)));
+            
+            genres.forEach(genre => {
+                const button = document.createElement('button');
+                button.className = 'genre-button';
+                button.textContent = genre;
+                button.onclick = function() {
+                    filterBooksByGenre(genre);
+                    genreModal.style.display = 'none';
+                    mainContainer.classList.remove('blur');
+                };
+                genreButtons.appendChild(button);
+            });
+        }
+
+        window.onclick = function(event) {
+            if (event.target == menuModal) {
+                menuModal.style.display = 'none';
+            }
+            if (event.target == donatModal) {
+                donatModal.style.display = 'none';
+            }
+            if (event.target == genreModal) {
+                genreModal.style.display = 'none';
+                mainContainer.classList.remove('blur');
             }
         }
 
-        function createBookBlock(book) {
-            const bookBlock = document.createElement('div');
-            bookBlock.className = 'book-block';
+        // Call this function after books are loaded
+        populateGenreButtons();
 
-            const genresHTML = book.genres.map(genre => 
-                `<span class="book-genre">${genre}</span>`
-            ).join('');
-
-            bookBlock.innerHTML = `
-                <img src="${book.image}" alt="${book.title}" class="book-image">
-                <div class="book-info">
-                    <h2 class="book-title">${book.title}</h2>
-                    <div class="book-genres">${genresHTML}</div>
-                </div>
-            `;
-            return bookBlock;
-        }
-
-        async function displayBooks() {
+        // Modify the existing filterBooksByGenre function
+        async function filterBooksByGenre(genre) {
             const books = await loadBooks();
+            const filteredBooks = books.filter(book => book.genres.includes(genre));
             const booksContainer = document.getElementById('booksContainer');
-
-            books.forEach((book, index) => {
+            booksContainer.innerHTML = '';  // Clear the container
+            
+            filteredBooks.forEach((book, index) => {
                 if (index % 2 === 0) {
                     const row = document.createElement('div');
                     row.className = 'books-row';
@@ -83,78 +112,7 @@
             });
         }
 
-        // Новый код для модальных окон и кнопок
-        const menuIcon = document.getElementById('menuIcon');
-        const menuModal = document.getElementById('menuModal');
-        const donatModal = document.getElementById('donatModal');
-        const closeBtn = document.getElementsByClassName('close')[0];
-        const donatButton = document.getElementById('donatButton');
-        const telegramButton = document.getElementById('telegramButton');
-        const copyText = document.getElementById('copyText');
-
-        menuIcon.onclick = function() {
-            menuModal.style.display = 'block';
-        }
-
-        closeBtn.onclick = function() {
-            menuModal.style.display = 'none';
-        }
-
-        donatButton.onclick = function() {
-            menuModal.style.display = 'none';
-            donatModal.style.display = 'block';
-        }
-
-        telegramButton.onclick = function() {
-            window.open('https://t.me/your_telegram_channel', '_blank');
-        }
-
-        window.onclick = function(event) {
-            if (event.target == menuModal) {
-                menuModal.style.display = 'none';
-            }
-            if (event.target == donatModal) {
-                donatModal.style.display = 'none';
-            }
-        }
-
-        copyText.onclick = function() {
-            const textToCopy = copyText.textContent;
-            navigator.clipboard.writeText(textToCopy).then(function() {
-                alert('Текст скопирован!');
-            }, function(err) {
-                console.error('Ошибка копирования: ', err);
-            });
-        }
-
-        window.addEventListener('load', function() {
-            const intro = document.getElementById('intro');
-            setTimeout(() => {
-                intro.classList.add('hidden');
-                setTimeout(() => intro.style.display = 'none', 500);
-                displayBooks();
-            }, 2000);
-        });
-
-        // Код для обработки выбора жанра
-        const genreSelect = document.getElementById('genreSelect');
-        genreSelect.onclick = function() {
-            const genre = prompt('Введите жанр для поиска:');
-            if (genre) {
-                filterBooksByGenre(genre);
-            }
-        }
-
-        async function filterBooksByGenre(genre) {
-            const books = await loadBooks();
-            const filteredBooks = books.filter(book => book.genres.includes(genre));
-            const booksContainer = document.getElementById('booksContainer');
-            booksContainer.innerHTML = '';  // Очистить контейнер
-            filteredBooks.forEach(book => {
-                const bookBlock = createBookBlock(book);
-                booksContainer.appendChild(bookBlock);
-            });
-        }
+        // Rest of the existing code...
     </script>
 </body>
 </html>
