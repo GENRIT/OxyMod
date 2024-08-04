@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
+            background: linear-gradient(135deg, #050317, #15151C, #424149);
             color: #8C81E3;
             line-height: 1.6;
             min-height: 100vh;
@@ -30,7 +30,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            border-bottom: 1px solid #3B0E4F;
+            border-bottom: 1px solid #424149;
         }
 
         .menu-icon {
@@ -54,7 +54,7 @@
         .book-block {
             width: calc(50% - 15px);
             margin-bottom: 30px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -74,34 +74,30 @@
 
         .book-info {
             padding: 15px;
-            position: relative;
         }
 
         .book-title {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #333;
+            color: #fff;
         }
 
         .book-genres {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
-            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 10px;
         }
 
         .book-genre {
-            font-size: 12px;
+            font-size: 14px;
             color: #fff;
             background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
             background-size: 200% 200%;
             animation: gradientShift 5s ease infinite;
-            padding: 3px 8px;
-            border-radius: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
             display: inline-block;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -142,7 +138,7 @@
     <script>
         async function loadBooks() {
             try {
-                const response = await fetch('books.json');
+                const response = await fetch('posts.json');
                 const data = await response.json();
                 return data;
             } catch (error) {
@@ -154,7 +150,7 @@
         function createBookBlock(book) {
             const bookBlock = document.createElement('div');
             bookBlock.className = 'book-block';
-
+            
             const genresHTML = book.genres.map(genre => 
                 `<span class="book-genre">${genre}</span>`
             ).join('');
