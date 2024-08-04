@@ -17,6 +17,7 @@
             color: #8C81E3;
             line-height: 1.6;
             min-height: 100vh;
+            overflow: hidden;
         }
 
         .container {
@@ -42,6 +43,24 @@
         .menu-icon:hover {
             transform: rotate(90deg);
             color: #fff;
+        }
+
+        .genre-select {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+            padding: 10px 20px;
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .genre-select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .books-container {
@@ -258,12 +277,45 @@
                 margin: 20% auto;
             }
         }
+
+        /* Стили для интро */
+        .intro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .intro.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
+    <!-- Интро -->
+    <div class="intro" id="intro">
+        <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Intro Avatar" class="intro-avatar">
+    </div>
+
     <div class="container">
         <header class="header">
-            <h1>Книжная полка</h1>
+            <div class="genre-select" id="genreSelect">Выбор Жанра</div>
             <div class="menu-icon" id="menuIcon">&#8942;</div>
         </header>
         <main class="books-container" id="booksContainer"></main>
@@ -381,7 +433,34 @@
             });
         }
 
-        window.addEventListener('load', displayBooks);
+        window.addEventListener('load', function() {
+            const intro = document.getElementById('intro');
+            setTimeout(() => {
+                intro.classList.add('hidden');
+                setTimeout(() => intro.style.display = 'none', 500);
+                displayBooks();
+            }, 2000);
+        });
+
+        // Код для обработки выбора жанра
+        const genreSelect = document.getElementById('genreSelect');
+        genreSelect.onclick = function() {
+            const genre = prompt('Введите жанр для поиска:');
+            if (genre) {
+                filterBooksByGenre(genre);
+            }
+        }
+
+        async function filterBooksByGenre(genre) {
+            const books = await loadBooks();
+            const filteredBooks = books.filter(book => book.genres.includes(genre));
+            const booksContainer = document.getElementById('booksContainer');
+            booksContainer.innerHTML = '';  // Очистить контейнер
+            filteredBooks.forEach(book => {
+                const bookBlock = createBookBlock(book);
+                booksContainer.appendChild(bookBlock);
+            });
+        }
     </script>
 </body>
 </html>
