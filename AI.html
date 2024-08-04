@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Generator</title>
+</head>
+<body>
+    <div>
+        <h1>Text Generator</h1>
+        <textarea id="inputText" placeholder="Enter prompt..."></textarea>
+        <button onclick="generateText()">Generate Text</button>
+        <div id="outputText"></div>
+    </div>
+    <script>
+        async function generateText() {
+            const inputText = document.getElementById('inputText').value;
+            const apiKey = 'AIzaSyA8DmFWWdk7ni5gaNHL_3Vkv2nMox-WB6M';
+
+            const response = await fetch('https://api.gemini.com/v1/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({ prompt: inputText })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('outputText').innerText = data.generated_text;
+            } else {
+                document.getElementById('outputText').innerText = 'Error generating text.';
+            }
+        }
+    </script>
+</body>
+</html>
