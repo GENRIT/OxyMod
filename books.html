@@ -119,7 +119,7 @@
             }
         }
 
-        /* New styles for modal and buttons */
+        /* Новые стили для модального окна и кнопок */
         .modal {
             display: none;
             position: fixed;
@@ -133,13 +133,14 @@
         }
 
         .modal-content {
-            background-color: #1E1E24;
+            background-color: rgba(255, 255, 255, 0.1);
             margin: 15% auto;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 300px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
+            overflow: hidden;
         }
 
         .close {
@@ -156,65 +157,90 @@
             text-decoration: none;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
+        .modal-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
             margin: 10px 0;
             border: none;
             border-radius: 5px;
-            background-color: #8C81E3;
+            background: linear-gradient(45deg, #8C81E3, #B388FF);
             color: #fff;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
         }
 
-        .btn:hover {
-            background-color: #B388FF;
+        .modal-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-donate {
-            background-color: #FF4081;
+        .modal-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: width 0.3s ease, height 0.3s ease;
         }
 
-        .btn-donate:hover {
-            background-color: #FF80AB;
+        .modal-button:active::after {
+            width: 300px;
+            height: 300px;
+            margin-left: -150px;
+            margin-top: -150px;
+            opacity: 0;
         }
 
-        .btn-telegram {
-            background-color: #0088cc;
+        .donat-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
         }
 
-        .btn-telegram:hover {
-            background-color: #00aced;
-        }
-
-        .donate-modal {
+        .donat-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 350px;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .bank-avatar {
             width: 100px;
             height: 100px;
-            margin: 0 auto 20px;
-            background-color: #8C81E3;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            color: #fff;
+            margin: 0 auto 20px;
+            display: block;
         }
 
-        .donate-text {
-            font-size: 18px;
-            margin-bottom: 10px;
-            padding: 10px;
+        .copy-text {
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-text:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .copy-hint {
@@ -225,6 +251,11 @@
         @media (max-width: 768px) {
             .book-block {
                 width: 100%;
+            }
+
+            .modal-content, .donat-content {
+                width: 90%;
+                margin: 20% auto;
             }
         }
     </style>
@@ -238,26 +269,26 @@
         <main class="books-container" id="booksContainer"></main>
     </div>
 
-    <!-- Menu Modal -->
+    <!-- Модальное окно для меню -->
     <div id="menuModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <button id="donateBtn" class="btn btn-donate">Donate</button>
-            <a href="https://t.me/your_telegram_username" target="_blank" class="btn btn-telegram">Telegram</a>
+            <button class="modal-button" id="donatButton">Donat</button>
+            <button class="modal-button" id="telegramButton">Telegram</button>
         </div>
     </div>
 
-    <!-- Donate Modal -->
-    <div id="donateModal" class="modal">
-        <div class="modal-content donate-modal">
-            <span class="close">&times;</span>
-            <div class="bank-avatar">$</div>
-            <div id="donateText" class="donate-text">2883i3ii3ieie992828282iw29</div>
+    <!-- Модальное окно для Donat -->
+    <div id="donatModal" class="donat-modal">
+        <div class="donat-content">
+            <img src="https://picsum.photos/200" alt="Bank Avatar" class="bank-avatar">
+            <div class="copy-text" id="copyText">2883i3ii3ieie992828282iw29</div>
             <p class="copy-hint">Нажмите, чтобы скопировать</p>
         </div>
     </div>
 
     <script>
+        // Существующий код для загрузки книг
         async function loadBooks() {
             try {
                 const response = await fetch('books.json');
@@ -306,44 +337,47 @@
             });
         }
 
-        // Modal functionality
+        // Новый код для модальных окон и кнопок
         const menuIcon = document.getElementById('menuIcon');
         const menuModal = document.getElementById('menuModal');
-        const donateModal = document.getElementById('donateModal');
-        const donateBtn = document.getElementById('donateBtn');
-        const closeBtns = document.getElementsByClassName('close');
-        const donateText = document.getElementById('donateText');
+        const donatModal = document.getElementById('donatModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const donatButton = document.getElementById('donatButton');
+        const telegramButton = document.getElementById('telegramButton');
+        const copyText = document.getElementById('copyText');
 
         menuIcon.onclick = function() {
             menuModal.style.display = 'block';
         }
 
-        donateBtn.onclick = function() {
+        closeBtn.onclick = function() {
             menuModal.style.display = 'none';
-            donateModal.style.display = 'block';
         }
 
-        for (let closeBtn of closeBtns) {
-            closeBtn.onclick = function() {
-                menuModal.style.display = 'none';
-                donateModal.style.display = 'none';
-            }
+        donatButton.onclick = function() {
+            menuModal.style.display = 'none';
+            donatModal.style.display = 'block';
+        }
+
+        telegramButton.onclick = function() {
+            window.open('https://t.me/your_telegram_channel', '_blank');
         }
 
         window.onclick = function(event) {
             if (event.target == menuModal) {
                 menuModal.style.display = 'none';
             }
-            if (event.target == donateModal) {
-                donateModal.style.display = 'none';
+            if (event.target == donatModal) {
+                donatModal.style.display = 'none';
             }
         }
 
-        donateText.onclick = function() {
-            navigator.clipboard.writeText(donateText.textContent).then(() => {
+        copyText.onclick = function() {
+            const textToCopy = copyText.textContent;
+            navigator.clipboard.writeText(textToCopy).then(function() {
                 alert('Текст скопирован!');
-            }).catch(err => {
-                console.error('Ошибка при копировании: ', err);
+            }, function(err) {
+                console.error('Ошибка копирования: ', err);
             });
         }
 
