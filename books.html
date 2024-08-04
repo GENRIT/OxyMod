@@ -1,126 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motivational Books</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Главная страница с книгами</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
         }
-        .hero {
-            background-image: url('https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center center;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .book-card {
-            transition: transform 0.2s;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
         }
-        .book-card:hover {
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-icon:hover {
+            transform: rotate(90deg);
+        }
+
+        .books-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .book-block {
+            width: calc(33.333% - 20px);
+            margin-bottom: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-block:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .book-info {
+            padding: 15px;
+        }
+
+        .book-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .book-author {
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .book-block {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book-block {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title has-text-white">
-                    Motivational Books
-                </h1>
-                <h2 class="subtitle has-text-white">
-                    Discover the best books to inspire and motivate you
-                </h2>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <header class="header">
+            <h1>Книжная полка</h1>
+            <div class="menu-icon">&#8942;</div>
+        </header>
+        <main class="books-container" id="booksContainer"></main>
+    </div>
 
-    <section class="section">
-        <div class="container">
-            <div class="columns is-multiline">
-                <!-- Book 1 -->
-                <div class="column is-one-third">
-                    <div class="card book-card">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="https://images-na.ssl-images-amazon.com/images/I/81GEu6VFeXL.jpg" alt="Atomic Habits">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">Atomic Habits</p>
-                                    <p class="subtitle is-6">by James Clear</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                An Easy & Proven Way to Build Good Habits & Break Bad Ones. This book reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
-                            </div>
-                        </div>
-                    </div>
+    <script>
+        // Функция для загрузки данных из JSON файла
+        async function loadBooks() {
+            try {
+                const response = await fetch('posts.json');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+                return [];
+            }
+        }
+
+        // Функция для создания блока книги
+        function createBookBlock(book) {
+            const bookBlock = document.createElement('div');
+            bookBlock.className = 'book-block';
+            bookBlock.innerHTML = `
+                <img src="${book.image}" alt="${book.title}" class="book-image">
+                <div class="book-info">
+                    <h2 class="book-title">${book.title}</h2>
+                    <p class="book-author">${book.author}</p>
                 </div>
+            `;
+            return bookBlock;
+        }
 
-                <!-- Book 2 -->
-                <div class="column is-one-third">
-                    <div class="card book-card">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="https://images-na.ssl-images-amazon.com/images/I/71g2ednj0JL.jpg" alt="The Power of Now">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">The Power of Now</p>
-                                    <p class="subtitle is-6">by Eckhart Tolle</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                A Guide to Spiritual Enlightenment. This book is a spiritual guidebook that leads readers on a journey to find their true and deepest self and reach the ultimate in personal growth and spirituality: the discovery of truth and light.
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        // Функция для отображения книг
+        async function displayBooks() {
+            const books = await loadBooks();
+            const booksContainer = document.getElementById('booksContainer');
+            
+            books.forEach((book, index) => {
+                if (index % 3 === 0) {
+                    // Создаем новый ряд для каждых трех книг
+                    const row = document.createElement('div');
+                    row.className = 'books-row';
+                    row.style.display = 'flex';
+                    row.style.justifyContent = 'space-between';
+                    row.style.marginBottom = '30px';
+                    booksContainer.appendChild(row);
+                }
+                
+                const bookBlock = createBookBlock(book);
+                booksContainer.lastChild.appendChild(bookBlock);
+            });
+        }
 
-                <!-- Book 3 -->
-                <div class="column is-one-third">
-                    <div class="card book-card">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="https://images-na.ssl-images-amazon.com/images/I/81-KI+RdkEL.jpg" alt="The 7 Habits of Highly Effective People">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">The 7 Habits of Highly Effective People</p>
-                                    <p class="subtitle is-6">by Stephen R. Covey</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                Powerful Lessons in Personal Change. This book presents a principle-centered approach for solving personal and professional problems. With penetrating insights and pointed anecdotes, Covey reveals a step-by-step pathway for living with fairness, integrity, honesty, and human dignity.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add more books here -->
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>Motivational Books</strong> by <a href="https://your-website.com">Your Name</a>. 
-                The source code is available on <a href="https://github.com/your-repo">GitHub</a>.
-            </p>
-        </div>
-    </footer>
-
-    <script defer src="https://cdn.adlook.me/js/vbf.js"></script>
+        // Вызываем функцию отображения книг при загрузке страницы
+        window.addEventListener('load', displayBooks);
+    </script>
 </body>
 </html>
