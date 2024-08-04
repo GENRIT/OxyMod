@@ -11,13 +11,14 @@
         <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Intro Avatar" class="intro-avatar">
     </div>
 
-    <div class="container">
+    <div class="container" id="mainContainer">
         <header class="header">
             <div class="genre-select" id="genreSelect">Выбор Жанра</div>
             <div class="menu-icon" id="menuIcon">&#8942;</div>
         </header>
         <main class="books-container" id="booksContainer"></main>
     </div>
+
     <div id="menuModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -25,6 +26,7 @@
             <button class="modal-button" id="telegramButton">Telegram</button>
         </div>
     </div>
+
     <div id="donatModal" class="donat-modal">
         <div class="donat-content">
             <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Bank Avatar" class="bank-avatar">
@@ -33,8 +35,15 @@
         </div>
     </div>
 
+    <div id="genreModal" class="genre-modal">
+        <div class="genre-modal-content">
+            <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Genre Avatar" class="genre-avatar">
+            <div id="genreButtons" class="genre-buttons"></div>
+        </div>
+    </div>
+
     <script>
-        // Существующий код для загрузки книг
+        // Existing code for loading books
         async function loadBooks() {
             try {
                 const response = await fetch('books.json');
@@ -64,9 +73,12 @@
             return bookBlock;
         }
 
-        async function displayBooks() {
-            const books = await loadBooks();
+        async function displayBooks(books = null) {
+            if (!books) {
+                books = await loadBooks();
+            }
             const booksContainer = document.getElementById('booksContainer');
+            booksContainer.innerHTML = '';
 
             books.forEach((book, index) => {
                 if (index % 2 === 0) {
@@ -83,14 +95,17 @@
             });
         }
 
-        // Новый код для модальных окон и кнопок
+        // Code for modal windows and buttons
         const menuIcon = document.getElementById('menuIcon');
         const menuModal = document.getElementById('menuModal');
         const donatModal = document.getElementById('donatModal');
+        const genreModal = document.getElementById('genreModal');
         const closeBtn = document.getElementsByClassName('close')[0];
         const donatButton = document.getElementById('donatButton');
         const telegramButton = document.getElementById('telegramButton');
         const copyText = document.getElementById('copyText');
+        const genreSelect = document.getElementById('genreSelect');
+        const mainContainer = document.getElementById('mainContainer');
 
         menuIcon.onclick = function() {
             menuModal.style.display = 'block';
@@ -116,6 +131,10 @@
             if (event.target == donatModal) {
                 donatModal.style.display = 'none';
             }
+            if (event.target == genreModal) {
+                genreModal.style.display = 'none';
+                mainContainer.classList.remove('blur');
+            }
         }
 
         copyText.onclick = function() {
@@ -127,33 +146,41 @@
             });
         }
 
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
             const intro = document.getElementById('intro');
             setTimeout(() => {
                 intro.classList.add('hidden');
                 setTimeout(() => intro.style.display = 'none', 500);
                 displayBooks();
             }, 2000);
+
+            // Generate genre buttons
+            const books = await loadBooks();
+            const genres = [...new Set(books.flatMap(book => book.genres))];
+            const genreButtons = document.getElementById('genreButtons');
+            genres.forEach(genre => {
+                const button = document.createElement('button');
+                button.textContent = genre;
+                button.className = 'genre-button';
+                button.onclick = function() {
+                    filterBooksByGenre(genre);
+                    genreModal.style.display = 'none';
+                    mainContainer.classList.remove('blur');
+                };
+                genreButtons.appendChild(button);
+            });
         });
 
-        // Код для обработки выбора жанра
-        const genreSelect = document.getElementById('genreSelect');
+        // Code for genre selection
         genreSelect.onclick = function() {
-            const genre = prompt('Введите жанр для поиска:');
-            if (genre) {
-                filterBooksByGenre(genre);
-            }
+            genreModal.style.display = 'block';
+            mainContainer.classList.add('blur');
         }
 
         async function filterBooksByGenre(genre) {
             const books = await loadBooks();
             const filteredBooks = books.filter(book => book.genres.includes(genre));
-            const booksContainer = document.getElementById('booksContainer');
-            booksContainer.innerHTML = '';  // Очистить контейнер
-            filteredBooks.forEach(book => {
-                const bookBlock = createBookBlock(book);
-                booksContainer.appendChild(bookBlock);
-            });
+            displayBooks(filteredBooks);
         }
     </script>
 </body>
