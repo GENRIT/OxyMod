@@ -169,17 +169,17 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: #15151C;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            position: relative;
         }
 
         .ad-container {
@@ -241,13 +241,11 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .modal-content {
             background-color: rgba(255, 255, 255, 0.1);
+            margin: 15% auto;
             padding: 20px;
             border-radius: 15px;
             width: 300px;
@@ -258,9 +256,7 @@
 
         .close {
             color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 15px;
+            float: right;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -311,61 +307,203 @@
             margin-left: -150px;
             margin-top: -150px;
             opacity: 0;
-            transition: none;
+        }
+
+        .donat-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .donat-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .bank-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .copy-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-text:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .copy-hint {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .book-cover {
+                width: 200px;
+                height: 300px;
+            }
+
+            .book-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="menu-icon" onclick="toggleModal()">☰</div>
-            <button class="exit-button" onclick="exitReader()">Выход</button>
-        </div>
-        <img src="path_to_book_cover.jpg" alt="Book Cover" class="book-cover">
-        <div class="book-content">
-            <div class="book-section">
-                <h2>Глава 1: Название главы</h2>
-                <p>Текст главы начинается здесь. Это пример текста, который заполняет содержание первой главы. Текст продолжается и объясняет события, описанные в главе.</p>
-                <p>Текст продолжается с новыми абзацами, подробностями и описанием персонажей, сюжета и событий.</p>
+        <header class="header">
+            <button class="exit-button" onclick="exitToBooks()">Выйти</button>
+            <div class="menu-icon" id="menuIcon">☰</div>
+        </header>
+
+        <main>
+            <img src="https://graph.org/file/ea3a0eb3f900fc4e6634d.jpg" alt="Book Cover" class="book-cover">
+
+            <div class="book-content">
+                <section class="book-section">
+                    <h2>Введение</h2>
+                    <p></p>
+                </section>
+
+                <section class="book-section">
+                    <h2>Главы</h2>
+                    <ul class="chapter-list">
+                        <li>Глава 1</li>
+                        <li>Глава 2</li>
+                        <li>Глава 3</li>
+                        <li>Глава 4</li>
+                        <li>Глава 5</li>
+                        <li>Глава 6</li>
+                        <li>Глава 7</li>
+                        <li>Глава 8</li>
+                        <li>Глава 9</li>
+                        <li>Глава 10</li>
+                        <li>Глава 11</li>
+                        <li>Глава 12</li>
+                        <li>Глава 13</li>
+                        <li>Глава 14</li>
+                        <li>Глава 15</li>
+                    </ul>
+                </section>
+
+                <section class="book-section">
+                    <h2>Текст книги</h2>
+                    <p></p>
+                </section>
             </div>
-            <ul class="chapter-list">
-                <li onclick="goToChapter(1)">Глава 1: Название главы</li>
-                <li onclick="goToChapter(2)">Глава 2: Название главы</li>
-                <li onclick="goToChapter(3)">Глава 3: Название главы</li>
-            </ul>
-            <button class="next-chapter-button" onclick="nextChapter()">Следующая глава</button>
+
+            <button class="next-chapter-button" onclick="showModal()">Перейти к следующей главе</button>
+        </main>
+    </div>
+
+    <div id="adModal" class="modal">
+        <div class="modal-content">
+            <div class="ad-container">
+                <!-- Ad script -->
+                <div class="tgx-rlf" data-vbf-id="26719"></div>
+            </div>
+            <div class="loader"></div>
         </div>
     </div>
 
-    <div id="modal" class="modal">
+    <div id="menuModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="toggleModal()">&times;</span>
-            <h2>Меню</h2>
-            <button class="modal-button" onclick="goToChapter(1)">Глава 1</button>
-            <button class="modal-button" onclick="goToChapter(2)">Глава 2</button>
-            <button class="modal-button" onclick="goToChapter(3)">Глава 3</button>
-            <button class="modal-button" onclick="exitReader()">Выход</button>
+            <span class="close">&times;</span>
+            <button class="modal-button" id="donatButton">Donat</button>
+            <button class="modal-button" id="telegramButton">Telegram</button>
+        </div>
+    </div>
+
+    <div id="donatModal" class="donat-modal">
+        <div class="donat-content">
+            <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Bank Avatar" class="bank-avatar">
+            <div class="copy-text" id="copyText">2200700811767465</div>
+            <p class="copy-hint">Нажмите, чтобы скопировать</p>
         </div>
     </div>
 
     <script>
-        function toggleModal() {
-            const modal = document.getElementById("modal");
-            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+        function exitToBooks() {
+            window.location.href = 'https://Oxymod.netlify.app/books';
         }
 
-        function exitReader() {
-            alert('Выход из читателя');
+        function showModal() {
+            document.getElementById('adModal').style.display = 'block';
+            setTimeout(startTimer, 5000);
         }
 
-        function goToChapter(chapterNumber) {
-            alert('Перейти к главе ' + chapterNumber);
-            toggleModal();
+        function startTimer() {
+            setTimeout(function() {
+                // Redirect to the next chapter
+                window.location.href = 'https://Oxymod.netlify.app/books/next-chapter';
+            }, 15000);
         }
 
-        function nextChapter() {
-            alert('Перейти к следующей главе');
+        const menuIcon = document.getElementById('menuIcon');
+        const menuModal = document.getElementById('menuModal');
+        const closeModal = document.querySelector('.close');
+        const donatButton = document.getElementById('donatButton');
+        const telegramButton = document.getElementById('telegramButton');
+        const donatModal = document.getElementById('donatModal');
+        const copyText = document.getElementById('copyText');
+
+        menuIcon.onclick = function() {
+            menuModal.style.display = 'block';
+        }
+
+        closeModal.onclick = function() {
+            menuModal.style.display = 'none';
+        }
+
+        donatButton.onclick = function() {
+            donatModal.style.display = 'block';
+        }
+
+        telegramButton.onclick = function() {
+            window.location.href = 'https://t.me/yourtelegram';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == menuModal) {
+                menuModal.style.display = 'none';
+            }
+            if (event.target == donatModal) {
+                donatModal.style.display = 'none';
+            }
+        }
+
+        copyText.onclick = function() {
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                alert('Скопировано: ' + copyText.textContent);
+            }, function(err) {
+                console.error('Ошибка при копировании текста: ', err);
+            });
         }
     </script>
+
+    <!-- Ad script -->
+    <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
 </body>
 </html>
