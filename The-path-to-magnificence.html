@@ -122,6 +122,104 @@
             color: #fff;
         }
 
+        .next-chapter-button {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .next-chapter-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .next-chapter-button:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #15151C;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .ad-container {
+            width: 300px;
+            height: 250px;
+            margin: 0 auto;
+            background-color: #1E1E24;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 100%;
+            height: 5px;
+            background-color: #3B0E4F;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            left: -50%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, #8C81E3, #B388FF, #7C4DFF);
+            animation: loading 2s infinite linear;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             .book-cover {
                 width: 200px;
@@ -146,23 +244,7 @@
             <div class="book-content">
                 <section class="book-section">
                     <h2>Введение</h2>
-                    <p>Начало Путешествия к Успеху
-
-"Успех — это не ключ к счастью. Счастье — это ключ к успеху. Если вы любите то, что делаете, вы будете успешны." — Альберт Швейцер.
-
-Счастье и успех взаимосвязаны, но их пути не всегда очевидны. В эпоху цифровых технологий и фриланса, где возможности кажутся безграничными, важно понять, что успех требует не только стратегического мышления и трудолюбия, но и глубокого самопознания, дисциплины и устойчивости. Эффективное использование этих качеств поможет вам не просто достичь цели, но и построить стойкий и гармоничный путь к успешной жизни.
-
-Самосовершенствование — это не просто модный тренд, а фундамент успеха в любой сфере. Понимание своих сильных и слабых сторон, непрерывное стремление к личностному росту и развитие навыков критического мышления помогают не только в профессиональной деятельности, но и в личной жизни. Это требует постоянного самоконтроля и стремления к улучшению. Знание того, как эффективно управлять своим временем, как правильно расставлять приоритеты и как сохранять мотивацию — все это критически важно для достижения успеха в любых начинаниях.
-
-Мотивация — это то топливо, которое подталкивает вас вперед. Она не всегда приходит сама собой, и именно поэтому так важно находить источники вдохновения и поддерживать внутренний огонь. Понимание того, что мотивирует вас, будь то личные амбиции, профессиональные цели или желание улучшить качество жизни, помогает сохранять фокус и преодолевать трудности. Каждый успешный человек имеет свою уникальную мотивацию, которая служит его внутренним ориентиром.
-
-Дисциплина — это скелет вашего успеха. Без самодисциплины все планы и мечты остаются лишь иллюзией. Дисциплина помогает организовать рабочее время, избегать отвлекающих факторов и последовательно двигаться к целям. Это умение следовать намеченному пути, несмотря на сложности и искушения, которые могут отвлечь от выполнения поставленных задач.
-
-В этой книге мы обсудим ключевые аспекты самосовершенствования, мотивации и дисциплины. Мы рассмотрим, как эти принципы применяются к современной рабочей среде, особенно в контексте фриланса и онлайн-проектов. Каждая глава будет предоставлять конкретные стратегии и советы, подкрепленные мудростью успешных людей, которые уже прошли этот путь. Эти рекомендации помогут вам не только достигать успеха в профессиональной деятельности, но и создать устойчивую и удовлетворяющую жизнь. 
-
-Путь к успеху начинается с осознания своих целей и желаний, а также готовности упорно трудиться для их достижения. Важно понимать, что успех — это не случайность, а результат осознанных действий и постоянного самосовершенствования. В этой книге мы будем искать и находить способы, как развивать необходимые навыки и качества, которые приведут вас к желаемым результатам. 
-
-Приготовьтесь к путешествию, которое может изменить вашу жизнь. Время начать!</p>
+                    <p></p>
                 </section>
 
                 <section class="book-section">
@@ -191,13 +273,40 @@
                     <p></p>
                 </section>
             </div>
+
+            <button class="next-chapter-button" onclick="showModal()">Перейти к следующей главе</button>
         </main>
+    </div>
+
+    <div id="adModal" class="modal">
+        <div class="modal-content">
+            <div class="ad-container">
+                <!-- Ad script -->
+                <div class="tgx-vbf" data-vbf-id="26718"></div>
+            </div>
+            <div class="loader"></div>
+        </div>
     </div>
 
     <script>
         function exitToBooks() {
             window.location.href = 'https://Oxymod.netlify.app/books';
         }
+
+        function showModal() {
+            document.getElementById('adModal').style.display = 'block';
+            setTimeout(startTimer, 5000);
+        }
+
+        function startTimer() {
+            setTimeout(function() {
+                // Redirect to the next chapter
+                window.location.href = 'https://Oxymod.netlify.app/books/next-chapter';
+            }, 15000);
+        }
     </script>
+
+    <!-- Ad script -->
+    <script defer src="https://cdn.adlook.me/js/vbf.js"></script>
 </body>
 </html>
