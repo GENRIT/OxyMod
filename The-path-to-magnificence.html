@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reader</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
+            color: #8C81E3;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #424149;
+        }
+
+        .exit-button {
+            position: relative;
+            overflow: hidden;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .exit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .exit-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .exit-button:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+
+        .book-cover {
+            display: block;
+            width: 300px;
+            height: 450px;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-cover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .book-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-section {
+            margin-bottom: 40px;
+        }
+
+        .book-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #B388FF;
+        }
+
+        .chapter-list {
+            list-style-type: none;
+        }
+
+        .chapter-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .chapter-list li:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .book-cover {
+                width: 200px;
+                height: 300px;
+            }
+
+            .book-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <button class="exit-button" onclick="exitToBooks()">Выйти</button>
+        </header>
+
+        <main>
+            <img src="https://picsum.photos/300/450?random=1" alt="Book Cover" class="book-cover">
+
+            <div class="book-content">
+                <section class="book-section">
+                    <h2>Введение</h2>
+                    <p></p>
+                </section>
+
+                <section class="book-section">
+                    <h2>Главы</h2>
+                    <ul class="chapter-list">
+                        <li>Глава 1</li>
+                        <li>Глава 2</li>
+                        <li>Глава 3</li>
+                        <li>Глава 4</li>
+                        <li>Глава 5</li>
+                        <li>Глава 6</li>
+                        <li>Глава 7</li>
+                        <li>Глава 8</li>
+                        <li>Глава 9</li>
+                        <li>Глава 10</li>
+                        <li>Глава 11</li>
+                        <li>Глава 12</li>
+                        <li>Глава 13</li>
+                        <li>Глава 14</li>
+                        <li>Глава 15</li>
+                    </ul>
+                </section>
+
+                <section class="book-section">
+                    <h2>Текст книги</h2>
+                    <p></p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function exitToBooks() {
+            window.location.href = 'https://Oxymod.netlify.app/books';
+        }
+    </script>
+</body>
+</html>
