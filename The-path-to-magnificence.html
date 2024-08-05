@@ -5,370 +5,396 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Путь к Великолепию 1 Глава</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
-            color: #8C81E3;
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
+    color: #8C81E3;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
+    filter: url(#liquid);
+    opacity: 0.3;
+    z-index: -1;
+    animation: liquidBackground 15s ease-in-out infinite;
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #424149;
-        }
+@keyframes liquidBackground {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
 
-        .exit-button {
-            position: relative;
-            overflow: hidden;
-            padding: 12px 24px;
-            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-        .exit-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #424149;
+}
 
-        .exit-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.5s ease, height 0.5s ease;
-        }
+.exit-button {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
 
-        .exit-button:active::after {
-            width: 300px;
-            height: 300px;
-            opacity: 0;
-        }
+.exit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
 
-        .book-cover {
-            display: block;
-            width: 300px;
-            height: 450px;
-            margin: 40px auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.exit-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
 
-        .book-cover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
+.exit-button:hover::before {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
 
-        .book-content {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.book-cover {
+    display: block;
+    width: 300px;
+    height: 450px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .book-section {
-            margin-bottom: 40px;
-        }
+.book-cover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
 
-        .book-section h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #B388FF;
-        }
+.book-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        .chapter-list {
-            list-style-type: none;
-        }
+.book-section {
+    margin-bottom: 40px;
+}
 
-        .chapter-list li {
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+.book-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #B388FF;
+}
 
-        .chapter-list li:hover {
-            color: #fff;
-        }
+.chapter-list {
+    list-style-type: none;
+}
 
-        .next-chapter-button {
-            position: relative;
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 40px;
-            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
+.chapter-list li {
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
-        .next-chapter-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.5s ease, height 0.5s ease;
-        }
+.chapter-list li:hover {
+    color: #fff;
+}
 
-        .next-chapter-button:hover::before {
-            width: 300%;
-            height: 300%;
-        }
+.next-chapter-button {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 40px;
+    background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-        }
+.next-chapter-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
 
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #15151C;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
+.next-chapter-button:hover::before {
+    width: 300%;
+    height: 300%;
+}
 
-        .ad-container {
-            width: 300px;
-            height: 250px;
-            margin: 0 auto;
-            background-color: #1E1E24;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
 
-        .loader {
-            width: 100%;
-            height: 5px;
-            background-color: #3B0E4F;
-            position: relative;
-            overflow: hidden;
-            margin-top: 20px;
-        }
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #15151C;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
 
-        .loader::before {
-            content: '';
-            position: absolute;
-            left: -50%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, #8C81E3, #B388FF, #7C4DFF);
-            animation: loading 2s infinite linear;
-        }
+.ad-container {
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+    background-color: #1E1E24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        @keyframes loading {
-            0% {
-                left: -50%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
+.loader {
+    width: 100%;
+    height: 5px;
+    background-color: #3B0E4F;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
 
-        .menu-icon {
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+.loader::before {
+    content: '';
+    position: absolute;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #8C81E3, #B388FF, #7C4DFF);
+    animation: loading 2s infinite linear;
+}
 
-        .menu-icon:hover {
-            color: #B388FF;
-        }
+@keyframes loading {
+    0% { left: -50%; }
+    100% { left: 100%; }
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
+.menu-icon {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
-        .modal-content {
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 15px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
+.menu-icon:hover {
+    color: #B388FF;
+}
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
 
-        .close:hover,
-        .close:focus {
-            color: #fff;
-            text-decoration: none;
-        }
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
 
-        .modal-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background: linear-gradient(45deg, #8C81E3, #B388FF);
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            position: relative;
-        }
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .modal-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+}
 
-        .modal-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transition: width 0.3s ease, height 0.3s ease;
-        }
+.modal-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(45deg, #8C81E3, #B388FF);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
 
-        .modal-button:active::after {
-            width: 300px;
-            height: 300px;
-            margin-left: -150px;
-            margin-top: -150px;
-            opacity: 0;
-        }
+.modal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .donat-modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-        }
+.modal-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+}
 
-        .donat-content {
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 20px;
-            width: 350px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+.modal-button:active::after {
+    width: 300px;
+    height: 300px;
+    margin-left: -150px;
+    margin-top: -150px;
+    opacity: 0;
+}
 
-        .bank-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: block;
-        }
+.donat-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+}
 
-        .copy-text {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.donat-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-        .copy-text:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+.bank-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
+}
 
-        .copy-hint {
-            font-size: 12px;
-            color: #aaa;
-        }
+.copy-text {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        @media (max-width: 768px) {
-            .book-cover {
-                width: 200px;
-                height: 300px;
-            }
+.copy-text:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
 
-            .book-content {
-                padding: 20px;
-            }
-        }
+.copy-hint {
+    font-size: 12px;
+    color: #aaa;
+}
+
+@media (max-width: 768px) {
+    .book-cover {
+        width: 200px;
+        height: 300px;
+    }
+
+    .book-content {
+        padding: 20px;
+    }
+}
+
+/* Add this at the end of your CSS file */
+svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
     </style>
 </head>
 <body>
