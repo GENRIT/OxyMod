@@ -299,211 +299,61 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transition: width 0.3s ease, height 0.3s ease;
+            transform: translate(-50%, -50%);
         }
 
         .modal-button:active::after {
             width: 300px;
             height: 300px;
-            margin-left: -150px;
-            margin-top: -150px;
             opacity: 0;
-        }
-
-        .donat-modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-        }
-
-        .donat-content {
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 20px;
-            width: 350px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .bank-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: block;
-        }
-
-        .copy-text {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .copy-text:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .copy-hint {
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        @media (max-width: 768px) {
-            .book-cover {
-                width: 200px;
-                height: 300px;
-            }
-
-            .book-content {
-                padding: 20px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <button class="exit-button" onclick="exitToBooks()">Выйти</button>
-            <div class="menu-icon" id="menuIcon">☰</div>
+            <h1>Путь к Великолепию</h1>
+            <button class="exit-button">Выход</button>
         </header>
 
-        <main>
-            <img src="https://graph.org/file/ea3a0eb3f900fc4e6634d.jpg" alt="Book Cover" class="book-cover">
+        <img src="book-cover.jpg" alt="Book Cover" class="book-cover">
 
-            <div class="book-content">
-                <section class="book-section">
-                    <h2>Введение</h2>
-                    <p></p>
-                </section>
+        <div class="book-content">
+            <section class="book-section">
+                <h2>Описание книги</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum lorem sed nisi
+                    sollicitudin, ac varius eros luctus. Donec volutpat eros nec ullamcorper gravida.</p>
+            </section>
 
-                <section class="book-section">
-                    <h2>Главы</h2>
-                    <ul class="chapter-list">
-                        <li>Глава 1</li>
-                        <li>Глава 2</li>
-                        <li>Глава 3</li>
-                        <li>Глава 4</li>
-                        <li>Глава 5</li>
-                        <li>Глава 6</li>
-                        <li>Глава 7</li>
-                        <li>Глава 8</li>
-                        <li>Глава 9</li>
-                        <li>Глава 10</li>
-                        <li>Глава 11</li>
-                        <li>Глава 12</li>
-                        <li>Глава 13</li>
-                        <li>Глава 14</li>
-                        <li>Глава 15</li>
-                    </ul>
-                </section>
-
-                <section class="book-section">
-                    <h2>Текст книги</h2>
-                    <p></p>
-                </section>
-            </div>
+            <section class="book-section">
+                <h2>Содержание</h2>
+                <ul class="chapter-list">
+                    <li>Глава 1: Начало</li>
+                    <li>Глава 2: Путешествие</li>
+                    <li>Глава 3: Открытие</li>
+                </ul>
+            </section>
 
             <button class="next-chapter-button" onclick="showModal()">Перейти к следующей главе</button>
-        </main>
-    </div>
-
-    <div id="adModal" class="modal">
-        <div class="modal-content">
-            <div class="ad-container">
-                <!-- Ad script -->
-                <div class="tgx-rlf" data-vbf-id="26719"></div>
-            </div>
-            <div class="loader"></div>
         </div>
     </div>
 
-    <div id="menuModal" class="modal">
+    <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <button class="modal-button" id="donatButton">Donat</button>
-            <button class="modal-button" id="telegramButton">Telegram</button>
-        </div>
-    </div>
-
-    <div id="donatModal" class="donat-modal">
-        <div class="donat-content">
-            <img src="https://graph.org/file/2c60cf9861f79faf63b96.jpg" alt="Bank Avatar" class="bank-avatar">
-            <div class="copy-text" id="copyText">2200700811767465</div>
-            <p class="copy-hint">Нажмите, чтобы скопировать</p>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Глава успешно завершена! Вы готовы перейти к следующей главе?</p>
+            <button class="modal-button">Перейти к следующей главе</button>
         </div>
     </div>
 
     <script>
-        function exitToBooks() {
-            window.location.href = 'https://Oxymod.netlify.app/books';
-        }
-
         function showModal() {
-            document.getElementById('adModal').style.display = 'block';
-            setTimeout(startTimer, 5000);
+            document.getElementById("myModal").style.display = "block";
         }
 
-        function startTimer() {
-            setTimeout(function() {
-                // Redirect to the next chapter
-                window.location.href = 'https://Oxymod.netlify.app/books/next-chapter';
-            }, 15000);
-        }
-
-        const menuIcon = document.getElementById('menuIcon');
-        const menuModal = document.getElementById('menuModal');
-        const closeModal = document.querySelector('.close');
-        const donatButton = document.getElementById('donatButton');
-        const telegramButton = document.getElementById('telegramButton');
-        const donatModal = document.getElementById('donatModal');
-        const copyText = document.getElementById('copyText');
-
-        menuIcon.onclick = function() {
-            menuModal.style.display = 'block';
-        }
-
-        closeModal.onclick = function() {
-            menuModal.style.display = 'none';
-        }
-
-        donatButton.onclick = function() {
-            donatModal.style.display = 'block';
-        }
-
-        telegramButton.onclick = function() {
-            window.location.href = 'https://t.me/yourtelegram';
-        }
-
-        window.onclick = function(event) {
-            if (event.target == menuModal) {
-                menuModal.style.display = 'none';
-            }
-            if (event.target == donatModal) {
-                donatModal.style.display = 'none';
-            }
-        }
-
-        copyText.onclick = function() {
-            navigator.clipboard.writeText(copyText.textContent).then(function() {
-                alert('Скопировано: ' + copyText.textContent);
-            }, function(err) {
-                console.error('Ошибка при копировании текста: ', err);
-            });
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
         }
     </script>
-
-    <!-- Ad script -->
-    <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
 </body>
 </html>
