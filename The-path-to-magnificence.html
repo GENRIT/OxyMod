@@ -169,17 +169,17 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             background-color: #15151C;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            position: relative;
         }
 
         .ad-container {
@@ -241,11 +241,13 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
             background-color: rgba(255, 255, 255, 0.1);
-            margin: 15% auto;
             padding: 20px;
             border-radius: 15px;
             width: 300px;
@@ -256,7 +258,9 @@
 
         .close {
             color: #aaa;
-            float: right;
+            position: absolute;
+            top: 10px;
+            right: 15px;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -299,60 +303,68 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transition: width 0.3s ease, height 0.3s ease;
-            transform: translate(-50%, -50%);
         }
 
         .modal-button:active::after {
             width: 300px;
             height: 300px;
+            margin-left: -150px;
+            margin-top: -150px;
             opacity: 0;
+            transition: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>Путь к Великолепию</h1>
-            <button class="exit-button">Выход</button>
-        </header>
-
-        <img src="book-cover.jpg" alt="Book Cover" class="book-cover">
-
+        <div class="header">
+            <div class="menu-icon" onclick="toggleModal()">☰</div>
+            <button class="exit-button" onclick="exitReader()">Выход</button>
+        </div>
+        <img src="path_to_book_cover.jpg" alt="Book Cover" class="book-cover">
         <div class="book-content">
-            <section class="book-section">
-                <h2>Описание книги</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum lorem sed nisi
-                    sollicitudin, ac varius eros luctus. Donec volutpat eros nec ullamcorper gravida.</p>
-            </section>
-
-            <section class="book-section">
-                <h2>Содержание</h2>
-                <ul class="chapter-list">
-                    <li>Глава 1: Начало</li>
-                    <li>Глава 2: Путешествие</li>
-                    <li>Глава 3: Открытие</li>
-                </ul>
-            </section>
-
-            <button class="next-chapter-button" onclick="showModal()">Перейти к следующей главе</button>
+            <div class="book-section">
+                <h2>Глава 1: Название главы</h2>
+                <p>Текст главы начинается здесь. Это пример текста, который заполняет содержание первой главы. Текст продолжается и объясняет события, описанные в главе.</p>
+                <p>Текст продолжается с новыми абзацами, подробностями и описанием персонажей, сюжета и событий.</p>
+            </div>
+            <ul class="chapter-list">
+                <li onclick="goToChapter(1)">Глава 1: Название главы</li>
+                <li onclick="goToChapter(2)">Глава 2: Название главы</li>
+                <li onclick="goToChapter(3)">Глава 3: Название главы</li>
+            </ul>
+            <button class="next-chapter-button" onclick="nextChapter()">Следующая глава</button>
         </div>
     </div>
 
-    <div id="myModal" class="modal">
+    <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>Глава успешно завершена! Вы готовы перейти к следующей главе?</p>
-            <button class="modal-button">Перейти к следующей главе</button>
+            <span class="close" onclick="toggleModal()">&times;</span>
+            <h2>Меню</h2>
+            <button class="modal-button" onclick="goToChapter(1)">Глава 1</button>
+            <button class="modal-button" onclick="goToChapter(2)">Глава 2</button>
+            <button class="modal-button" onclick="goToChapter(3)">Глава 3</button>
+            <button class="modal-button" onclick="exitReader()">Выход</button>
         </div>
     </div>
 
     <script>
-        function showModal() {
-            document.getElementById("myModal").style.display = "block";
+        function toggleModal() {
+            const modal = document.getElementById("modal");
+            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
         }
 
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
+        function exitReader() {
+            alert('Выход из читателя');
+        }
+
+        function goToChapter(chapterNumber) {
+            alert('Перейти к главе ' + chapterNumber);
+            toggleModal();
+        }
+
+        function nextChapter() {
+            alert('Перейти к следующей главе');
         }
     </script>
 </body>
