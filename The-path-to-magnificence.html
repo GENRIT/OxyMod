@@ -4,9 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Путь к Великолепию 1 Глава</title>
-    <link rel="stylesheet" href="books.css">
     <style>
-        /* ... (previous styles remain unchanged) ... */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #050317, #15151C, #3B0E4F);
+            color: #8C81E3;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #424149;
+        }
+
+        .exit-button {
+            position: relative;
+            overflow: hidden;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .exit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .exit-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .exit-button:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
 
         .book-cover {
             display: block;
@@ -16,177 +82,350 @@
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            object-fit: cover;
-            filter: brightness(0.9) contrast(1.1);
         }
 
         .book-cover:hover {
-            transform: translateY(-10px) rotate(2deg);
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            filter: brightness(1) contrast(1.2);
+        }
+
+        .book-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-section {
+            margin-bottom: 40px;
+        }
+
+        .book-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #B388FF;
+        }
+
+        .chapter-list {
+            list-style-type: none;
+        }
+
+        .chapter-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .chapter-list li:hover {
+            color: #fff;
+        }
+
+        .next-chapter-button {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            background: linear-gradient(45deg, #8C81E3, #B388FF, #7C4DFF);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .next-chapter-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .next-chapter-button:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #15151C;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .ad-container {
+            width: 300px;
+            height: 250px;
+            margin: 0 auto;
+            background-color: #1E1E24;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 100%;
+            height: 5px;
+            background-color: #3B0E4F;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            left: -50%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, #8C81E3, #B388FF, #7C4DFF);
+            animation: loading 2s infinite linear;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
         .menu-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             font-size: 24px;
-            color: #8C81E3;
+            color: white;
             cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .menu-icon:hover {
             color: #B388FF;
-            transform: scale(1.1);
         }
 
-        /* ... (rest of the styles remain unchanged) ... */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
 
-.modal-content {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 15px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-}
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.close:hover,
-.close:focus {
-    color: #fff;
-    text-decoration: none;
-}
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+        }
 
-.modal-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(45deg, #8C81E3, #B388FF);
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
-}
+        .modal-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #8C81E3, #B388FF);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
 
-.modal-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-.modal-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transition: width 0.3s ease, height 0.3s ease;
-}
+        .modal-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
 
-.modal-button:active::after {
-    width: 300px;
-    height: 300px;
-    margin-left: -150px;
-    margin-top: -150px;
-    opacity: 0;
-}
+        .modal-button:active::after {
+            width: 300px;
+            height: 300px;
+            margin-left: -150px;
+            margin-top: -150px;
+            opacity: 0;
+        }
 
-.donat-modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-}
+        .donat-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
 
-.donat-content {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: 20px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
+        .donat-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-.bank-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    display: block;
-}
+        .bank-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+        }
 
-.copy-text {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    color: #fff;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .copy-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.copy-text:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
+        .copy-text:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
-.copy-hint {
-    font-size: 12px;
-    color: #aaa;
-}
+        .copy-hint {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .book-cover {
+                width: 200px;
+                height: 300px;
+            }
+
+            .book-content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <button class="exit-button" onclick="exitToBooks()">Выйти</button>
+            <div class="menu-icon" id="menuIcon">☰</div>
         </header>
 
-        <div class="menu-icon" id="menuIcon">☰</div>
-
         <main>
-            <!-- ... (rest of the main content remains unchanged) ... -->
+            <img src="https://graph.org/file/ea3a0eb3f900fc4e6634d.jpg" alt="Book Cover" class="book-cover">
+
+            <div class="book-content">
+                <section class="book-section">
+                    <h2>Введение</h2>
+                    <p></p>
+                </section>
+
+                <section class="book-section">
+                    <h2>Главы</h2>
+                    <ul class="chapter-list">
+                        <li>Глава 1</li>
+                        <li>Глава 2</li>
+                        <li>Глава 3</li>
+                        <li>Глава 4</li>
+                        <li>Глава 5</li>
+                        <li>Глава 6</li>
+                        <li>Глава 7</li>
+                        <li>Глава 8</li>
+                        <li>Глава 9</li>
+                        <li>Глава 10</li>
+                        <li>Глава 11</li>
+                        <li>Глава 12</li>
+                        <li>Глава 13</li>
+                        <li>Глава 14</li>
+                        <li>Глава 15</li>
+                    </ul>
+                </section>
+
+                <section class="book-section">
+                    <h2>Текст книги</h2>
+                    <p></p>
+                </section>
+            </div>
+
+            <button class="next-chapter-button" onclick="showModal()">Перейти к следующей главе</button>
         </main>
     </div>
 
     <div id="adModal" class="modal">
-        <!-- ... (ad modal content remains unchanged) ... -->
+        <div class="modal-content">
+            <div class="ad-container">
+                <!-- Ad script -->
+                <div class="tgx-rlf" data-vbf-id="26719"></div>
+            </div>
+            <div class="loader"></div>
+        </div>
     </div>
 
     <div id="menuModal" class="modal">
@@ -217,45 +456,33 @@
 
         function startTimer() {
             setTimeout(function() {
+                // Redirect to the next chapter
                 window.location.href = 'https://Oxymod.netlify.app/books/next-chapter';
             }, 15000);
         }
 
-        // New JavaScript for menu modal
         const menuIcon = document.getElementById('menuIcon');
         const menuModal = document.getElementById('menuModal');
-        const donatModal = document.getElementById('donatModal');
-        const closeButtons = document.getElementsByClassName('close');
+        const closeModal = document.querySelector('.close');
         const donatButton = document.getElementById('donatButton');
         const telegramButton = document.getElementById('telegramButton');
+        const donatModal = document.getElementById('donatModal');
         const copyText = document.getElementById('copyText');
 
         menuIcon.onclick = function() {
             menuModal.style.display = 'block';
         }
 
-        for (let closeButton of closeButtons) {
-            closeButton.onclick = function() {
-                menuModal.style.display = 'none';
-                donatModal.style.display = 'none';
-            }
+        closeModal.onclick = function() {
+            menuModal.style.display = 'none';
         }
 
         donatButton.onclick = function() {
-            menuModal.style.display = 'none';
             donatModal.style.display = 'block';
         }
 
         telegramButton.onclick = function() {
-            window.open('https://t.me/your_telegram_channel', '_blank');
-        }
-
-        copyText.onclick = function() {
-            navigator.clipboard.writeText(copyText.textContent).then(function() {
-                alert('Номер карты скопирован!');
-            }, function(err) {
-                console.error('Could not copy text: ', err);
-            });
+            window.location.href = 'https://t.me/yourtelegram';
         }
 
         window.onclick = function(event) {
@@ -266,9 +493,17 @@
                 donatModal.style.display = 'none';
             }
         }
+
+        copyText.onclick = function() {
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                alert('Скопировано: ' + copyText.textContent);
+            }, function(err) {
+                console.error('Ошибка при копировании текста: ', err);
+            });
+        }
     </script>
 
     <!-- Ad script -->
     <script defer src="https://cdn.adlook.me/js/rlf.js"></script>
-</head>
 </body>
+</html>
