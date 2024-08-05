@@ -194,7 +194,85 @@
     <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
     <script>
+    window.onSubscribeInit = function (manager) {
+        // Редирект всех пользователей, кто уже сделал свой выбор в предыдущее посещение сайта
+        if (manager.getPermission() !== 'default') {
+            window.location.href = 'https://google.com/';
+        } else {
+            manager.start();
+        }
+    };
 
+    function startTimer(duration, display) {
+        var timer = duration, seconds;
+        var interval = setInterval(function() {
+            seconds = parseInt(timer % 60, 10);
+            display.textContent = seconds + " sec";
+            if (--timer < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+
+    function checkAdsAndStartTimer() {
+        var downloadButton = document.getElementById('downloadButton');
+        var buttonImage = document.getElementById('buttonImage');
+        var timerDisplay = document.getElementById('timer');
+        var adblockMessage = document.getElementById('adblockMessage');
+        var headerImage = document.getElementById('headerImage');
+        var waitTime = 15; // 15 seconds
+
+        var adBlockEnabled = false;
+        var testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        window.setTimeout(function() {
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+                adblockMessage.style.display = 'block';
+            }
+            testAd.remove();
+        }, 100);
+
+        startTimer(waitTime, timerDisplay);
+
+        setTimeout(function() {
+            if (!adBlockEnabled) {
+                downloadButton.classList.remove('disabled');
+                downloadButton.onclick = function() {
+                    buttonImage.src = 'https://graph.org/file/0197d91df205e66e987a6.jpg'; // Change image
+                    headerImage.classList.add('shake');
+                    setTimeout(function() {
+                        window.location.href = 'https://oxy.st/d/tqYh';
+                    }, 500); // Delay before redirect
+                };
+            }
+        }, waitTime * 1000); // 15 seconds delay
+    }
+
+    window.onload = function () {
+        var adScript1 = document.getElementById('adScript1');
+        var adScript2 = document.getElementById('adScript2');
+        var adLoaded = false;
+
+        function adLoadHandler() {
+            if (!adLoaded) {
+                adLoaded = true;
+                checkAdsAndStartTimer();
+            }
+        }
+
+        adScript1.onload = adLoadHandler;
+        adScript2.onload = adLoadHandler;
+
+        // Запуск таймера, если скрипт не загрузился в течение 5 секунд
+        setTimeout(function() {
+            if (!adLoaded) {
+                checkAdsAndStartTimer();
+            }
+        }, 5000);
+    };
     </script>
 </body>
 </html>
