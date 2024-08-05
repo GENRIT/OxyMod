@@ -5,78 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
         :root {
-            --primary-blue: #001f3f;
-            --secondary-blue: #003366;
-            --accent-blue: #0066cc;
-            --text-color: #e0e0e0;
+            --primary-color: #001f3f;
+            --secondary-color: #003366;
+            --accent-color: #0066cc;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            overflow: auto;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            font-family: 'Poppins', Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            min-height: 100vh;
-            color: var(--text-color);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .ad-container {
             width: 100%;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
         }
 
-        .banner {
+        .ad-container > div {
+            width: 48%;
+        }
+
+        .content-container {
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            padding: 30px;
-            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .banner {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .banner h1 {
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
 
         .button-link {
             display: inline-block;
             position: relative;
             text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .button-link:hover {
-            transform: scale(1.05);
         }
 
         .button-image {
-            width: 180px;
-            height: auto;
+            width: 139px;
+            height: 63px;
             border: none;
             outline: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .button-image:hover,
-        .button-image:focus,
-        .button-image:active {
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        .button-image:hover {
+            transform: scale(1.05);
         }
 
         .disabled {
@@ -85,14 +93,12 @@
         }
 
         .timer {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: var(--accent-blue);
+            font-size: 1rem;
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
         }
 
         .adblock-message {
@@ -100,11 +106,10 @@
             color: #ff4136;
             background-color: rgba(255, 255, 255, 0.9);
             border: 2px solid #ff4136;
-            padding: 15px;
+            padding: 10px;
             margin-top: 20px;
             text-align: center;
             border-radius: 5px;
-            font-weight: 600;
         }
 
         @keyframes shake {
@@ -120,153 +125,76 @@
         }
 
         .animated {
-            animation: fadeIn 3s;
+            animation: fadeIn 1s;
         }
 
         .shake {
-            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-        }
-
-        .content-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 0 20px;
-            box-sizing: border-box;
+            animation: shake 0.5s;
         }
 
         #headerImage {
             width: 100%;
+            max-width: 300px;
             height: auto;
             object-fit: cover;
-            margin-bottom: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
 
-        .tgx-rlf, .tgx-vbf {
-            margin: 20px 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        @media (max-width: 768px) {
+            .ad-container {
+                flex-direction: column;
+            }
+
+            .ad-container > div {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .banner h1 {
+                font-size: 1.2rem;
+            }
+
+            .button-image {
+                width: 120px;
+                height: 54px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="ad-container">
+            <!-- In-banner ad -->
+            <div class="tgx-vbf" data-vbf-id="26718"></div>
+            <!-- In-read ad -->
+            <div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
+        </div>
 
-<div class="ad-container">
-    <!-- In-banner ad -->
-    <div class="tgx-vbf" data-vbf-id="26718"></div>
-</div>
+        <div class="content-container">
+            <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated">
+            <div class="banner">
+                <h1>Download Your Files</h1>
+            </div>
 
-<div class="content-container">
-    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated">
-    <div class="banner">
-        <h1>Download Your Files</h1>
+            <a href="https://oxy.st/d/tqYh" class="button-link disabled" id="downloadButton">
+                <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage" alt="Download Button">
+            </a>
+
+            <div class="timer" id="timer">15 sec</div>
+        </div>
+
+        <div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
     </div>
 
-    <a href="https://oxy.st/d/tqYh" class="button-link disabled" id="downloadButton">
-        <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
-    </a>
+    <!-- Scripts for ads -->
+    <script defer src="https://cdn.adlook.me/js/rlf.js" id="adScript1"></script>
+    <script defer src="https://cdn.adlook.me/js/vbf.js" id="adScript2"></script>
+    <script type="text/javascript" src="https://majorpushme1.com/?ma=mu3dazjtg45ha3ddf42denjs" async></script>
+    <script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
 
-    <div class="timer" id="timer">15 sec</div>
-</div>
+    <script>
 
-<div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
-
-<!-- In-read ad -->
-<div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
-
-<!-- Scripts for ads -->
-<script defer src="https://cdn.adlook.me/js/rlf.js" id="adScript1"></script>
-<script defer src="https://cdn.adlook.me/js/vbf.js" id="adScript2"></script>
-<script type="text/javascript" src="https://majorpushme1.com/?ma=mu3dazjtg45ha3ddf42denjs" async></script>
-<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
-
-<script>
-    // The JavaScript remains the same as in the original code
-    window.onSubscribeInit = function (manager) {
-        if (manager.getPermission() !== 'default') {
-            window.location.href = 'https://google.com/';
-        } else {
-            manager.start();
-        }
-    };
-
-    function startTimer(duration, display) {
-        var timer = duration, seconds;
-        var interval = setInterval(function() {
-            seconds = parseInt(timer % 60, 10);
-            display.textContent = seconds + " sec";
-            if (--timer < 0) {
-                clearInterval(interval);
-            }
-        }, 1000);
-    }
-
-    function checkAdsAndStartTimer() {
-        var downloadButton = document.getElementById('downloadButton');
-        var buttonImage = document.getElementById('buttonImage');
-        var timerDisplay = document.getElementById('timer');
-        var adblockMessage = document.getElementById('adblockMessage');
-        var headerImage = document.getElementById('headerImage');
-        var waitTime = 15;
-
-        var adBlockEnabled = false;
-        var testAd = document.createElement('div');
-        testAd.innerHTML = '&nbsp;';
-        testAd.className = 'adsbox';
-        document.body.appendChild(testAd);
-        window.setTimeout(function() {
-            if (testAd.offsetHeight === 0) {
-                adBlockEnabled = true;
-                adblockMessage.style.display = 'block';
-            }
-            testAd.remove();
-        }, 100);
-
-        startTimer(waitTime, timerDisplay);
-
-        setTimeout(function() {
-            if (!adBlockEnabled) {
-                downloadButton.classList.remove('disabled');
-                downloadButton.onclick = function() {
-                    buttonImage.src = 'https://graph.org/file/0197d91df205e66e987a6.jpg';
-                    headerImage.classList.add('shake');
-                    setTimeout(function() {
-                        window.location.href = 'https://oxy.st/d/tqYh';
-                    }, 500);
-                };
-            }
-        }, waitTime * 1000);
-    }
-
-    window.onload = function () {
-        var adScript1 = document.getElementById('adScript1');
-        var adScript2 = document.getElementById('adScript2');
-        var adLoaded = false;
-
-        function adLoadHandler() {
-            if (!adLoaded) {
-                adLoaded = true;
-                checkAdsAndStartTimer();
-            }
-        }
-
-        adScript1.onload = adLoadHandler;
-        adScript2.onload = adLoadHandler;
-
-        setTimeout(function() {
-            if (!adLoaded) {
-                checkAdsAndStartTimer();
-            }
-        }, 5000);
-    };
-</script>
+    </script>
 </body>
 </html>
