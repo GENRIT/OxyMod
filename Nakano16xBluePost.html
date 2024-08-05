@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #001f3f;
+            --secondary-color: #003366;
+            --accent-color: #0066cc;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            overflow: auto;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-family: 'Poppins', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+        }
+
+        .banner {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .button-link {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .button-link:hover {
+            transform: scale(1.05);
+        }
+
+        .button-image {
+            width: 180px;
+            height: auto;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .timer {
+            margin-top: 20px;
+            font-size: 1.4em;
+            color: var(--accent-color);
+            padding: 15px 30px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .adblock-message {
+            display: none;
+            color: #ff4d4d;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff4d4d;
+            padding: 15px 25px;
+            margin-top: 30px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .shake {
+            animation: shake 0.8s;
+        }
+
+        .content-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #headerImage {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .tgx-rlf, .tgx-vbf {
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ad-container">
+    <!-- In-banner ad -->
+    <div class="tgx-vbf" data-vbf-id="26718"></div>
+</div>
+
+<div class="content-container">
+    <img src="OxyMod.jpg" alt="OxyMod" id="headerImage" class="animated">
+    <div class="banner">
+        <h1>Download Your Files</h1>
+    </div>
+
+    <a href="https://oxy.st/d/tqYh" class="button-link disabled" id="downloadButton">
+        <img src="https://graph.org/file/0197d91df205e66e987a6.jpg" class="button-image" id="buttonImage">
+    </a>
+
+    <div class="timer" id="timer">15 sec</div>
+</div>
+
+<div class="adblock-message" id="adblockMessage">Please disable AdBlock to continue.</div>
+
+<!-- In-read ad -->
+<div class="tgx-rlf" data-rlf-id="26719" data-rlf-auto="1" data-rlf-dock="0"></div>
+
+<!-- Scripts for ads -->
+<script defer src="https://cdn.adlook.me/js/rlf.js" id="adScript1"></script>
+<script defer src="https://cdn.adlook.me/js/vbf.js" id="adScript2"></script>
+<script type="text/javascript" src="https://majorpushme1.com/?ma=mu3dazjtg45ha3ddf42denjs" async></script>
+<script type="text/javascript" src="https://majorpush.pro/?pu=key" async></script>
+
+<script>
+    // The JavaScript remains unchanged
+    window.onSubscribeInit = function (manager) {
+        if (manager.getPermission() !== 'default') {
+            window.location.href = 'https://google.com/';
+        } else {
+            manager.start();
+        }
+    };
+
+    function startTimer(duration, display) {
+        var timer = duration, seconds;
+        var interval = setInterval(function() {
+            seconds = parseInt(timer % 60, 10);
+            display.textContent = seconds + " sec";
+            if (--timer < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+
+    function checkAdsAndStartTimer() {
+        var downloadButton = document.getElementById('downloadButton');
+        var buttonImage = document.getElementById('buttonImage');
+        var timerDisplay = document.getElementById('timer');
+        var adblockMessage = document.getElementById('adblockMessage');
+        var headerImage = document.getElementById('headerImage');
+        var waitTime = 15;
+
+        var adBlockEnabled = false;
+        var testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        window.setTimeout(function() {
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+                adblockMessage.style.display = 'block';
+            }
+            testAd.remove();
+        }, 100);
+
+        startTimer(waitTime, timerDisplay);
+
+        setTimeout(function() {
+            if (!adBlockEnabled) {
+                downloadButton.classList.remove('disabled');
+                downloadButton.onclick = function() {
+                    buttonImage.src = 'https://graph.org/file/0197d91df205e66e987a6.jpg';
+                    headerImage.classList.add('shake');
+                    setTimeout(function() {
+                        window.location.href = 'https://oxy.st/d/tqYh';
+                    }, 500);
+                };
+            }
+        }, waitTime * 1000);
+    }
+
+    window.onload = function () {
+        var adScript1 = document.getElementById('adScript1');
+        var adScript2 = document.getElementById('adScript2');
+        var adLoaded = false;
+
+        function adLoadHandler() {
+            if (!adLoaded) {
+                adLoaded = true;
+                checkAdsAndStartTimer();
+            }
+        }
+
+        adScript1.onload = adLoadHandler;
+        adScript2.onload = adLoadHandler;
+
+        setTimeout(function() {
+            if (!adLoaded) {
+                checkAdsAndStartTimer();
+            }
+        }, 5000);
+    };
+</script>
+</body>
+</html>
