@@ -13,6 +13,7 @@
       border-radius: 10px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       margin: 50px auto;
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     }
   </style>
 </head>
@@ -25,7 +26,18 @@
       max: 25,
       speed: 400,
       glare: true,
-      "max-glare": 0.5
+      "max-glare": 0.5,
+      reset: true // Ensure element resets smoothly
+    });
+
+    document.querySelectorAll(".tilt").forEach(element => {
+      element.addEventListener("tiltChange", event => {
+        element.style.transition = "transform 0.2s ease-out, box-shadow 0.2s ease-out";
+      });
+
+      element.addEventListener("mouseleave", event => {
+        element.style.transition = "transform 0.5s ease-out, box-shadow 0.5s ease-out";
+      });
     });
   </script>
 </body>
